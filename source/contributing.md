@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: How to contribute
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# How to contribute
 
 
 ## Identifying an area to contribute
@@ -14,13 +15,13 @@ version: corda-os-4.4
 There are several ways to identify an area where you can contribute to Corda:
 
 
-* The easiest is just to message one of the [Community Maintainers](contributing-philosophy#community-maintainers) saying “I want to help!”. They’ll work
+* The easiest is just to message one of the [Community Maintainers](contributing-philosophy.md#community-maintainers) saying “I want to help!”. They’ll work
                         with you to find an area for you to contribute
 
 
 * If you have a specific contribution in mind, confirm whether the contribution is appropriate first by reaching out in the
                         `#contributing` channel of the [Corda Slack](http://slack.corda.net/) or contacting one of the
-                        [Community Maintainers](contributing-philosophy#community-maintainers) directly
+                        [Community Maintainers](contributing-philosophy.md#community-maintainers) directly
 
 
 * If you do not have a specific contribution in mind, you can also browse the issues labelled as `help wanted` on the
@@ -38,7 +39,7 @@ We believe one of the things that makes Corda special is its coherent design and
                 outset we defined some guidelines to ensure new contributions only ever enhance the project:
 
 
-* **Quality**: Code in the Corda project should meet the [Corda coding style guidelines](codestyle), with sufficient test-cases,
+* **Quality**: Code in the Corda project should meet the [Corda coding style guidelines](codestyle.md), with sufficient test-cases,
                         descriptive commit messages, evidence that the contribution does not break any compatibility commitments or cause adverse feature
                         interactions, and evidence of high-quality peer-review
 
@@ -59,7 +60,7 @@ We believe one of the things that makes Corda special is its coherent design and
                         the project maintainers to reconcile this. As the major contributor to Corda, many employees of [R3](https://r3.com) will be working on
                         features at any given time. To avoid surprises and foster transparency,
                         [our Jira work tracking system is public](https://r3-cev.atlassian.net/projects/CORDA/summary). If in doubt, reach out to one of the
-                        [Community Maintainers](contributing-philosophy#community-maintainers)
+                        [Community Maintainers](contributing-philosophy.md#community-maintainers)
 
 
 
@@ -74,13 +75,13 @@ You should make your changes as follows:
 * Clone the fork to your local machine
 
 
-* Build Corda by following the instructions [here](building-corda)
+* Build Corda by following the instructions [here](building-corda.md)
 
 
 * Be sure to work from the appropriate branch for your changes, as per the section below.
 
 
-* Make the changes, in accordance with the [code style guide](codestyle)
+* Make the changes, in accordance with the [code style guide](codestyle.md)
 
 
 
@@ -124,14 +125,14 @@ Note that *release* is always part of the name of the branch, even for unrelease
                             diffs that make merging more complicated
 
 
-* **Things to consider when writing CLI apps:** Make sure any changes to CLI applications conform to the [CLI UX Guide](cli-ux-guidelines)
+* **Things to consider when writing CLI apps:** Make sure any changes to CLI applications conform to the [CLI UX Guide](cli-ux-guidelines.md)
 
 
 
 ### Extending the flow state machine
 
 If you are interested in extending the flow state machine, you can find instructions on how to do this
-                    [here](contributing-flow-state-machines).
+                    [here](contributing-flow-state-machines.md).
 
 
 ## Testing the changes
@@ -143,7 +144,7 @@ You should test your changes as follows:
                         tests can be scaled back to Kotlin only
 
 
-* **Run the tests**: Your changes must pass the tests described [here](testing)
+* **Run the tests**: Your changes must pass the tests described [here](testing.md)
 
 
 * **Perform manual testing**: Before sending that code for review, spend time poking and prodding the tool and thinking, “Would the
@@ -151,11 +152,11 @@ You should test your changes as follows:
 
 
 * **Build against the selected development branch**: You can test your changes against CorDapps defined in other repos by following the instructions
-                        [here](building-against-non-release)
+                        [here](building-against-non-release.md)
 
 
 * **Run the API scanner**: Your changes must also not break compatibility with existing public API. We have an API scanning tool which
-                        runs as part of the build process which can be used to flag up any accidental changes, which is detailed [here](api-scanner)
+                        runs as part of the build process which can be used to flag up any accidental changes, which is detailed [here](api-scanner.md)
 
 
 
@@ -173,11 +174,11 @@ You should document any changes to Corda’s public API as follows:
 * Update the relevant .rst file(s)
 
 
-* Include the change in the [changelog](changelog) if the change is external and therefore visible to CorDapp
+* Include the change in the [changelog](changelog.md) if the change is external and therefore visible to CorDapp
                         developers and/or node operators
 
 
-* [Build the docs locally](building-the-docs) and check that the resulting .html files (under `docs/build/html`) for the modified
+* [Build the docs locally](building-the-docs.md) and check that the resulting .html files (under `docs/build/html`) for the modified
                         render correctly
 
 
@@ -202,7 +203,7 @@ You should merge the changes back into Corda as follows:
 > * Complete the pull-request checklist:
 > 
 > 
->     * [ ] Have you run the unit, integration and smoke tests as described here? [https://docs.corda.net/head/testing.html](https://docs.corda.net/head/testing)
+>     * [ ] Have you run the unit, integration and smoke tests as described here? [https://docs.corda.net/head/testing.html](https://docs.corda.net/head/testing.html)
 > 
 > 
 >     * [ ] If you added/changed public APIs, did you write/update the JavaDocs?
@@ -212,7 +213,7 @@ You should merge the changes back into Corda as follows:
 >                                     release notes?
 > 
 > 
->     * [ ] If you are contributing for the first time, please read the agreement in CONTRIBUTING now and add to this
+>     * [ ] If you are contributing for the first time, please read the agreement in CONTRIBUTING.md now and add to this
 >                                     Pull Request that you agree to it.
 > 
 > 
@@ -226,7 +227,7 @@ You should merge the changes back into Corda as follows:
 > 
 
 * Request a review by reaching out in the `#contributing` channel of the [Corda Slack](http://slack.corda.net/) or contacting one of
-                        the [Community Maintainers](contributing-philosophy#community-maintainers) directly
+                        the [Community Maintainers](contributing-philosophy.md#community-maintainers) directly
 
 
 * The reviewer will either:
@@ -246,7 +247,7 @@ You should merge the changes back into Corda as follows:
 > 
 
 * (Optional) Open an additional PR to add yourself to the
-                        [contributors list](https://github.com/corda/corda/blob/master/CONTRIBUTORS)
+                        [contributors list](https://github.com/corda/corda/blob/master/CONTRIBUTORS.md)
 
 > 
 > 
@@ -260,7 +261,7 @@ You should merge the changes back into Corda as follows:
 All contributions to this project are subject to the terms of the Developer Certificate of Origin, available
                 [here](https://developercertificate.org/) and reproduced below:
 
-```none
+```kotlin
 Developer Certificate of Origin
 Version 1.1
 

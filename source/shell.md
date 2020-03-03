@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Node shell
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Node shell
 
 The Corda shell is an embedded or standalone command line that allows an administrator to control and monitor a node. It is based on
             the [CRaSH](http://www.crashub.org/) shell and supports many of the same features. These features include:
@@ -40,29 +41,6 @@ The Corda shell is an embedded or standalone command line that allows an adminis
 When accessing the shell (embedded, standalone, via SSH) RPC permissions are required. This is because the shell actually communicates
                 with the node using RPC calls.
 
-There are several operations that are read-only in nature and granting them should have no impact on the ledger state of the node.
-                These permissions are:
-
-```bash
-permissions=[
-    "InvokeRpc.nodeInfo",
-    "InvokeRpc.networkMapSnapshot",
-    "InvokeRpc.currentNodeTime",
-    "InvokeRpc.wellKnownPartyFromX500Name",
-    "InvokeRpc.vaultQuery",
-    "InvokeRpc.vaultQueryBy",
-    "InvokeRpc.stateMachinesSnapshot",
-    "InvokeRpc.nodeDiagnosticInfo",
-    "InvokeRpc.notaryIdentities",
-    "InvokeRpc.attachmentExists",
-    "InvokeRpc.partyFromKey",
-    "InvokeRpc.notaryPartyFromX500Name",
-    "InvokeRpc.partiesFromName",
-    "InvokeRpc.registeredFlows"
-]
-```
-There are also operations that allow starting/killing the flows or even stopping the node as a whole:
-
 
 * Watching flows (`flow watch`) requires `InvokeRpc.stateMachinesFeed`.
 
@@ -74,8 +52,6 @@ There are also operations that allow starting/killing the flows or even stopping
 * Killing flows (`flow kill`) requires `InvokeRpc.killFlow`. This currently
                         allows the user to kill *any* flow, so please be careful when granting it!
 
-
-Description of RPC operations can be found in [API: RPC operations](api-rpc).
 
 
 ## The shell via the local terminal
@@ -115,8 +91,6 @@ Users log in to shell via SSH using the same credentials as for RPC.
 The host key is loaded from the `<node root directory>/sshkey/hostkey.pem` file. If this file does not exist, it is
                     generated automatically. In development mode, the seed may be specified to give the same results on the same computer
                     in order to avoid host-checking errors.
-
-Only RSA key is currently supported as a host key. If `hostkey.pem` is not RSA, it will be replaced by the newly generated RSA key.
 
 
 ### Connecting to the shell
@@ -162,7 +136,7 @@ Windows does not provide a built-in SSH tool. An alternative such as PuTTY shoul
 
 The standalone shell is a standalone application interacting with a Corda node via RPC calls.
                 RPC node permissions are necessary for authentication and authorisation.
-                Certain operations, such as starting flows, require access to the CorDapp jars.
+                Certain operations, such as starting flows, require access to CordApps jars.
 
 
 ### Starting the standalone shell
@@ -171,7 +145,8 @@ Run the following command from the terminal:
 
 ```bash
 corda-shell [-hvV] [--logging-level=<loggingLevel>] [--password=<password>]
-            [--truststore-file=<trustStoreFile>]
+            [--sshd-hostkey-directory=<sshdHostKeyDirectory>]
+            [--sshd-port=<sshdPort>] [--truststore-file=<trustStoreFile>]
             [--truststore-password=<trustStorePassword>]
             [--truststore-type=<trustStoreType>] [--user=<user>] [-a=<host>]
             [-c=<cordappDirectory>] [-f=<configFile>] [-o=<commandsDirectory>]
@@ -201,6 +176,12 @@ Where:
 * `--password=<password>` The RPC user password. If not provided it will be prompted for on startup.
 
 
+* `--sshd-port=<sshdPort>` Enables SSH server for shell.
+
+
+* `--sshd-hostkey-directory=<sshHostKeyDirectory`: The directory containing the hostkey.pem file for the SSH server.
+
+
 * `--truststore-password=<trustStorePassword>`: The password to unlock the TrustStore file.
 
 
@@ -222,7 +203,7 @@ Where:
 * `--version`, `-V`: Print version information and exit.
 
 
-Additionally, the `install-shell-extensions` subcommand can be used to install the `corda-shell` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions) for more info.
+Additionally, the `install-shell-extensions` subcommand can be used to install the `corda-shell` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions.md) for more info.
 
 The format of `config-file`:
 
@@ -242,6 +223,10 @@ extensions {
     cordapps {
         path : /path/to/cordapps/dir
     }
+    sshd {
+        enabled : "false"
+        port : 2223
+    }
 }
 ssl {
     keystore {
@@ -258,26 +243,13 @@ ssl {
 user : demo
 password : demo
 ```
-<div class="r3-o-note" role="alert"><span>Note: </span>
 
+## Standalone Shell via SSH
 
-SSH server is not supported inside the standalone shell.
-
-
-</div>
-
-## Shell Safe Mode
-
-This is a new mode added in the Enterprise 4.3 release to prevent the Crash shell embedded commands (e.g. ‘java’, ‘system’) from being
-                executed by a user with insufficient privilege. This is part of a general security tightening initiative.
-                When a shell is running in unsafe mode, the shell behaviour will be the same as before and will include Crash built in commands. By default
-                the internal shell will run in safe mode but will still be have the ability to execute RPC client calls as before based on
-                existing RPC permissions. No Corda functionality is affected by this change; only the ability to access to the Crash shell embedded commands.
-                When running an SSH shell, it will run in safe mode for any user that does not explicitly have permission ‘ALL’ as one the items
-                in their RPC permission list, see [Using the client RPC API](tutorial-clientrpc-api) for more information about the RPC Client API. These shell changes are
-                also applied to the Stand Alone shell which will now run in safe mode (Enterprise 4.3 onwards). It may be possible that, in the future,
-                the Crash shell embedded commands may become deprecated. Where possible, please do not write any new code that depends on them as they
-                are technically not part of Corda functionality.
+The standalone shell can embed an SSH server which redirects interactions via RPC calls to the Corda node.
+                To run SSH server use `--sshd-port` option when starting standalone shell or `extensions.sshd` entry in the configuration file.
+                For connection to SSH refer to [Connecting to the shell](#connecting-to-the-shell).
+                Certain operations (like starting Flows) will require Shell’s `--cordpass-directory` to be configured correctly (see [Starting the standalone shell](#starting-the-standalone-shell)).
 
 
 ## Interacting with the node via the shell
@@ -291,7 +263,7 @@ The shell interacts with the node by issuing RPCs (remote procedure calls). You 
 Some RPCs return a stream of events that will be shown on screen until you press Ctrl-C.
 
 You can find a list of the available RPC methods
-                [here](https://docs.corda.net/api/kotlin/corda/net.corda.core.messaging/-corda-r-p-c-ops/index).
+                [here](https://docs.corda.net/api/kotlin/corda/net.corda.core.messaging/-corda-r-p-c-ops/index.html).
 
 
 ### Shutting down the node
@@ -299,10 +271,10 @@ You can find a list of the available RPC methods
 You can shut the node down via shell:
 
 
-* `run gracefulShutdown` will put node into draining mode, and shut down when there are no flows running
+* `gracefulShutdown` will put node into draining mode, and shut down when there are no flows running
 
 
-* `run shutdown` will shut the node down immediately
+* `shutdown` will shut the node down immediately
 
 
 
@@ -342,7 +314,7 @@ The shell also has special commands for working with flows:
 
 ### Parameter syntax
 
-Parameters are passed to RPC or flow commands using a syntax called [Yaml](http://www.yaml.org/spec/1.2/spec) (yet another markup language), a
+Parameters are passed to RPC or flow commands using a syntax called [Yaml](http://www.yaml.org/spec/1.2/spec.html) (yet another markup language), a
                     simple JSON-like language. The key features of Yaml are:
 
 
@@ -371,7 +343,7 @@ Parameters are passed to RPC or flow commands using a syntax called [Yaml](http:
 
 
 If your CorDapp is written in Java, named arguments won’t work unless you compiled the node using the
-                        `-parameters` argument to javac. See [Creating nodes locally](generating-a-node) for how to specify it via Gradle.
+                        `-parameters` argument to javac. See [Creating nodes locally](generating-a-node.md) for how to specify it via Gradle.
 
 
 </div>
@@ -522,7 +494,7 @@ This breaks down as follows:
 ### Attachments
 
 The shell can be used to upload and download attachments from the node. To learn more, see the tutorial
-                    “[Using attachments](tutorial-attachments)”.
+                    “[Using attachments](tutorial-attachments.md)”.
 
 
 ### Getting help
@@ -535,13 +507,6 @@ Commands may have subcommands, in the same style as `git`. In that case, running
 
 
 ## Extending the shell
-
-THIS FUNCTIONALITY IS NOW ONLY AVAILABLE WHEN RUNNING THE SHELL IN UNSAFE MODE (see Safe Shell section above). This is because of possible
-                security vulnerabilities caused by the Crash shell embedded commands. When shell commands are executed via SSH, a remote user has the ability
-                to effect the node internal state (including running scripts, gc and even shutting down the node). Prior to Enterprise 4.3 this was possible
-                regardless of the user’s permissions. A user must now have ‘ALL’ as one of their RPC Permissions to be able to use the embedded commands via
-                the unsafe shell. You are advised, where possible to design out dependencies on the Crash shell embedded commands (non-Corda commands)
-                and, as a minimum, not to introduce any new dependencies on the unsafe shell environment.
 
 The shell can be extended using commands written in either Java or [Groovy](http://groovy-lang.org/) (a Java-compatible scripting language).
                 These commands have full access to the node’s internal APIs and thus can be used to achieve almost anything.

@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Writing the flow
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Writing the flow
 
 A flow encodes a sequence of steps that a node can perform to achieve a specific ledger update. By installing new flows
             on a node, we allow the node to handle new business processes. The flow we define will allow a node to issue an
@@ -179,7 +180,7 @@ public class IOUFlow extends FlowLogic<Void> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUFlow.kt) | [IOUFlow.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUFlow.java)
+![github](/images/svg/github.svg "github") [IOUFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUFlow.kt) | [IOUFlow.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUFlow.java)
 
 
 </div>
@@ -357,7 +358,7 @@ public class IOUFlowResponder extends FlowLogic<Void> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUFlowResponder.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUFlowResponder.kt) | [IOUFlowResponder.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUFlowResponder.java)
+![github](/images/svg/github.svg "github") [IOUFlowResponder.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUFlowResponder.kt) | [IOUFlowResponder.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUFlowResponder.java)
 
 
 </div>

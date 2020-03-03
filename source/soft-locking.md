@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Soft Locking
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Soft Locking
 
 Soft Locking is implemented in the vault to try and prevent a node constructing transactions that attempt to use the same input(s) simultaneously.
             Such transactions would result in naturally wasted work when the notary rejects them as double spend attempts.
@@ -54,7 +55,7 @@ In addition, the `VaultService` exposes a number of functions a developer may us
     fun softLockRelease(lockId: UUID, stateRefs: NonEmptySet<StateRef>? = null)
 
 ```
-[VaultService.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/node/services/VaultService.kt)
+[VaultService.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/node/services/VaultService.kt)
 ## Query
 
 By default vault queries will always include locked states in its result sets.
@@ -73,7 +74,7 @@ By default vault queries will always include locked states in its result sets.
     }
 
 ```
-[QueryCriteria.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/node/services/vault/QueryCriteria.kt)
+[QueryCriteria.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/node/services/vault/QueryCriteria.kt)
 ## Explicit Usage
 
 Soft locks are associated with transactions, and typically within the lifecycle of a flow. Specifically, every time a

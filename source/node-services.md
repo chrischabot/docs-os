@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Node services
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Node services
 
 This document is intended as a very brief introduction to the current
             service components inside the node. Whilst not at all exhaustive it is
@@ -61,7 +62,7 @@ Typical usage of these services is to locate an appropriate
                     generated if anonymous keys are needed in a flow. Note that this
                     interface works at the level of individual `PublicKey` and internally
                     matched `PrivateKey` pairs, but the signing authority may be represented by a
-                    `CompositeKey` on the `NodeInfo` to allow key clustering and
+``CompositeKey` on the `NodeInfo` to allow key clustering and
                     threshold schemes.
 
 The `PersistentKeyManagementService` is a persistent implementation of

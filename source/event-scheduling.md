@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Event scheduling
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Event scheduling
 
 This article explains our approach to modelling time based events in code. It explains how a contract
             state can expose an upcoming event and what action to take if the scheduled time for that event is reached.
@@ -36,7 +37,7 @@ Each of these is dependent on the current state of the financial instrument.  Wh
                 and the next time sensitive event is determined by any successor contract state.
 
 Knowing when the next time sensitive event is due to occur is useful, but typically some *activity* is expected to take
-                place when this event occurs.  We already have a model for business processes in the form of [flows](flow-state-machines),
+                place when this event occurs.  We already have a model for business processes in the form of [flows](flow-state-machines.md),
                 so in the platform we have introduced the concept of *scheduled activities* that can invoke flow state machines
                 at a scheduled time.  A contract state can optionally described the next scheduled activity for itself.  If it omits
                 to do so, then nothing will be scheduled.
@@ -97,7 +98,7 @@ override fun nextScheduledActivity(thisStateRef: StateRef, flowLogicRefFactory: 
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IRS.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/irs-demo/cordapp/contracts-irs/src/main/kotlin/net/corda/irs/contract/IRS.kt)
+![github](/images/svg/github.svg "github") [IRS.kt](https://github.com/corda/corda/blob/release/os/4.1/samples/irs-demo/cordapp/contracts-irs/src/main/kotlin/net/corda/irs/contract/IRS.kt)
 
 
 </div>

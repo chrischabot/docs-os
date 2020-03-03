@@ -1,16 +1,17 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Configuring Responder Flows
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Configuring Responder Flows
 
 A flow can be a fairly complex thing that interacts with many backend systems, and so it is likely that different users
-            of a specific CorDapp will require differences in how flows interact with their specific infrastructure.
+            of a specific CordApp will require differences in how flows interact with their specific infrastructure.
 
 Corda supports this functionality by providing two mechanisms to modify the behaviour of apps in your node.
 
@@ -103,7 +104,7 @@ Corda would detect that both `BaseResponder` and `SubResponder` are configured f
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-The flows do not need to be within the same CorDapp, or package, therefore to customise a shared app you obtained from a third party, you’d write your own CorDapp that subclasses the first.
+The flows do not need to be within the same CordApp, or package, therefore to customise a shared app you obtained from a third party, you’d write your own CorDapp that subclasses the first.
 
 
 </div>
@@ -111,7 +112,7 @@ The flows do not need to be within the same CorDapp, or package, therefore to cu
 ## Overriding a flow via node configuration
 
 Whilst the subclassing approach is likely to be useful for most applications, there is another mechanism to override this behaviour.
-                This would be useful if for example, a specific CorDapp user requires such a different responder that subclassing an existing flow
+                This would be useful if for example, a specific CordApp user requires such a different responder that subclassing an existing flow
                 would not be a good solution. In this case, it’s possible to specify a hardcoded flow via the node configuration.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
@@ -123,10 +124,10 @@ A new responder written to override an existing responder must still be annotate
 </div>
 The configuration section is named `flowOverrides` and it accepts an array of `overrides`
 
-<div><Tabs value={value} aria-label="code tabs"><Tab label="none" /></Tabs>
+<div><Tabs value={value} aria-label="code tabs"><Tab label="json" /></Tabs>
 <TabPanel value={value} index={0}>
 
-```none
+```json
 flowOverrides {
     overrides=[
         {

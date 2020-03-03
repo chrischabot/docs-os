@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: 'API: States'
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# API: States
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Before reading this page, you should be familiar with the key concepts of [States](key-concepts-states).
+Before reading this page, you should be familiar with the key concepts of [States](key-concepts-states.md).
 
 
 </div>
@@ -52,7 +53,7 @@ interface ContractState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [ContractState.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/ContractState.kt)
+![github](/images/svg/github.svg "github") [ContractState.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/ContractState.kt)
 
 
 </div>
@@ -117,7 +118,7 @@ interface LinearState : ContractState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
+![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
 
 
 </div>
@@ -186,7 +187,7 @@ interface OwnableState : ContractState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
+![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
 
 
 </div>
@@ -236,7 +237,7 @@ interface FungibleState<T : Any> : ContractState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FungibleState.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/FungibleState.kt)
+![github](/images/svg/github.svg "github") [FungibleState.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/FungibleState.kt)
 
 
 </div>
@@ -263,11 +264,11 @@ You can also customize your state by implementing the following interfaces:
 
 
 * `QueryableState`, which allows the state to be queried in the node’s database using custom attributes (see
-                            [API: Persistence](api-persistence))
+                            [API: Persistence](api-persistence.md))
 
 
 * `SchedulableState`, which allows us to schedule future actions for the state (e.g. a coupon payment on a bond) (see
-                            [Event scheduling](event-scheduling))
+                            [Event scheduling](event-scheduling.md))
 
 
 
@@ -328,7 +329,7 @@ Beyond implementing `ContractState` or a sub-interface, a state is allowed to ha
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [Cash.kt](https://github.com/corda/corda/blob/release/os/4.4/finance/contracts/src/main/kotlin/net/corda/finance/contracts/asset/Cash.kt)
+![github](/images/svg/github.svg "github") [Cash.kt](https://github.com/corda/corda/blob/release/os/4.1/finance/contracts/src/main/kotlin/net/corda/finance/contracts/asset/Cash.kt)
 
 
 </div>
@@ -438,7 +439,7 @@ data class TransactionState<out T : ContractState> @JvmOverloads constructor(
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TransactionState.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/TransactionState.kt)
+![github](/images/svg/github.svg "github") [TransactionState.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/TransactionState.kt)
 
 
 </div>

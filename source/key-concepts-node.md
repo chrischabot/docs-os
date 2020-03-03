@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Nodes
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Nodes
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -92,7 +93,7 @@ All communication with other nodes on the network is handled by the node itself,
 ## RPC interface
 
 The node’s owner interacts with the node via remote procedure calls (RPC). The key RPC operations the node exposes
-                are documented in [API: RPC operations](api-rpc).
+                are documented in [API: RPC operations](api-rpc.md).
 
 
 ## The service hub

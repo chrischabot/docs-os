@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Network Bootstrapper
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Network Bootstrapper
 
 
 ## Test deployments
@@ -26,7 +27,7 @@ For these reasons, test deployments can avail themselves of the Network Bootstra
                 node configurations from a common directory to generate the network parameters file, which is then copied to all the nodes’
                 directories. It also copies each node’s node-info file to every other node so that they can all be visible to each other.
 
-You can find out more about network maps and network parameters from [The network map](network-map).
+You can find out more about network maps and network parameters from [The network map](network-map.md).
 
 
 ## Bootstrapping a test network
@@ -36,7 +37,7 @@ The Corda Network Bootstrapper can be downloaded from [here](https://software.r3
 Create a directory containing a node config file, ending in “_node.conf”, for each node you want to create. “devMode” must be set to true. Then run the
                 following command:
 
-`java -jar network-bootstrapper-4.4.jar --dir <nodes-root-dir>`
+`java -jar network-bootstrapper-4.1.jar --dir <nodes-root-dir>`
 
 For example running the command on a directory containing these files:
 
@@ -84,7 +85,7 @@ The `cordapp-a.jar` and `cordapp-b.jar` will be installed in each node directory
 ### Whitelisting contracts
 
 Any CorDapps provided when bootstrapping a network will be scanned for contracts which will be used to create the
-                    *Zone whitelist* (see [API: Contract Constraints](api-contract-constraints)) for the network.
+                    *Zone whitelist* (see [API: Contract Constraints](api-contract-constraints.md)) for the network.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
@@ -94,14 +95,14 @@ If you only wish to whitelist the CorDapps but not copy them to each node then r
 
 </div>
 The CorDapp JARs will be hashed and scanned for `Contract` classes. These contract class implementations will become part
-                    of the whitelisted contracts in the network parameters (see `NetworkParameters.whitelistedContractImplementations` [The network map](network-map)).
+                    of the whitelisted contracts in the network parameters (see `NetworkParameters.whitelistedContractImplementations` [The network map](network-map.md)).
 
 By default the Bootstrapper will whitelist all the contracts found in the unsigned CorDapp JARs (a JAR file not signed by jarSigner tool).
                     Whitelisted contracts are checked by *Zone constraints*, while contract classes from signed JARs will be checked by *Signature constraints*.
                     To prevent certain contracts from unsigned JARs from being whitelisted, add their fully qualified class name in the `exclude_whitelist.txt`.
                     These will instead use the more restrictive `HashAttachmentConstraint`.
                     To add certain contracts from signed JARs to whitelist, add their fully qualified class name in the `include_whitelist.txt`.
-                    Refer to [API: Contract Constraints](api-contract-constraints) to understand the implication of different constraint types before adding `exclude_whitelist.txt` or `include_whitelist.txt` files.
+                    Refer to [API: Contract Constraints](api-contract-constraints.md) to understand the implication of different constraint types before adding `exclude_whitelist.txt` or `include_whitelist.txt` files.
 
 For example:
 
@@ -114,7 +115,7 @@ net.corda.finance.contracts.asset.CommercialPaper
 
 The Network Bootstrapper is provided as a development tool for setting up Corda networks for development and testing.
                 There is some limited functionality which can be used to make changes to a network, but for anything more complicated consider
-                using a [Network Map](network-map) server.
+                using a [Network Map](network-map.md) server.
 
 When running the Network Bootstrapper, each `node-info` file needs to be gathered together in one directory. If
                 the nodes are being run on different machines you need to do the following:
@@ -166,7 +167,7 @@ As an example, if we have an existing bootstrapped network, with a Notary and Pa
 ```
 Then run the Network Bootstrapper again from the root dir:
 
-`java -jar network-bootstrapper-4.4.jar --dir <nodes-root-dir>`
+`java -jar network-bootstrapper-4.1.jar --dir <nodes-root-dir>`
 
 Which will give the following:
 
@@ -238,7 +239,7 @@ If the network already has a set of network parameters defined (i.e. the node di
 ```
 Then run the Network Bootstrapper again from the root dir:
 
-`java -jar network-bootstrapper-4.4.jar --dir <nodes-root-dir>`
+`java -jar network-bootstrapper-4.1.jar --dir <nodes-root-dir>`
 
 To give the following:
 
@@ -289,11 +290,11 @@ The `--minimum-platform-version`, `--max-message-size`, `--max-transaction-size`
 
 You can provide a network parameters overrides file using the following syntax:
 
-`java -jar network-bootstrapper-4.4.jar --network-parameter-overrides=<path_to_file>`
+`java -jar network-bootstrapper-4.1.jar --network-parameter-overrides=<path_to_file>`
 
 Or alternatively, by using the short form version:
 
-`java -jar network-bootstrapper-4.4.jar -n=<path_to_file>`
+`java -jar network-bootstrapper-4.1.jar -n=<path_to_file>`
 
 The network parameter overrides file is a HOCON file with the following fields, all of which are optional. Any field that is not provided will be
                     ignored. If a field is not provided and you are bootstrapping a new network, a sensible default value will be used. If a field is not provided and you
@@ -374,10 +375,10 @@ Package namespace ownership is a Corda security feature that allows a compatibil
                 operator. A typical approach would be to accept an SSL certificate with the domain in it as proof of domain ownership, or to accept an email from that domain.
 
 A Java package namespace is case insensitive and cannot be a sub-package of an existing registered namespace.
-                See [Naming a Package](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs) and [Naming Conventions](https://www.oracle.com/technetwork/java/javase/documentation/codeconventions-135099.html#28840forguidelinesandconventions) for guidelines on naming conventions.
+                See [Naming a Package](https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html) and [Naming Conventions](https://www.oracle.com/technetwork/java/javase/documentation/codeconventions-135099.html#28840forguidelinesandconventions) for guidelines on naming conventions.
 
 The registration of a Java package namespace requires the creation of a signed certificate as generated by the
-                [Java keytool](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool).
+                [Java keytool](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html).
 
 The packages can be registered by supplying a network parameters override config file via the command line, using the `--network-parameter-overrides` command.
 
@@ -511,6 +512,6 @@ bootstrapper [-hvV] [--copy-cordapps=<copyCordapps>] [--dir=<dir>]
 
 ### Sub-commands
 
-`install-shell-extensions`: Install `bootstrapper` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions) for more info.
+`install-shell-extensions`: Install `bootstrapper` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions.md) for more info.
 
 

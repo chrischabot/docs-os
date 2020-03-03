@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Building the documentation
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Building the documentation
 
 The documentation is under the `docs` folder, and is written in reStructuredText format. Documentation in HTML format
             is pre-generated, as well as code documentation, and this can be done automatically via a provided script.
@@ -53,7 +54,7 @@ If you want to upgrade, say, the version of sphinx that we’re using, you must:
 
 ### Requirements
 
-In order to build the documentation you will need a development environment set up as described under [Building Corda](building-corda).
+In order to build the documentation you will need a development environment set up as described under [Building Corda](building-corda.md).
 
 You will also need additional dependencies based on your O/S which are detailed below.
 

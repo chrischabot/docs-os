@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Flow cookbook
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Flow cookbook
 
 This flow showcases how to use Corda’s API, in both Java and Kotlin.
 
@@ -283,7 +284,6 @@ class InitiatorFlow(val arg1: Boolean, val arg2: Int, private val counterparty: 
         val ourOutputState: DummyState = DummyState()
         // DOCEND 22
         // Or as copies of other states with some properties changed.
-        @Suppress("MagicNumber") // literally a magic number
         // DOCSTART 23
         val ourOtherOutputState: DummyState = ourOutputState.copy(magicNumber = 77)
         // DOCEND 23
@@ -1389,7 +1389,7 @@ public class FlowCookbook {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>

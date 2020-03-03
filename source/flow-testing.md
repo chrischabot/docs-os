@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Writing flow tests
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Writing flow tests
 
 A flow can be a fairly complex thing that interacts with many services and other parties over the network. That
             means unit testing one requires some infrastructure to provide lightweight mock implementations. The MockNetwork
@@ -23,47 +24,35 @@ class ResolveTransactionsFlowTest {
     private lateinit var notaryNode: StartedMockNode
     private lateinit var megaCorpNode: StartedMockNode
     private lateinit var miniCorpNode: StartedMockNode
-    private lateinit var newNotaryNode: StartedMockNode
     private lateinit var megaCorp: Party
     private lateinit var miniCorp: Party
     private lateinit var notary: Party
-    private lateinit var newNotary: Party
 
     @Before
     fun setup() {
-        val mockNetworkParameters = MockNetworkParameters(
-                cordappsForAllNodes = listOf(DUMMY_CONTRACTS_CORDAPP, enclosedCordapp()),
-                notarySpecs = listOf(
-                        MockNetworkNotarySpec(DUMMY_NOTARY_NAME),
-                        MockNetworkNotarySpec(DUMMY_BANK_A_NAME)
-                )
-        )
-        mockNet = MockNetwork(mockNetworkParameters)
-        notaryNode = mockNet.notaryNodes.first()
+        mockNet = MockNetwork(MockNetworkParameters(cordappsForAllNodes = listOf(DUMMY_CONTRACTS_CORDAPP, enclosedCordapp())))
+        notaryNode = mockNet.defaultNotaryNode
         megaCorpNode = mockNet.createPartyNode(CordaX500Name("MegaCorp", "London", "GB"))
         miniCorpNode = mockNet.createPartyNode(CordaX500Name("MiniCorp", "London", "GB"))
-        notary = notaryNode.info.singleIdentity()
+        notary = mockNet.defaultNotaryIdentity
         megaCorp = megaCorpNode.info.singleIdentity()
         miniCorp = miniCorpNode.info.singleIdentity()
-        newNotaryNode = mockNet.notaryNodes[1]
-        newNotary = mockNet.notaryNodes[1].info.singleIdentity()
     }
 
     @After
     fun tearDown() {
         mockNet.stopNodes()
-        System.setProperty("net.corda.node.dbtransactionsresolver.InMemoryResolutionLimit", "0")
     }
 
 ```
-[ResolveTransactionsFlowTest.kt](https://github.com/corda/corda/blob/release/os/4.4/core-tests/src/test/kotlin/net/corda/coretests/internal/ResolveTransactionsFlowTest.kt)We create a mock network in our `@Before` setup method and create a couple of nodes. We also record the identity
+[ResolveTransactionsFlowTest.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/test/kotlin/net/corda/core/internal/ResolveTransactionsFlowTest.kt)We create a mock network in our `@Before` setup method and create a couple of nodes. We also record the identity
             of the notary in our test network, which will come in handy later. We also tidy up when we’re done.
 
 Next, we write a test case:
 
 ```kotlin
-@Test(timeout=300_000)
- `resolve from two hashes`() {
+@Test
+fun `resolve from two hashes`() {
     val (stx1, stx2) = makeTransactions()
     val p = TestFlow(setOf(stx2.id), megaCorp)
     val future = miniCorpNode.startFlow(p)
@@ -76,7 +65,7 @@ Next, we write a test case:
 }
 
 ```
-[ResolveTransactionsFlowTest.kt](https://github.com/corda/corda/blob/release/os/4.4/core-tests/src/test/kotlin/net/corda/coretests/internal/ResolveTransactionsFlowTest.kt)We’ll take a look at the `makeTransactions` function in a moment. For now, it’s enough to know that it returns two
+[ResolveTransactionsFlowTest.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/test/kotlin/net/corda/core/internal/ResolveTransactionsFlowTest.kt)We’ll take a look at the `makeTransactions` function in a moment. For now, it’s enough to know that it returns two
             `SignedTransaction` objects, the second of which spends the first. Both transactions are known by MegaCorpNode but
             not MiniCorpNode.
 
@@ -119,7 +108,7 @@ private fun makeTransactions(signFirstTX: Boolean = true, withAttachment: Secure
 }
 
 ```
-[ResolveTransactionsFlowTest.kt](https://github.com/corda/corda/blob/release/os/4.4/core-tests/src/test/kotlin/net/corda/coretests/internal/ResolveTransactionsFlowTest.kt)We’re using the `DummyContract`, a simple test smart contract which stores a single number in its states, along
+[ResolveTransactionsFlowTest.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/test/kotlin/net/corda/core/internal/ResolveTransactionsFlowTest.kt)We’re using the `DummyContract`, a simple test smart contract which stores a single number in its states, along
             with ownership and issuer information. You can issue such states, exit them and re-assign ownership (move them).
             It doesn’t do anything else. This code simply creates a transaction that issues a dummy state (the issuer is
             `MEGA_CORP`, a pre-defined unit test identity), signs it with the test notary and MegaCorp keys and then

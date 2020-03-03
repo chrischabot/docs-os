@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Writing the state
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Writing the state
 
 In Corda, shared facts on the blockchain are represented as states. Our first task will be to define a new state type to
             represent an IOU.
@@ -50,7 +51,7 @@ Learning some Kotlin will be very useful for understanding how Corda works inter
 
 If you do want to dive into Kotlin, there’s an official
                     [getting started guide](https://kotlinlang.org/docs/tutorials/), and a series of
-                    [Kotlin Koans](https://kotlinlang.org/docs/tutorials/koans).
+                    [Kotlin Koans](https://kotlinlang.org/docs/tutorials/koans.html).
 
 
 </div>
@@ -76,7 +77,7 @@ There are many more fields you could include, such as the IOU’s currency, but 
 
 ## Defining IOUState
 
-Let’s get started by opening `TemplateState.java` (for Java) or `TemplateState.kt` (for Kotlin) and updating
+Let’s get started by opening `TemplateState.java` (for Java) or `StatesAndContracts.kt` (for Kotlin) and updating
                 `TemplateState` to define an `IOUState`:
 
 <div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
@@ -135,7 +136,7 @@ public class IOUState implements ContractState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUState.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUState.kt) | [IOUState.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUState.java)
+![github](/images/svg/github.svg "github") [IOUState.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUState.kt) | [IOUState.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUState.java)
 
 
 </div>

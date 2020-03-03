@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Azure Marketplace
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Azure Marketplace
 
 To help you design, build and test applications on Corda, called CorDapps, a Corda network can be deployed on the [Microsoft Azure Marketplace](https://azure.microsoft.com/en-gb/overview/what-is-azure)
 
@@ -135,7 +136,7 @@ Connect to one of your Corda nodes (make sure this is not the Notary node) using
 
 Build the yo cordapp sample which you can find here: [https://github.com/corda/samples/blob/release-V4/yo-cordapp](https://github.com/corda/samples/blob/release-V4/yo-cordapp) and install it in the cordapp directory.
 
-Now restart Corda and the Corda test webserver using the following commands or restart your Corda VM from the Azure portal:
+Now restart Corda and the Corda webserver using the following commands or restart your Corda VM from the Azure portal:
 
 ```shell
 sudo systemctl restart corda

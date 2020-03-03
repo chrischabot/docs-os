@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Extending the state machine
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Extending the state machine
 
 This article explains how to extend the state machine code that underlies flow execution. It is intended for Corda
             contributors.
@@ -16,10 +17,158 @@ This article explains how to extend the state machine code that underlies flow e
 ## How to add suspending operations
 
 To add a suspending operation for a simple request-response type function that perhaps involves some external IO we can
-                use `FlowExternalOperation` or `FlowExternalAsyncOperation`. These interfaces represent the public versions of the internal
-                `FlowAsyncOperation`.
+                use the internal `FlowAsyncOperation` interface.
 
-See [calling external systems inside of flows](api-flows#api-flows-external-operations) for more information on these public interfaces.
+<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
+<TabPanel value={value} index={0}>
+
+```kotlin
+/**
+ * Interface for arbitrary operations that can be invoked in a flow asynchronously - the flow will suspend until the
+ * operation completes. Operation parameters are expected to be injected via constructor.
+ */
+@CordaSerializable
+interface FlowAsyncOperation<R : Any> {
+    /**
+     * Performs the operation in a non-blocking fashion.
+     * @param deduplicationId  If the flow restarts from a checkpoint (due to node restart, or via a visit to the flow
+     * hospital following an error) the execute method might be called more than once by the Corda flow state machine.
+     * For each duplicate call, the deduplicationId is guaranteed to be the same allowing duplicate requests to be
+     * de-duplicated if necessary inside the execute method.
+     */
+    fun execute(deduplicationId: String): CordaFuture<R>
+}
+
+```
+
+</TabPanel>
+![github](/images/svg/github.svg "github") [FlowAsyncOperation.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/internal/FlowAsyncOperation.kt)
+
+
+</div>
+Let’s imagine we want to add a suspending operation that takes two integers and returns their sum. To do this we
+                implement `FlowAsyncOperation`:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
+<TabPanel value={value} index={0}>
+
+```kotlin
+class SummingOperation(val a: Int, val b: Int) : FlowAsyncOperation<Int> {
+    override fun execute(deduplicationId: String): CordaFuture<Int> {
+        return doneFuture(a + b)
+    }
+}
+
+```
+
+</TabPanel>
+<TabPanel value={value} index={1}>
+
+```java
+public final class SummingOperation implements FlowAsyncOperation<Integer> {
+    private final int a;
+    private final int b;
+
+    @NotNull
+    @Override
+    public CordaFuture<Integer> execute(String deduplicationId) {
+        return CordaFutureImplKt.doneFuture(this.a + this.b);
+    }
+
+    public final int getA() {
+        return this.a;
+    }
+
+    public final int getB() {
+        return this.b;
+    }
+
+    public SummingOperation(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+}
+
+```
+
+</TabPanel>
+![github](/images/svg/github.svg "github") [TutorialFlowAsyncOperation.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/flowstatemachines/TutorialFlowAsyncOperation.kt) | [SummingOperation.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/flowstatemachines/SummingOperation.java)
+
+
+</div>
+As we can see the constructor of `SummingOperation` takes the two numbers, and the `execute` function simply returns
+                a future that is immediately completed by the result of summing the numbers. Note how we don’t use `@Suspendable` on
+                `execute`, this is because we’ll never suspend inside this function, the suspension will happen before we’re calling
+                it.
+
+Note also how the input numbers are stored in the class as fields. This is important, because in the flow’s checkpoint
+                we’ll store an instance of this class whenever we’re suspending on such an operation. If the node fails or restarts
+                while the operation is underway this class will be deserialized from the checkpoint and `execute` will be called
+                again.
+
+Now we can use the internal function `executeAsync` to execute this operation from a flow.
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
+<TabPanel value={value} index={0}>
+
+```kotlin
+/** Executes the specified [operation] and suspends until operation completion. */
+@Suspendable
+fun <T, R : Any> FlowLogic<T>.executeAsync(operation: FlowAsyncOperation<R>, maySkipCheckpoint: Boolean = false): R {
+    val request = FlowIORequest.ExecuteAsyncOperation(operation)
+    return stateMachine.suspend(request, maySkipCheckpoint)
+}
+
+```
+
+</TabPanel>
+![github](/images/svg/github.svg "github") [FlowAsyncOperation.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/internal/FlowAsyncOperation.kt)
+
+
+</div>
+It simply takes a `FlowAsyncOperation` and an optional flag we don’t care about for now. We can use this function in a
+                flow:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
+<TabPanel value={value} index={0}>
+
+```kotlin
+@StartableByRPC
+class ExampleSummingFlow : FlowLogic<Int>() {
+    @Suspendable
+    override fun call(): Int {
+        val answer = executeAsync(SummingOperation(1, 2))
+        return answer // hopefully 3
+    }
+}
+
+```
+
+</TabPanel>
+<TabPanel value={value} index={1}>
+
+```java
+@StartableByRPC
+public final class ExampleSummingFlow extends FlowLogic<Integer> {
+    @Suspendable
+    @NotNull
+    @Override
+    public Integer call() {
+        return FlowAsyncOperationKt.executeAsync(this, new SummingOperation(1, 2), false);
+    }
+}
+
+```
+
+</TabPanel>
+![github](/images/svg/github.svg "github") [TutorialFlowAsyncOperation.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/flowstatemachines/TutorialFlowAsyncOperation.kt) | [ExampleSummingFlow.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/flowstatemachines/ExampleSummingFlow.java)
+
+
+</div>
+That’s it! Obviously this is a mostly useless example, but this is the basic code structure one could extend for heavier
+                computations/other IO. For example the function could call into a `CordaService` or something similar. One thing to
+                note is that the operation executed in `execute` must be redoable(= “idempotent”) in case the node fails before the
+                next checkpoint is committed.
 
 
 ## How to test
@@ -31,9 +180,9 @@ The recommended way to test flows and the state machine is using the Driver DSL.
 <TabPanel value={value} index={0}>
 
 ```kotlin
-    @Test(timeout=300_000)
-	fun summingWorks() {
-        driver(DriverParameters(startNodesInProcess = true, cordappsForAllNodes = listOf(cordappWithPackages("net.corda.docs.kotlin.tutorial.flowstatemachines")))) {
+    @Test
+    fun summingWorks() {
+        driver(DriverParameters(startNodesInProcess = true)) {
             val aliceUser = User("aliceUser", "testPassword1", permissions = setOf(Permissions.all()))
             val alice = startNode(providedName = ALICE_NAME, rpcUsers = listOf(aliceUser)).getOrThrow()
             val aliceClient = CordaRPCClient(alice.rpcAddress)
@@ -72,7 +221,7 @@ The recommended way to test flows and the state machine is using the Driver DSL.
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialFlowAsyncOperationTest.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/integration-test/kotlin/net/corda/docs/kotlin/tutorial/test/TutorialFlowAsyncOperationTest.kt) | [TutorialFlowAsyncOperationTest.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/integration-test/java/net/corda/docs/java/tutorial/test/TutorialFlowAsyncOperationTest.java)
+![github](/images/svg/github.svg "github") [TutorialFlowAsyncOperationTest.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/integration-test/kotlin/net/corda/docs/kotlin/tutorial/test/TutorialFlowAsyncOperationTest.kt) | [TutorialFlowAsyncOperationTest.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/integration-test/java/net/corda/docs/java/tutorial/test/TutorialFlowAsyncOperationTest.java)
 
 
 </div>
@@ -87,8 +236,8 @@ Let’s assume we made a mistake in our summing operation:
 <TabPanel value={value} index={0}>
 
 ```kotlin
-class SummingOperationThrowing(val a: Int, val b: Int) : FlowExternalAsyncOperation<Int> {
-    override fun execute(deduplicationId: String): CompletableFuture<Int> {
+class SummingOperationThrowing(val a: Int, val b: Int) : FlowAsyncOperation<Int> {
+    override fun execute(deduplicationId: String): CordaFuture<Int> {
         throw IllegalStateException("You shouldn't be calling me")
     }
 }
@@ -126,14 +275,14 @@ public final class SummingOperationThrowing implements FlowAsyncOperation<Intege
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialFlowAsyncOperation.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/flowstatemachines/TutorialFlowAsyncOperation.kt) | [SummingOperationThrowing.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/flowstatemachines/SummingOperationThrowing.java)
+![github](/images/svg/github.svg "github") [TutorialFlowAsyncOperation.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/flowstatemachines/TutorialFlowAsyncOperation.kt) | [SummingOperationThrowing.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/flowstatemachines/SummingOperationThrowing.java)
 
 
 </div>
 The operation now throws a rude exception. If we modify the example flow to use this and run the same test we will get
                 a lot of logs about the error condition (as we are in dev mode). The interesting bit looks like this:
 
-```none
+```kotlin
 [WARN ] 18:38:52,613 [Node thread-1] (DumpHistoryOnErrorInterceptor.kt:39) interceptors.DumpHistoryOnErrorInterceptor.executeTransition - Flow [03ab886e-3fd3-4667-b944-ab6a3b1f90a7] errored, dumping all transitions:
 
  --- Transition of flow [03ab886e-3fd3-4667-b944-ab6a3b1f90a7] ---

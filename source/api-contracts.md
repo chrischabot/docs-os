@@ -1,17 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
+menu:
+- corda-os-4.1
 title: 'API: Contracts'
-description: 'Use Corda Contracts to validate the state content'
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# API: Contracts
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Before reading this page, you should be familiar with the key concepts of [Contracts](key-concepts-contracts).
+Before reading this page, you should be familiar with the key concepts of [Contracts](key-concepts-contracts.md).
 
 
 </div>
@@ -48,7 +50,7 @@ interface Contract {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
+![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
 
 
 </div>
@@ -165,12 +167,12 @@ The `LedgerTransaction` object passed into `verify` has the following properties
          */
         override val networkParameters: NetworkParameters?,
         /** Referenced states, which are like inputs but won't be consumed. */
-        override val references: List<StateAndRef<ContractState>>,
+        override val references: List<StateAndRef<ContractState>>
 
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [LedgerTransaction.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/transactions/LedgerTransaction.kt)
+![github](/images/svg/github.svg "github") [LedgerTransaction.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/transactions/LedgerTransaction.kt)
 
 
 </div>
@@ -315,7 +317,7 @@ data class CommandWithParties<out T : CommandData>(
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
+![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
 
 
 </div>
@@ -377,7 +379,7 @@ public class XContract implements Contract {
 
     @Override
     public void verify(LedgerTransaction tx) {
-        final Commands command = tx.findCommand(Commands.class,  -> true).getValue();
+        final Commands command = tx.findCommand(Commands.class, cmd -> true).getValue();
 
         if (command instanceof Commands.Issue) {
             // Issuance verification logic.

@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Node database
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Node database
 
 
 ## Configuring the node database
@@ -14,7 +15,7 @@ version: corda-os-4.4
 
 ### H2
 
-By default, nodes store their data in an H2 database. See [Database access when running H2](node-database-access-h2).
+By default, nodes store their data in an H2 database. See [Database access when running H2](node-database-access-h2.md).
 
 Nodes can also be configured to use PostgreSQL and SQL Server. However, these are experimental community contributions.
                     The Corda continuous integration pipeline does not run unit tests or integration tests of these databases.
@@ -22,7 +23,7 @@ Nodes can also be configured to use PostgreSQL and SQL Server. However, these ar
 
 ### PostgreSQL
 
-Nodes can also be configured to use PostgreSQL 9.6, using PostgreSQL JDBC Driver 42.2.8. Here is an example node
+Nodes can also be configured to use PostgreSQL 9.6, using PostgreSQL JDBC Driver 42.1.4. Here is an example node
                     configuration for PostgreSQL:
 
 ```groovy
@@ -57,13 +58,10 @@ Note that:
 CREATE SEQUENCE my_schema.hibernate_sequence INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 8 CACHE 1 NO CYCLE;
 ```
 
-* The PostgreSQL JDBC database driver must be placed in the `drivers` directory in the node.
-
-
 
 ### SQLServer
 
-Nodes also have untested support for Microsoft SQL Server 2017, using Microsoft JDBC Driver 6.4 for SQL Server. Here is
+Nodes also have untested support for Microsoft SQL Server 2017, using Microsoft JDBC Driver 6.2 for SQL Server. Here is
                     an example node configuration for SQLServer:
 
 ```groovy
@@ -76,13 +74,13 @@ dataSourceProperties = {
 database = {
     transactionIsolationLevel = READ_COMMITTED
 }
-jarDirs = ["[FULL_PATH]/sqljdbc_6.4/enu/"]
+jarDirs = ["[FULL_PATH]/sqljdbc_6.2/enu/"]
 ```
 Note that:
 
 
-* Ensure the directory referenced by jarDirs contains only one JDBC driver JAR file; by default, the
-                            `sqljdbc_6.4/enu/` contains multiple JDBC JAR files for different Java versions.
+* Ensure the directory referenced by jarDirs contains only one JDBC driver JAR file; by the default,
+                            sqljdbc_6.2/enu/contains two JDBC JAR files for different Java versions.
 
 
 
@@ -98,14 +96,12 @@ By default, the node database has the following tables:
 |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |DATABASECHANGELOG|ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, EXECTYPE, MD5SUM, DESCRIPTION, COMMENTS, TAG, LIQUIBASE, CONTEXTS, LABELS, DEPLOYMENT_ID|
 |DATABASECHANGELOGLOCK|ID, LOCKED, LOCKGRANTED, LOCKEDBY|
-|NODE_ATTACHMENTS|ATT_ID, CONTENT, FILENAME, INSERTION_DATE, UPLOADER, VERSION|
+|NODE_ATTACHMENTS|ATT_ID, CONTENT, FILENAME, INSERTION_DATE, UPLOADER|
 |NODE_ATTACHMENTS_CONTRACTS|ATT_ID, CONTRACT_CLASS_NAME|
 |NODE_ATTACHMENTS_SIGNERS|ATT_ID, SIGNER|
 |NODE_CHECKPOINTS|CHECKPOINT_ID, CHECKPOINT_VALUE|
 |NODE_CONTRACT_UPGRADES|STATE_REF, CONTRACT_CLASS_NAME|
-|NODE_HASH_TO_KEY|PK_HASH, PUBLIC_KEY|
 |NODE_IDENTITIES|PK_HASH, IDENTITY_VALUE|
-|NODE_IDENTITIES_NO_CERT|PK_HASH, NAME|
 |NODE_INFOS|NODE_INFO_ID, NODE_INFO_HASH, PLATFORM_VERSION, SERIAL|
 |NODE_INFO_HOSTS|HOST_NAME, PORT, NODE_INFO_ID, HOSTS_ID|
 |NODE_INFO_PARTY_CERT|PARTY_NAME, ISMAIN, OWNING_KEY_HASH, PARTY_CERT_BINARY|
@@ -116,20 +112,18 @@ By default, the node database has the following tables:
 |NODE_OUR_KEY_PAIRS|PUBLIC_KEY_HASH, PRIVATE_KEY, PUBLIC_KEY|
 |NODE_PROPERTIES|PROPERTY_KEY, PROPERTY_VALUE|
 |NODE_SCHEDULED_STATES|OUTPUT_INDEX, TRANSACTION_ID, SCHEDULED_AT|
-|NODE_TRANSACTIONS|TX_ID, TRANSACTION_VALUE, STATE_MACHINE_RUN_ID, STATUS|
-|PK_HASH_TO_EXT_ID_MAP|EXTERNAL_ID, PUBLIC_KEY_HASH|
-|STATE_PARTY|OUTPUT_INDEX, TRANSACTION_ID, PUBLIC_KEY_HASH, X500_NAME|
+|NODE_TRANSACTIONS|TX_ID, TRANSACTION_VALUE, STATE_MACHINE_RUN_ID|
+|PK_HASH_TO_EXT_ID_MAP|ID, EXTERNAL_ID, PUBLIC_KEY_HASH|
+|STATE_PARTY|OUTPUT_INDEX, TRANSACTION_ID, ID, PUBLIC_KEY_HASH, X500_NAME|
 |VAULT_FUNGIBLE_STATES|OUTPUT_INDEX, TRANSACTION_ID, ISSUER_NAME, ISSUER_REF, OWNER_NAME, QUANTITY|
 |VAULT_FUNGIBLE_STATES_PARTS|OUTPUT_INDEX, TRANSACTION_ID, PARTICIPANTS|
 |VAULT_LINEAR_STATES|OUTPUT_INDEX, TRANSACTION_ID, EXTERNAL_ID, UUID|
 |VAULT_LINEAR_STATES_PARTS|OUTPUT_INDEX, TRANSACTION_ID, PARTICIPANTS|
 |VAULT_STATES|OUTPUT_INDEX, TRANSACTION_ID, CONSUMED_TIMESTAMP, CONTRACT_STATE_CLASS_NAME, LOCK_ID, LOCK_TIMESTAMP, NOTARY_NAME, RECORDED_TIMESTAMP, STATE_STATUS, RELEVANCY_STATUS, CONSTRAINT_TYPE, CONSTRAINT_DATA|
 |VAULT_TRANSACTION_NOTES|SEQ_NO, NOTE, TRANSACTION_ID|
-|V_PKEY_HASH_EX_ID_MAP|PUBLIC_KEY_HASH, TRANSACTION_ID, OUTPUT_INDEX, EXTERNAL_ID|
+|V_PKEY_HASH_EX_ID_MAP|ID, PUBLIC_KEY_HASH, TRANSACTION_ID, OUTPUT_INDEX, EXTERNAL_ID|
 
 </div>
-
-For more details see: [Database tables](node-database-tables).
 
 
 ## Database connection pool

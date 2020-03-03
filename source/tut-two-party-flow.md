@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Updating the flow
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Updating the flow
 
 We now need to update our flow to achieve three things:
 
@@ -64,7 +65,7 @@ import java.util.List;
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUFlow.kt) | [IOUFlow.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUFlow.java)
+![github](/images/svg/github.svg "github") [IOUFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUFlow.kt) | [IOUFlow.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUFlow.java)
 
 
 </div>
@@ -141,7 +142,7 @@ return null;
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUFlow.kt) | [IOUFlow.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUFlow.java)
+![github](/images/svg/github.svg "github") [IOUFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUFlow.kt) | [IOUFlow.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUFlow.java)
 
 
 </div>
@@ -200,7 +201,9 @@ override fun call() {
             "The IOU's value can't be too high." using (iou.value < 100)
         }
     }
+
     val expectedTxId = subFlow(signTransactionFlow).id
+
     subFlow(ReceiveFinalityFlow(otherPartySession, expectedTxId))
 }
 
@@ -240,7 +243,7 @@ public Void call() throws FlowException {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUFlowResponder.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUFlowResponder.kt) | [IOUFlowResponder.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUFlowResponder.java)
+![github](/images/svg/github.svg "github") [IOUFlowResponder.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUFlowResponder.kt) | [IOUFlowResponder.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUFlowResponder.java)
 
 
 </div>
@@ -279,7 +282,7 @@ Once we’ve defined the `SignTransactionFlow` subclass, we invoke it using `Flo
 
 We have now updated our flow to verify the transaction and gather the lender’s signature, in line with the constraints
                 defined in `IOUContract`. We can now re-run our updated CorDapp, using the
-                [same instructions as before](hello-world-running).
+                [same instructions as before](hello-world-running.md).
 
 Our CorDapp now imposes restrictions on the issuance of IOUs. Most importantly, IOU issuance now requires agreement
                 from both the lender and the borrower before an IOU can be created on the blockchain. This prevents either the lender or
@@ -295,7 +298,8 @@ After completing this tutorial, your CorDapp should look like this:
 
 
 You should now be ready to develop your own CorDapps. You can also find a list of sample CorDapps
-                [here](https://www.corda.net/samples/). You are now ready to learn more about the Corda API.
+                [here](https://www.corda.net/samples/). As you write CorDapps, you’ll also want to learn more about the
+                [Corda API](corda-api.md).
 
 If you get stuck at any point, please reach out on [Slack](https://slack.corda.net/) or
                 [Stack Overflow](https://stackoverflow.com/questions/tagged/corda).

@@ -1,15 +1,16 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Vault
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Vault
 
 
-* [Soft Locking](soft-locking)
+* [Soft Locking](soft-locking.md)
 
 
 The vault contains data extracted from the ledger that is considered relevant to the node’s owner, stored in a relational model
@@ -37,7 +38,7 @@ Like with a cryptocurrency wallet, the Corda vault can create transactions that 
 A feature called **soft locking** provides the ability to automatically or explicitly reserve states to prevent
             multiple transactions within the same node from trying to use the same output simultaneously. Whilst this scenario would
             ultimately be detected by a notary, *soft locking* provides a mechanism of early detection for such unwarranted and
-            invalid scenarios. [Soft Locking](soft-locking) describes this feature in detail.
+            invalid scenarios. [Soft Locking](soft-locking.md) describes this feature in detail.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
@@ -80,7 +81,7 @@ The following diagram illustrates the breakdown of the vault into sub-system com
 * Customer “Off Ledger” (private store) represents internal organisational data that may be joined with the vault data to perform additional reporting or processing.
 
 
-* A [Vault Query API](api-vault-query) is exposed to developers using standard Corda RPC and CorDapp plugin mechanisms.
+* A [Vault Query API](api-vault-query.md) is exposed to developers using standard Corda RPC and CorDapp plugin mechanisms.
 
 
 * A vault update API is internally used by transaction recording flows.

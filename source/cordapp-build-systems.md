@@ -1,19 +1,20 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Building and installing a CorDapp
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Building and installing a CorDapp
 
 CorDapps run on the Corda platform and integrate with it and each other. This article explains how to build CorDapps.
 
-Applications on Corda (CorDapps) can be written in any language targeting the JVM. However, Corda itself and most of the samples are written in Kotlin. Kotlin is an [official Android language](https://developer.android.com/kotlin/index), and you can read more about why Kotlin is a strong successor to Java [here](https://medium.com/@octskyward/why-kotlin-is-my-next-programming-language-c25c001e26e3). If you’re unfamiliar with Kotlin, there is an official [getting started guide](https://kotlinlang.org/docs/tutorials/), and a series of [Kotlin Koans](https://kotlinlang.org/docs/tutorials/koans.html)
+Applications on Corda (CorDapps) can be written in any language targeting the JVM. However, Corda itself and most of the samples are written in Kotlin. Kotlin is an [official Android language](https://developer.android.com/kotlin/index.html), and you can read more about why Kotlin is a strong successor to Java [here](https://medium.com/@octskyward/why-kotlin-is-my-next-programming-language-c25c001e26e3). If you’re unfamiliar with Kotlin, there is an official [getting started guide](https://kotlinlang.org/docs/tutorials/), and a series of [Kotlin Koans](https://kotlinlang.org/docs/tutorials/koans.html)
 
-To learn what a CorDapp is, please read [What is a CorDapp?](cordapp-overview).
+To learn what a CorDapp is, please read [What is a CorDapp?](cordapp-overview.md).
 
 
 ## CorDapp format
@@ -78,9 +79,9 @@ Several `ext` variables are used in a CorDapp’s `build.gradle` file to define 
 The current versions used are as follows:
 
 ```groovy
-ext.corda_release_version = '4.4'
-ext.corda_gradle_plugins_version = '5.0.6'
-ext.quasar_version = '0.7.12_r3'
+ext.corda_release_version = '4.1'
+ext.corda_gradle_plugins_version = '4.0.42'
+ext.quasar_version = '0.7.10'
 ext.kotlin_version = '1.2.71'
 ```
 In certain cases, you may also wish to build against the unstable Master branch. See building-against-master.
@@ -203,6 +204,12 @@ Here is an overview of the various Corda dependencies:
 * `corda-tools-shell-cli` - The Shell CLI tool. Useful in build scripts
 
 
+* `corda-webserver-impl` - The Corda webserver fat JAR. Deprecated. Usually only used by build scripts
+
+
+* `corda-websever` - The Corda webserver library. Deprecated. Use a standard webserver library such as Spring instead
+
+
 
 ### Dependencies on other CorDapps
 
@@ -236,14 +243,14 @@ If your CorDapps have any additional external dependencies, they can be specifie
                     in Gradle. See the example below, specifically the `apache-commons` include.
 
 For further information about managing dependencies, see
-                    [the Gradle docs](https://docs.gradle.org/current/userguide/dependency_management).
+                    [the Gradle docs](https://docs.gradle.org/current/userguide/dependency_management.html).
 
 
 ### Signing the CorDapp JAR
 
-The `cordapp` plugin can sign the generated CorDapp JAR file using [JAR signing and verification tool](https://docs.oracle.com/javase/tutorial/deployment/jar/signing).
+The `cordapp` plugin can sign the generated CorDapp JAR file using [JAR signing and verification tool](https://docs.oracle.com/javase/tutorial/deployment/jar/signing.html).
                     Signing the CorDapp enables its contract classes to use signature constraints instead of other types of the constraints,
-                    for constraints explanation refer to [API: Contract Constraints](api-contract-constraints).
+                    for constraints explanation refer to [API: Contract Constraints](api-contract-constraints.md).
                     By default the JAR file is signed by Corda development certificate.
                     The signing process can be disabled or configured to use an external keystore.
                     The `signing` entry may contain the following parameters:
@@ -253,9 +260,9 @@ The `cordapp` plugin can sign the generated CorDapp JAR file using [JAR signing 
 > * `enabled` the control flag to enable signing process, by default is set to `true`, set to `false` to disable signing
 > 
 > 
-> * `options` any relevant parameters of [SignJar ANT task](https://ant.apache.org/manual/Tasks/signjar),
+> * `options` any relevant parameters of [SignJar ANT task](https://ant.apache.org/manual/Tasks/signjar.html),
 >                                 by default the JAR file is signed with Corda development key, the external keystore can be specified,
->                                 the minimal list of required options is shown below, for other options referer to [SignJar task](https://ant.apache.org/manual/Tasks/signjar):
+>                                 the minimal list of required options is shown below, for other options referer to [SignJar task](https://ant.apache.org/manual/Tasks/signjar.html):
 > 
 > 
 >     * `keystore` the path to the keystore file, by default *cordadevcakeys.jks* keystore is shipped with the plugin
@@ -306,7 +313,7 @@ CorDapp auto-signing allows to use signature constraints for contracts from the 
                     is accepted by Corda node only when running in the development mode. In case CordDapp signed by the (default)
                     development key is run on node in the production mode (e.g. for testing), the node may be set to accept the development
                     key by adding the `cordappSignerKeyFingerprintBlacklist = []` property set to empty list (see
-                    [Configuring a node](corda-configuration-file#corda-configuration-file-signer-blacklist)).
+                    [Configuring a node](corda-configuration-file.md#corda-configuration-file-signer-blacklist)).
 
 Signing options can be contextually overwritten by the relevant system properties as described above. This allows the
                     single `build.gradle` file to be used for a development build (defaulting to the Corda development keystore) and for
@@ -345,12 +352,12 @@ Then the build process can set the value for *custom.sigalg* system property and
 ```shell
 ./gradlew -Dcustom.sigalg="SHA256withECDSA" -Dsigning.keystore="/path/to/keystore.jks" -Dsigning.alias="alias" -Dsigning.storepass="password" -Dsigning.keypass="password"
 ```
-To check if CorDapp is signed use [JAR signing and verification tool](https://docs.oracle.com/javase/tutorial/deployment/jar/verify):
+To check if CorDapp is signed use [JAR signing and verification tool](https://docs.oracle.com/javase/tutorial/deployment/jar/verify.html):
 
 ```shell
 jarsigner --verify path/to/cordapp.jar
 ```
-Cordformation plugin can also sign CorDapps JARs, when deploying set of nodes, see [Creating nodes locally](generating-a-node).
+Cordformation plugin can also sign CorDapps JARs, when deploying set of nodes, see [Creating nodes locally](generating-a-node.md).
 
 If your build system post-processes the Cordapp JAR, then the modified JAR content may be out-of-date or not complete
                     with regards to a signature file. In this case you can sign the Cordapp as a separate step and disable the automatic signing by the `cordapp` plugin.
@@ -399,7 +406,7 @@ dependencies {
     cordaCompile "net.corda:corda-node-api:$corda_release_version"
     cordaCompile "net.corda:corda-webserver-impl:$corda_release_version"
     cordaRuntime "net.corda:corda:$corda_release_version"
-    cordaRuntime "net.corda:corda-testserver:$corda_release_version"
+    cordaRuntime "net.corda:corda-webserver:$corda_release_version"
     testCompile "net.corda:corda-test-utils:$corda_release_version"
 
     // Corda Plugins: dependent flows and services
@@ -447,7 +454,7 @@ The hash of the generated CorDapp JAR is not deterministic, as it depends on var
 The filename of the JAR must include a unique identifier to deduplicate it from other releases of the same CorDapp.
                 This is typically done by appending the version string to the CorDapp’s name. This unique identifier should not change
                 once the JAR has been deployed on a node. If it does, make sure no one is relying on `FlowContext.appName` in their
-                flows (see [Versioning](versioning)).
+                flows (see [Versioning](versioning.md)).
 
 
 ## Installing the CorDapp JAR
@@ -456,7 +463,7 @@ The filename of the JAR must include a unique identifier to deduplicate it from 
 
 
 Before installing a CorDapp, you must create one or more nodes to install it on. For instructions, please see
-                    [Creating nodes locally](generating-a-node).
+                    [Creating nodes locally](generating-a-node.md).
 
 
 </div>
@@ -490,7 +497,7 @@ class GetStringConfigFlow(private val configKey: String) : FlowLogic<String>() {
 }
 
 ```
-[GetStringConfigFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/cordapp-configuration/workflows/src/main/kotlin/net/corda/configsample/GetStringConfigFlow.kt)
+[GetStringConfigFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/samples/cordapp-configuration/workflows/src/main/kotlin/net/corda/configsample/GetStringConfigFlow.kt)
 ### Using CorDapp configuration with the deployNodes task
 
 If you want to generate CorDapp configuration when using the `deployNodes` Gradle task, then you can use the `cordapp` or `projectCordapp`
@@ -532,7 +539,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
 }
 ```
 There is an example project that demonstrates this in the `samples` folder of the Corda Git repository, called `cordapp-configuration` .
-                    API documentation can be found at [api/kotlin/corda/net.corda.core.cordapp/index.html](api/kotlin/corda/net.corda.core.cordapp/index).
+                    API documentation can be found at [api/kotlin/corda/net.corda.core.cordapp/index.html](api/kotlin/corda/net.corda.core.cordapp/index.html).
 
 
 ## Minimum and target platform version
@@ -691,8 +698,8 @@ As of Corda 4, CorDapp Contract JARs must be installed on a node by a trusted up
 * installing manually as per [Installing the CorDapp JAR](#cordapp-install-ref) and re-starting the node.
 
 
-* uploading the attachment JAR to the node via RPC, either programmatically (see [Connecting to a node via RPC](clientrpc#clientrpc-connect-ref))
-                        or via the [Node shell](shell) by issuing the following command:
+* uploading the attachment JAR to the node via RPC, either programmatically (see [Connecting to a node via RPC](clientrpc.md#clientrpc-connect-ref))
+                        or via the [Node shell](shell.md) by issuing the following command:
 
 
 `>>> run uploadAttachment jar: path/to/the/file.jar`

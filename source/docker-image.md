@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Official Corda Docker Image
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Official Corda Docker Image
 
 
 ## Running a node connected to a Compatibility Zone in Docker
@@ -31,7 +32,7 @@ docker run -ti \
         -v /path/to/cordapps:/opt/corda/cordapps \
         -p 10200:10200 \
         -p 10201:10201 \
-        corda/corda-zulu-java1.8-4.4:latest
+        corda/corda-zulu-5.0-snapshot:latest
 ```
 As the node runs within a container, several mount points are required:
 
@@ -86,7 +87,7 @@ docker run -ti \
         -v /home/user/sharedFolder/network-parameters:/opt/corda/network-parameters \
         -p 10200:10200 \
         -p 10201:10201 \
-        corda/corda-zulu-java1.8-4.4:latest
+        corda/corda-zulu-5.0-snapshot:latest
 ```
 There is a new mount `/home/user/sharedFolder/node-infos:/opt/corda/additional-node-infos` which is used to hold the `nodeInfo` of all the nodes within the network.
                 As the node within the container starts up, it will place it’s own nodeInfo into this directory. This will allow other nodes also using this folder to see this new node.
@@ -113,7 +114,7 @@ docker run -ti \
         -e LOCALITY="London" -e COUNTRY="GB" \
         -v /home/user/docker/config:/etc/corda \
         -v /home/user/docker/certificates:/opt/corda/certificates \
-        corda/corda-zulu-java1.8-4.4:latest config-generator --testnet
+        corda/corda-zulu-5.0-snapshot:latest config-generator --testnet
 ```
 `$MY_PUBLIC_ADDRESS` will be the public address that this node will be advertised on.
                 `$ONE_TIME_DOWNLOAD_KEY` is the one-time code provided for joining TestNet.
@@ -141,7 +142,7 @@ docker run -ti \
         -v /home/user/corda/samples/bank-of-corda-demo/build/nodes/BankOfCorda/cordapps:/opt/corda/cordapps \
         -p 10200:10200 \
         -p 10201:10201 \
-        corda/corda-zulu-java1.8-4.4:latest
+        corda/corda-zulu-5.0-snapshot:latest
 ```
 
 ## Joining an existing Compatibility Zone
@@ -168,7 +169,7 @@ docker run -ti --net="host" \
         -e MY_EMAIL_ADDRESS="cordauser@r3.com"      \
         -v /home/user/docker/config:/etc/corda          \
         -v /home/user/docker/certificates:/opt/corda/certificates \
-        corda/corda-zulu-java1.8-4.4:latest config-generator --generic
+        corda/corda-zulu-5.0-snapshot:latest config-generator --generic
 ```
 Several environment variables must also be passed to the container to allow it to register:
 
@@ -213,6 +214,6 @@ docker run -ti \
         -v /home/user/corda/samples/bank-of-corda-demo/build/nodes/BankOfCorda/cordapps:/opt/corda/cordapps \
         -p 10200:10200 \
         -p 10201:10201 \
-        corda/corda-zulu-java1.8-4.4:latest
+        corda/corda-zulu-5.0-snapshot:latest
 ```
 

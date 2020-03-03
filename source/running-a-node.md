@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Running nodes locally
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Running nodes locally
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
 You should already have generated your node(s) with their CorDapps installed by following the instructions in
-                [Creating nodes locally](generating-a-node).
+                [Creating nodes locally](generating-a-node.md).
 
 
 </div>
@@ -21,7 +22,7 @@ There are several ways to run a Corda node locally for testing purposes.
 
 ## Starting a Corda node using DemoBench
 
-See the instructions in [DemoBench](demobench).
+See the instructions in [DemoBench](demobench.md).
 
 
 ## Starting a Corda node from the command line
@@ -57,16 +58,16 @@ There are several ways of setting JVM arguments for the node process (particular
 
 
 Default arguments in capsule
-The capsuled Corda node has default flags set to `-Xmx512m -XX:+UseG1GC` - this gives the node (a relatively
+The capsuled corda node has default flags set to `-Xmx512m -XX:+UseG1GC` - this gives the node (a relatively
                                 low) 512 MB of heap space and turns on the G1 garbage collector, ensuring low pause times for garbage collection.
 
 
 Node configuration
 The node configuration file can specify custom default JVM arguments by adding a section like:
 
-```none
+```kotlin
 custom = {
-   jvmArgs: [ "-Xmx1G", "-XX:+UseG1GC" ]
+   jvmArgs: [ '-Xmx1G', '-XX:+UseG1GC' ]
 }
 ```
 Note that this will completely replace any defaults set by capsule above, not just the flags that are set here, so if you use this
@@ -90,26 +91,6 @@ Command line flag
 You can set JVM args on the command line that apply to the launcher process and the node process as in the example
                                 above. This will override any value for the same flag set any other way, but will leave any other JVM arguments alone.
 
-
-OutOfMemoryError handling
-In addition to the JVM arguments listed above, the capsuled Corda node has two flags that cause the node to stop
-                                on out-of-memory error and generate the corresponding diagnostic files:
-
-```kotlin
--XX:+HeapDumpOnOutOfMemoryError -XX:+CrashOnOutOfMemoryError
-```
-With `CrashOnOutOfMemoryError` the node which is running out of memory is expected to stop immediately (fail-fast) to preserve ledger
-                                consistency and avoid flaws in operations.
-
-Unlike for arguments related to memory and GC, to completely replace the default out-of-memory error args, you must explicitly add
-                                at least one out-of-memory error related argument into the `custom.jvmArgs` section. For example, the following config turns off
-                                `HeapDumpOnOutOfMemoryError` and doesn’t invoke `CrashOnOutOfMemoryError` option:
-
-```none
-custom = {
-   jvmArgs: [ "-Xmx1G", "-XX:+UseG1GC", "-XX:-HeapDumpOnOutOfMemoryError" ]
-}
-```
 
 ## Starting all nodes at once on a local machine from the command line
 
@@ -169,7 +150,7 @@ By default, `Cordform` expects the nodes it generates to be run on the same mach
 To create nodes locally and run on a remote machine perform the following steps:
 
 
-* Configure Cordform task and deploy the nodes locally as described in [Creating nodes locally](generating-a-node).
+* Configure Cordform task and deploy the nodes locally as described in [Creating nodes locally](generating-a-node.md).
 
 
 * Copy the generated directory structure to a remote machine using e.g. Secure Copy.
@@ -181,7 +162,7 @@ This is optional step when a remote machine doesn’t accept `localhost` address
 
 If required change host addresses in top level configuration files `[NODE NAME]_node.conf` for entries `p2pAddress` , `rpcSettings.address` and  `rpcSettings.adminAddress`.
 
-Run the network bootstrapper tool to regenerate the nodes network map (see for more explanation [Network Bootstrapper](network-bootstrapper)):
+Run the network bootstrapper tool to regenerate the nodes network map (see for more explanation [Network Bootstrapper](network-bootstrapper.md)):
 
 `java -jar corda-tools-network-bootstrapper-Master.jar --dir <nodes-root-dir>`
 
@@ -190,35 +171,5 @@ Run the network bootstrapper tool to regenerate the nodes network map (see for m
 
 
 The above steps create a test deployment as `deployNodes` Gradle task would do on a local machine.
-
-
-## Stability of the Corda Node
-
-There are a number of critical resources necessary for Corda Node to operate to ensure transactional consistency of the ledger.
-                These critical resources include:
-
-
-* Connection to a database;
-
-
-* Connection to Artemis Broker for P2P communication;
-
-
-* Connection to Artemis Broker for RPC communication.
-
-
-Should any of those critical resources become not available, Corda Node will be getting into an unstable state and as a safety precaution it will
-                shut itself down reporting the cause as an error message to the Node’s log file.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-On some operating systems when PC is going to sleep whilst Corda Node is running, imbedded into Node Artemis message broker reports
-                    the loss of heartbeat event which in turn causes loss of connectivity to Artemis. In such circumstances Corda Node will exit reporting broker
-                    connectivity problem in the log.
-
-
-</div>
-Once critical resources node relies upon are available again, it is safe for Node operator to re-start the node for normal operation.
 
 

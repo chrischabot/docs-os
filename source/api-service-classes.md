@@ -1,17 +1,17 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: 'API: Service Classes'
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# API: Service Classes
 
 Service classes are long-lived instances that can trigger or be triggered by flows from within a node. A Service class is limited to a
-            single instance per node. During startup, the node handles the creation of the service. If there is problem when instantiating service
-            the node will report in the log what the problem was and terminate.
+            single instance per node. During startup, the node handles the creation of the service.
 
 Services allow related, reusable, functions to be separated into their own class where their functionality is
             grouped together. These functions can then be called from other services or flows.
@@ -42,23 +42,7 @@ Below is an empty implementation of a Service class:
 class MyCordaService(private val serviceHub: AppServiceHub) : SingletonSerializeAsToken() {
 
     init {
-        // Custom code ran at service creation
-
-        // Optional: Express interest in receiving lifecycle events
-        services.register { processEvent(it) }
-    }
-
-    private fun processEvent(event: ServiceLifecycleEvent) {
-        // Lifecycle event handling code including full use of serviceHub
-        when (event) {
-            STATE_MACHINE_STARTED -> {
-                services.vaultService.queryBy(...)
-                services.startFlow(...)
-            }
-            else -> {
-                // Process other types of events
-            }
-        }
+        // code ran at service creation / node startup
     }
 
     // public api of service
@@ -72,26 +56,11 @@ class MyCordaService(private val serviceHub: AppServiceHub) : SingletonSerialize
 @CordaService
 public class MyCordaService extends SingletonSerializeAsToken {
 
-    private final AppServiceHub serviceHub;
+    private AppServiceHub serviceHub;
 
     public MyCordaService(AppServiceHub serviceHub) {
         this.serviceHub = serviceHub;
-        // Custom code ran at service creation
-
-        // Optional: Express interest in receiving lifecycle events
-        serviceHub.register(SERVICE_PRIORITY_NORMAL, this::processEvent);
-    }
-
-    private void processEvent(ServiceLifecycleEvent event) {
-        switch (event) {
-            case STATE_MACHINE_STARTED:
-                serviceHub.getVaultService().queryBy(...)
-                serviceHub.startFlow(...)
-                break;
-            default:
-                // Process other types of events
-                break;
-        }
+        // code ran at service creation / node startup
     }
 
     // public api of service
@@ -104,12 +73,9 @@ public class MyCordaService extends SingletonSerializeAsToken {
 The `AppServiceHub` provides the `ServiceHub` functionality to the Service class, with the extra ability to start flows. Starting flows
                 from `AppServiceHub` is explained further in [Starting Flows from a Service](#starting-flows-from-a-service).
 
-The `AppServiceHub` also provides access to `database` which will enable the Service class to perform DB transactions from the threads
-                managed by the Service.
-
-Also the `AppServiceHub` provides ability for `CordaService` to subscribe for lifecycle events of the node, such that it will get notified
-                about node finishing initialisation and when the node is shutting down such that `CordaService` will be able to perform clean-up of some
-                critical resources. For more details please have refer to KDocs for `ServiceLifecycleObserver`.
+Code can be run during node startup when the class is being initialised. To do so, place the code into the `init` block or constructor.
+                This is useful when a service needs to establish a connection to an external database or setup observables via `ServiceHub.trackBy` during
+                its startup. These can then persist during the service’s lifetime.
 
 
 ## Retrieving a Service

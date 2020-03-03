@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Getting started developing CorDapps
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Getting started developing CorDapps
 
 
 Getting started with Corda will walk you through the process of setting up a development environment, deploying an example CorDapp, and building your own CorDapp based on the example.
@@ -15,10 +16,10 @@ Getting started with Corda will walk you through the process of setting up a dev
 * [Setting up a development environment](#setting-up-a-development-environment)
 
 
-* [Deploying an example CorDapp](./quickstart-deploy)
+* [Deploying an example CorDapp](./quickstart-deploy.html)
 
 
-* [Building your own CorDapp](./quickstart-build)
+* [Building your own CorDapp](./quickstart-build.html)
 
 
 

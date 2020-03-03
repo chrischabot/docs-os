@@ -1,12 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
+menu:
+- corda-os-4.1
 title: 'API: Core types'
-description: 'Overview of the core Corda types'
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# API: Core types
 
 Corda provides several more core classes as part of its API.
 
@@ -28,7 +30,7 @@ interface NamedByHash {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
+![github](/images/svg/github.svg "github") [Structures.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/contracts/Structures.kt)
 
 
 </div>

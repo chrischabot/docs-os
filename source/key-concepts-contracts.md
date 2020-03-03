@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Contracts
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Contracts
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -14,13 +15,13 @@ version: corda-os-4.4
 # Summary
 
 
-* *A transaction is contractually valid if all of its input and output states are acceptable according to the contract.*
+* *A valid transaction must be accepted by the contract of each of its input and output states*
 
 
-* *Contracts are written in Java or Kotlin.*
+* *Contracts are written in a JVM programming language (e.g. Java or Kotlin)*
 
 
-* *Contract execution is deterministic, and transaction acceptance is based on the transaction’s contents alone.*
+* *Contract execution is deterministic and its acceptance of a transaction is based on the transaction’s contents alone*
 
 
 
@@ -54,24 +55,21 @@ Recall that a transaction is only valid if it is digitally signed by all require
 
 We can picture this situation as follows:
 
-![tx validation](resources/tx-validation.png "tx validation")The contract code has access to the full capabilities of the language,
+![tx validation](resources/tx-validation.png "tx validation")The contract code can be written in any JVM language, and has access to the full capabilities of the language,
                 including:
 
 
-* Checking the number of inputs, outputs, commands, or attachments
-
-
-* Checking whether there is a time window or not
+* Checking the number of inputs, outputs, commands, time-window, and/or attachments
 
 
 * Checking the contents of any of these components
 
 
-* Looping constructs, variable assignment, function calls, helper methods, and so on
+* Looping constructs, variable assignment, function calls, helper methods, etc.
 
 
-* Grouping similar states to validate them as a group; for example, imposing a rule on the combined value of all the cash
-                        states
+* Grouping similar states to validate them as a group (e.g. imposing a rule on the combined value of all the cash
+                        states)
 
 
 A transaction that is not contractually valid is not a valid proposal to update the ledger, and thus can never be
@@ -88,12 +86,12 @@ Transaction verification must be *deterministic* - a contract should either **al
 
 Future versions of Corda will evaluate transactions in a strictly deterministic sandbox. The sandbox has a whitelist that
                 prevents the contract from importing libraries that could be a source of non-determinism. This includes libraries
-                that provide the current time, random number generators, libraries that provide file system access or networking
+                that provide the current time, random number generators, libraries that provide filesystem access or networking
                 libraries, for example. Ultimately, the only information available to the contract when verifying the transaction is
                 the information included in the transaction itself.
 
-**Tip:** Developers can pre-verify that their CorDapps are deterministic by linking their CorDapps against the deterministic modules
-                (see the [Deterministic Corda Modules](deterministic-modules)).
+Developers can pre-verify their CorDapps are determinsitic by linking their CorDapps against the deterministic modules
+                (see the [Deterministic Corda Modules](deterministic-modules.md)).
 
 
 ## Contract limitations
@@ -111,7 +109,7 @@ Peers should therefore check the contents of a transaction before signing it, *e
 ## Oracles
 
 Sometimes, transaction validity will depend on some external piece of information, such as an exchange rate. In
-                these cases, an oracle is required. See [Oracles](key-concepts-oracles) for further details.
+                these cases, an oracle is required. See [Oracles](key-concepts-oracles.md) for further details.
 
 
 ## Legal prose

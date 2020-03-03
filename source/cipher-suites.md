@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Cipher suites supported by Corda
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Cipher suites supported by Corda
 
 The set of signature schemes supported forms a part of the consensus rules for a Corda DLT network.
             Thus, it is important that implementations do not support pluggability of any crypto algorithms and do take measures
@@ -20,8 +21,8 @@ Corda has been designed to be cryptographically agile, in the sense that the ava
             with various HSM vendors, algorithm standardisation, variety of cryptographic primitives, business demand, option for
             post-quantum resistance, side channel security, efficiency and rigorous testing.
 
-Before we present the pool of supported schemes it is useful to be familiar with [Network certificates](permissioning)
-            and [API: Identity](api-identity). An important design decision in Corda is its shared hierarchy between the
+Before we present the pool of supported schemes it is useful to be familiar with [Network certificates](permissioning.md)
+            and [API: Identity](api-identity.md). An important design decision in Corda is its shared hierarchy between the
             TLS and Node Identity certificates.
 
 
@@ -60,7 +61,7 @@ A Corda network has 8 types of keys and a regular node requires 4 of them:
 
 
 We can visualise the certificate structure as follows (for a detailed description of cert-hierarchy,
-                see [Network certificates](permissioning)):
+                see [Network certificates](permissioning.md)):
 
 ![certificate structure](resources/certificate_structure.png "certificate structure")
 ## Supported cipher suites

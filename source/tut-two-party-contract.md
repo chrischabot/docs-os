@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Writing the contract
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Writing the contract
 
 It’s easy to imagine that most CorDapps will want to impose some constraints on how their states evolve over time:
 
@@ -205,7 +206,7 @@ public class IOUContract implements Contract {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUContract.kt) | [IOUContract.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUContract.java)
+![github](/images/svg/github.svg "github") [IOUContract.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/twoparty/IOUContract.kt) | [IOUContract.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/twoparty/IOUContract.java)
 
 
 </div>

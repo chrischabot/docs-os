@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: What is a CorDapp?
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# What is a CorDapp?
 
 CorDapps (Corda Distributed Applications) are distributed applications that run on the Corda platform. The goal of a
             CorDapp is to allow nodes to reach agreement on updates to the ledger. They achieve this goal by defining flows that
@@ -21,15 +22,15 @@ These class definitions will commonly include the following elements:
 
 
 * Flows: Define a routine for the node to run, usually to update the ledger
-                        (see [Key Concepts - Flows](key-concepts-flows)). They subclass `FlowLogic`
+                        (see [Key Concepts - Flows](key-concepts-flows.md)). They subclass `FlowLogic`
 
 
-* States: Define the facts over which agreement is reached (see [Key Concepts - States](key-concepts-states)).
+* States: Define the facts over which agreement is reached (see [Key Concepts - States](key-concepts-states.md)).
                         They implement the `ContractState` interface
 
 
 * Contracts, defining what constitutes a valid ledger update (see
-                        [Key Concepts - Contracts](key-concepts-contracts)). They implement the `Contract` interface
+                        [Key Concepts - Contracts](key-concepts-contracts.md)). They implement the `Contract` interface
 
 
 * Services, providing long-lived utilities within the node. They subclass `SingletonSerializationToken`
@@ -82,13 +83,11 @@ After installing this CorDapp, the node owner will be able to use the flows defi
 
 ## Writing and building apps that run on both Corda (open source) and Corda Enterprise
 
-Corda and Corda Enterprise are moving towards an Open Core approach, which means in practice that the APIs and dependencies for CorDapps
-                should all be open source, and all CorDapps (whether targeting Corda open source or Corda Enterprise) can now be compiled against the Open
-                Source Corda core library, as Corda Enterprise itself is compiled against the Open Source core library.
+Corda and Corda Enterprise are compatible and interoperable, which means you can write a CorDapp that can run on both.
                 To make this work in practice you should follow these steps:
 
 
-* Ensure your CorDapp is designed per [Structuring a CorDapp](writing-a-cordapp) and annotated according to [CorDapp separation](cordapp-build-systems#cordapp-separation-ref).
+* Ensure your CorDapp is designed per [Structuring a CorDapp](writing-a-cordapp.md) and annotated according to [CorDapp separation](cordapp-build-systems.md#cordapp-separation-ref).
                         In particular, it is critical to separate the consensus-critical parts of your application (contracts, states and their dependencies) from
                         the rest of the business logic (flows, APIs, etc).
                         The former - the **CorDapp kernel** - is the Jar that will be attached to transactions creating/consuming your states and is the Jar
@@ -99,19 +98,23 @@ Corda and Corda Enterprise are moving towards an Open Core approach, which means
 
 
 It is also important to understand how to manage any dependencies a CorDapp may have on 3rd party libraries and other CorDapps.
-                    Please read [Setting your dependencies](cordapp-build-systems#cordapp-dependencies-ref) to understand the options and recommendations with regards to correctly Jar’ing CorDapp dependencies.
+                    Please read [Setting your dependencies](cordapp-build-systems.md#cordapp-dependencies-ref) to understand the options and recommendations with regards to correctly Jar’ing CorDapp dependencies.
 
 
 </div>
 
-* Compile this **CorDapp kernel** Jar once, and then depend on it from your workflows Jar. In terms of Corda depdendencies,this should only
-                        depend on the `corda-core` package from the Corda Open Source distribution.
+* Compile this **CorDapp kernel** Jar once, and then depend on it from your workflows Jar (or Jars - see below). Importantly, if
+                        you want your app to work on both Corda and Corda Enterprise, you must compile this Jar against Corda, not Corda Enterprise.
+                        This is because, in future, we may add additional functionality to Corda Enterprise that is not in Corda and you may inadvertently create a
+                        CorDapp kernel that does not work on Corda open source. Compiling against Corda open source as a matter of course prevents this risk, as well
+                        as preventing the risk that you inadvertently create two different versions of the Jar, which will have different hashes and hence break compatibility
+                        and interoperability.
 
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-As of Corda 4 it is recommended to use [CorDapp Jar signing](cordapp-build-systems#cordapp-build-system-signing-cordapp-jar-ref) to leverage the new signature constraints functionality.
+As of Corda 4 it is recommended to use [CorDapp Jar signing](cordapp-build-systems.md#cordapp-build-system-signing-cordapp-jar-ref) to leverage the new signature constraints functionality.
 
 
 </div>
@@ -120,10 +123,6 @@ As of Corda 4 it is recommended to use [CorDapp Jar signing](cordapp-build-syste
                         Jars for Corda and Corda Enterprise, because the workflows Jar is not consensus critical. For example, you may wish to add additional features
                         to your CorDapp for when it is run on Corda Enterprise (perhaps it uses advanced features of one of the supported enterprise databases or includes
                         advanced database migration scripts, or some other Enterprise-only feature).
-
-When building a CorDapp against Corda Enterprise, please note that the `corda-core` library still needs to come from the open source
-                        distribution, so you will have dependencies on Corda Enterprise and a matching open core distribution. Specifically, any CorDapp targeted
-                        to run on Corda Enterprise should have unit and integration tests using Corda Enterprise.
 
 
 In summary, structure your app as kernel (contracts, states, dependencies) and workflow (the rest) and be sure to compile the kernel

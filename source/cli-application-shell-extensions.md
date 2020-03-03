@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Shell extensions for CLI Applications
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Shell extensions for CLI Applications
 
 
 ## Installing shell extensions
@@ -34,7 +35,7 @@ You will now be able to run the command line application from anywhere by runnin
 For example, for the Corda node, install the shell extensions using
 
 ```shell
-java -jar corda-4.4.jar install-shell-extensions
+java -jar corda-4.1.jar install-shell-extensions
 ```
 And then run the node by running:
 
@@ -70,10 +71,10 @@ Which will update the alias to point to the new location, and update command lin
 
 |Description|Alias|JAR Name|
 |---------------------------------------------------------|------------------------------|----------------------------------------------------------|
-|[Corda node](running-a-node#starting-an-individual-corda-node)|`corda --<option>`|`corda-4.4.jar`|
-|[Network bootstrapper](network-bootstrapper)|`bootstrapper --<option>`|`corda-tools-network-bootstrapper-4.4.jar`|
-|[Standalone shell](shell#standalone-shell)|`corda-shell --<option>`|`corda-tools-shell-cli-4.4.jar`|
-|[Blob inspector](blob-inspector)|`blob-inspector --<option>`|`corda-tools-blob-inspector-4.4.jar`|
+|[Corda node](running-a-node.md#starting-an-individual-corda-node)|`corda --<option>`|`corda-4.1.jar`|
+|[Network bootstrapper](network-bootstrapper.md)|`bootstrapper --<option>`|`corda-tools-network-bootstrapper-4.1.jar`|
+|[Standalone shell](shell.md#standalone-shell)|`corda-shell --<option>`|`corda-tools-shell-cli-4.1.jar`|
+|[Blob inspector](blob-inspector.md)|`blob-inspector --<option>`|`corda-tools-blob-inspector-4.1.jar`|
 
 </div>
 

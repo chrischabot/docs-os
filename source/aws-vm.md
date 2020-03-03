@@ -1,14 +1,15 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: AWS Marketplace
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# AWS Marketplace
 
-To help you design, build and test applications on Corda, called CorDapps, a Corda network AMI can be deployed from the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/B077PG9SP5). Instructions on running Corda nodes can be found [here](https://docs.corda.net/deploying-a-node).
+To help you design, build and test applications on Corda, called CorDapps, a Corda network AMI can be deployed from the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/B077PG9SP5). Instructions on running Corda nodes can be found [here](https://docs.corda.net/deploying-a-node.html).
 
 This Corda network offering builds a pre-configured network of Corda nodes as Ubuntu virtual machines (VM). The network consists of a Notary node and three Corda nodes using version 1 of Corda. The following guide will also show you how to load one of four [Corda Sample apps](https://www.corda.net/samples) which demonstrates the basic principles of Corda. When you are ready to go further with developing on Corda and start making contributions to the project head over to the [Corda.net](https://www.corda.net/).
 
@@ -61,10 +62,10 @@ Follow instructions for the specific sample at [https://www.corda.net/samples](h
 ./gradlew deployNodes
 ./kotlin-source/build/nodes/runnodes
 ```
-Then start the Corda test webserver
+Then start the Corda webserver
 
 ```shell
-find ~/dev/cordapp-example/kotlin-source/ -name corda-testserver.jar -execdir sh -c 'java -jar {} &' \;
+find ~/dev/cordapp-example/kotlin-source/ -name corda-webserver.jar -execdir sh -c 'java -jar {} &' \;
 ```
 You can now interact with your running CorDapp. See the instructions [here](https://docs.corda.net/tutorial-cordapp.html#via-http).
 

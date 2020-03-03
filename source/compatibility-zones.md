@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: What is a compatibility zone?
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# What is a compatibility zone?
 
 Every Corda node is part of a “zone” (also sometimes called a Corda network) that is *permissioned*. Production
             deployments require a secure certificate authority. We use the term “zone” to refer to a set of technically compatible
@@ -22,18 +23,18 @@ Every Corda node is part of a “zone” (also sometimes called a Corda network)
 ### Bootstrapping a compatibility zone
 
 You can easily bootstrap a compatibility zone for testing or pre-production use with either the
-                    [Network Bootstrapper](network-bootstrapper) or the [Corda Network Builder](network-builder) tools.
+                    [Network Bootstrapper](network-bootstrapper.md) or the [Corda Network Builder](network-builder.md) tools.
 
 
 ### Joining an existing compatibility zone
 
 After the testing and pre-production phases, users are encouraged to join an existing compatibility zone such as Corda
-                    Network (the main compatibility zone) or the Corda Testnet. See [Joining an existing compatibility zone](joining-a-compatibility-zone).
+                    Network (the main compatibility zone) or the Corda Testnet. See [Joining an existing compatibility zone](joining-a-compatibility-zone.md).
 
 
 ### Setting up a dynamic compatibility zone
 
 Some users may also be interested in setting up their own dynamic compatibility zone. For instructions and a discussion
-                    of whether this approach is suitable for you, see [Setting up a dynamic compatibility zone](setting-up-a-dynamic-compatibility-zone).
+                    of whether this approach is suitable for you, see [Setting up a dynamic compatibility zone](setting-up-a-dynamic-compatibility-zone.md).
 
 

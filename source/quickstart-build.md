@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Building your own CorDapp
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Building your own CorDapp
 
 After examining a functioning CorDapp, the next challenge is to create one of your own. We’re going to build a simple supply chain CorDapp representing a network between a car dealership, a car manufacturer, and a bank.
 
@@ -37,7 +38,7 @@ The first thing you need to do is clone a CorDapp template to modify.
 
 ## Step Two: Creating states
 
-Since the CorDapp models a car dealership network, a state must be created to represent cars. States are immutable objects representing on-ledger facts. A state might represent a physical asset like a car, or an intangible asset or agreement like an IOU. For more information on states, see the [state documentation](./key-concepts-states).
+Since the CorDapp models a car dealership network, a state must be created to represent cars. States are immutable objects representing on-ledger facts. A state might represent a physical asset like a car, or an intangible asset or agreement like an IOU. For more information on states, see the [state documentation](./key-concepts-states.html).
 
 
 * From IntelliJ expand the source files and navigate to the following state template file: `contracts > src > main > kotlin > com.template > states > TemplateState.kt`.
@@ -75,7 +76,7 @@ Since the CorDapp models a car dealership network, a state must be created to re
 > It’s important to specify what classes are required in each state, contract, and flow. This process must be repeated with each file as it is created.
 
 
-* Update `@BelongsToContract(TemplateContract::class)` to specify `CarContract::class`.
+* Update `@BelongsToContract(TemplateContract:class)` to specify `CarContract::class`.
 
 
 * Add the following fields to the state:
@@ -168,7 +169,7 @@ The `CarState` definition has now been created. It lists the properties and asso
 
 ## Step Three: Creating contracts
 
-After creating a state, you must create a contract. Contracts define the rules that govern how states can be created and evolved. For example, a contract for a Cash state should check that any transaction that changes the ownership of the cash is signed by the current owner and does not create cash from thin air. To learn more about contracts, see the [contracts documentation](./key-concepts-contracts).
+After creating a state, you must create a contract. Contracts define the rules that govern how states can be created and evolved. For example, a contract for a Cash state should check that any transaction that changes the ownership of the cash is signed by the current owner and does not create cash from thin air. To learn more about contracts, see the [contracts documentation](./key-concepts-contracts.html).
 
 
 * From IntelliJ, expand the project source and navigate to: `contracts > src > main > kotlin > com > template > contracts > TemplateContract.kt`
@@ -435,7 +436,7 @@ class CarIssueResponder(val counterpartySession: FlowSession) : FlowLogic<Unit>(
 * Verify the transaction by calling `verify(serviceHub)` on the `TransactionBuilder`.
 
 
-* Sign the transaction and store the result in a variable, using the following [serviceHub](./api-service-hub) method:
+* Sign the transaction and store the result in a variable, using the following [serviceHub](./api-service-hub.html) method:
 
 <div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
 <TabPanel value={value} index={0}>
@@ -774,22 +775,22 @@ Now that the CorDapp code has been completed and the build file updated, the Cor
 The getting started experience is designed to be lightweight and get to code as quickly as possible, for more detail, see the following documentation:
 
 
-* [CorDapp design best practice](./writing-a-cordapp)
+* [CorDapp design best practice](./writing-a-cordapp.html)
 
 
-* [Testing CorDapp contracts](./tutorial-test-dsl)
+* [Testing CorDapp contracts](./tutorial-test-dsl.html)
 
 
 For operational users, see the following documentation:
 
 
-* [Node structure and configuration](/corda-nodes-index)
+* [Node structure and configuration](/corda-nodes-index.html)
 
 
-* [Deploying a node to a server](deploying-a-node)
+* [Deploying a node to a server](deploying-a-node.html)
 
 
-* [Notary documentation](running-a-notary)
+* [Notary documentation](running-a-notary.html)
 
 
 

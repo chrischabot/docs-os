@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: States
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# States
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -44,7 +45,7 @@ For example, the following state represents an IOU - an agreement that Alice owe
 ![state](resources/state.png "state")Specifically, this state represents an IOU of £10 from Alice to Bob.
 
 As well as any information about the fact itself, the state also contains a reference to the *contract* that governs
-                the evolution of the state over time. We discuss contracts in [Contracts](key-concepts-contracts).
+                the evolution of the state over time. We discuss contracts in [Contracts](key-concepts-contracts.md).
 
 
 ## State sequences
@@ -73,7 +74,7 @@ Each node on the network maintains a *vault* - a database where it tracks all th
 Not all states need to be updated by the parties which use them. In the case of reference data, there is a common pattern
                 where one party creates reference data, which is then used (but not updated) by other parties. For this use-case, the
                 states containing reference data are referred to as “reference states”. Syntactically, reference states are no different
-                to regular states. However, they are treated different by Corda transactions. See [Transactions](key-concepts-transactions) for
+                to regular states. However, they are treated different by Corda transactions. See [Transactions](key-concepts-transactions.md) for
                 more details.
 
 

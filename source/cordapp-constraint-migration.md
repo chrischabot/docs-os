@@ -1,25 +1,26 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: CorDapp constraints migration
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# CorDapp constraints migration
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Before reading this page, you should be familiar with the key concepts of [Contract Constraints](api-contract-constraints).
+Before reading this page, you should be familiar with the key concepts of [Contract Constraints](api-contract-constraints.md).
 
 
 </div>
 Corda 4 introduces and recommends building signed CorDapps that issue states with signature constraints.
-            When building transactions in Corda 4, existing on ledger states issued before Corda 4 are only automatically transitioned to the new
-            Signature Constraint if they were originally using the CZ Whitelisted Constraint. This document explains how to modify existing CorDapp flows to
-            explicitly consume and evolve pre Corda 4 states.
+            Existing on ledger states issued before Corda 4 are not automatically transitioned to new signature constraints when building transactions in Corda 4.
+            This document explains how to modify existing CorDapp flows to explicitly consume and evolve pre Corda 4 states, and outlines a future mechanism
+            where such states will transition automatically (without explicit migration code).
 
 Faced with the exercise of upgrading an existing Corda 3.x CorDapp to Corda 4, you need to consider the following:
 
@@ -53,7 +54,7 @@ Faced with the exercise of upgrading an existing Corda 3.x CorDapp to Corda 4, y
 * Should I use the **implicit** or **explicit** upgrade path?
 
 > 
-> The general recommendation for Corda 4 is to use **implicit** upgrades for the reasons described [here](api-contract-constraints#implicit-vs-explicit-upgrades).
+> The general recommendation for Corda 4 is to use **implicit** upgrades for the reasons described [here](api-contract-constraints.md#implicit-vs-explicit-upgrades).
 > 
 > **Implicit** upgrades allow pre-authorising multiple implementations of the contract ahead of time.
 >                         They do not require additional coding and do not incur a complex choreographed operational upgrade process.
@@ -64,7 +65,7 @@ Faced with the exercise of upgrading an existing Corda 3.x CorDapp to Corda 4, y
 
 The steps outlined in this page assume you are using the same CorDapp Contract (eg. same state definition, commands and verification code) and
                 wish to use that CorDapp to leverage the upgradeability benefits of Corda 4 signature constraints. If you are looking to upgrade code within an existing
-                Contract CorDapp please read [Contract and state versioning](upgrading-cordapps#contract-upgrading-ref) and [CorDapp Upgradeability Guarantees](cordapp-upgradeability) to understand your options.
+                Contract CorDapp please read [Contract and state versioning](upgrading-cordapps.md#contract-upgrading-ref) and [CorDapp Upgradeability Guarantees](cordapp-upgradeability.md) to understand your options.
 
 
 </div>
@@ -83,13 +84,13 @@ These instructions only apply to CorDapp Contract JARs (unless otherwise stated)
 
 </div>
 
-### Corda 4.4
+### Corda 4.0
 
-Corda 4.4 requires some additional steps to consume and evolve pre-existing on-ledger **hash** constrained states:
+Corda 4.0 requires some additional steps to consume and evolve pre-existing on-ledger **hash** constrained states:
 
 
 * All Corda Nodes in the same CZ or business network that may encounter a transaction chain with a hash constrained state must be started using
-                            relaxed hash constraint checking mode as described in [Hash constrained states in private networks](api-contract-constraints#relax-hash-constraints-checking-ref).
+                            relaxed hash constraint checking mode as described in [Hash constrained states in private networks](api-contract-constraints.md#relax-hash-constraints-checking-ref).
 
 
 * CorDapp flows that build transactions using pre-existing *hash-constrained* states must explicitly set output states to use *signature constraints*
@@ -138,6 +139,13 @@ TransactionBuilder txBuilder = new TransactionBuilder(notary)
 
 
 
+### Later releases
+
+The next version of Corda will provide automatic transition of *hash constrained* states. This means that signed CorDapps running on a Corda 4.x node will
+                    automatically propagate any pre-existing on-ledger *hash-constrained* states (and generate *signature-constrained* outputs) when the system property
+                    to break constraints is set.
+
+
 ## CZ whitelisted constraints migration
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
@@ -148,14 +156,14 @@ These instructions only apply to CorDapp Contract JARs (unless otherwise stated)
 
 </div>
 
-### Corda 4.4
+### Corda 4.0
 
-Corda 4.4 requires some additional steps to consume and evolve pre-existing on-ledger **CZ whitelisted** constrained states:
+Corda 4.0 requires some additional steps to consume and evolve pre-existing on-ledger **CZ whitelisted** constrained states:
 
 
-* As the original developer of the CorDapp, the first step is to sign the latest version of the JAR that was released (see [Building and installing a CorDapp](cordapp-build-systems)).
+* As the original developer of the CorDapp, the first step is to sign the latest version of the JAR that was released (see [Building and installing a CorDapp](cordapp-build-systems.md)).
                             The key used for signing will be used to sign all subsequent releases, so it should be stored appropriately. The JAR can be signed by multiple keys owned
-                            by different parties and it will be expressed as a `CompositeKey` in the `SignatureAttachmentConstraint` (See [API: Core types](api-core-types)).
+                            by different parties and it will be expressed as a `CompositeKey` in the `SignatureAttachmentConstraint` (See [API: Core types](api-core-types.md)).
 
 
 * The new Corda 4 signed CorDapp JAR must be registered with the CZ network operator (as whitelisted in the network parameters which are distributed
@@ -166,29 +174,20 @@ The process of CZ network CorDapp whitelisting depends on how the Corda network 
 
 > 
 > 
-> * if using a hosted CZ network (such as [The Corda Network](https://docs.corda.net/head/corda-network/index) or
->                                         [UAT Environment](https://docs.corda.net/head/corda-network/UAT) ) running an Identity Operator (formerly known as Doorman) and
+> * if using a hosted CZ network (such as [The Corda Network](https://docs.corda.net/head/corda-network/index.html) or
+>                                         [UAT Environment](https://docs.corda.net/head/corda-network/UAT.html) ) running an Identity Operator (formerly known as Doorman) and
 >                                         Network Map Service, you should manually send the hashes of the two JARs to the CZ network operator and request these be added using
 >                                         their network parameter update process.
 > 
 > 
 > * if using a local network created using the Network Bootstrapper tool, please follow the instructions in
->                                         [Updating the contract whitelist for bootstrapped networks](network-bootstrapper#bootstrapper-updating-whitelisted-contracts) to can add both CorDapp Contract JAR hashes.
+>                                         [Updating the contract whitelist for bootstrapped networks](network-bootstrapper.md#bootstrapper-updating-whitelisted-contracts) to can add both CorDapp Contract JAR hashes.
 > 
 > 
 
-* Any flow that builds transactions using this CorDapp will automatically transition states to use the `SignatureAttachmentConstraint` if
-                            no other constraint is specified and the CorDapp continues to be whitelisted. Therefore, there are two ways to alter the existing code.
+* Any flows that build transactions using this CorDapp will have the responsibility of transitioning states to the `SignatureAttachmentConstraint`.
+                            This is done explicitly in the code by setting the constraint of the output states to signers of the latest version of the whitelisted jar:
 
-
-* Do not specify a constraint
-
-
-* Explicitly add a Signature Constraint
-
-
-
-The code below details how to explicitly add a Signature Constraint:
 
 <div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
 <TabPanel value={value} index={0}>
@@ -230,5 +229,11 @@ TransactionBuilder txBuilder = new TransactionBuilder(notary)
                             Please also ensure that the original unsigned contracts CorDapp is removed from the `/cordapps` folder (this will already be present in the
                             nodes attachments store) to ensure the lookup code in step 3 retrieves the correct signed contract CorDapp JAR.
 
+
+
+### Later releases
+
+The next version of Corda will provide automatic transition of *CZ whitelisted* constrained states. This means that signed CorDapps running on a Corda 4.x node will
+                    automatically propagate any pre-existing on-ledger *CZ whitelisted* constrained states (and generate *signature* constrained outputs).
 
 

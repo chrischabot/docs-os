@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Running our CorDapp
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Running our CorDapp
 
 Now that we’ve written a CorDapp, it’s time to test it by running it on some real Corda nodes.
 
@@ -19,7 +20,7 @@ Let’s take a look at the nodes we’re going to deploy. Open the project’s `
                 `PartyB`), plus a special network map/notary node that is running the network map service and advertises a validating notary
                 service.
 
-```none
+```bash
 task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
 
     nodeDefaults {
@@ -115,7 +116,7 @@ Go to the terminal window displaying the CRaSH shell of PartyA. Typing `help` wi
 
 
 Local terminal shell is available only in a development mode. In production environment SSH server can be enabled.
-                    More about SSH and how to connect can be found on the [Node shell](shell) page.
+                    More about SSH and how to connect can be found on the [Node shell](shell.md) page.
 
 
 </div>
@@ -132,7 +133,7 @@ If the flow worked, it should have recorded a new IOU in the vaults of both Part
 We can check the contents of each node’s vault by running:
 
 ```bash
-run vaultQuery contractStateType: com.template.states.IOUState
+run vaultQuery contractStateType: com.template.IOUState
 ```
 The vaults of PartyA and PartyB should both display the following output:
 

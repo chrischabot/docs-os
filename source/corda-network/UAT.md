@@ -1,17 +1,15 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
-title: 'Corda Network: Pre-Production Environment'
-version: corda-os-4.4
+- corda-os-4.1
+title: 'Corda Network: UAT Environment'
+version: corda-os-4.1
 ---
 
 
-# Corda Network: Pre-Production Environment
+# Corda Network: UAT Environment
 
-Corda Network Pre-Production (or UAT) seeks to provide a test environment which is as close as possible to Corda Network in its make-up and operation.
-
-For owners of tested CorDapps with a firm plan to take them into production, a bespoke Pre-Production environment is provided. Here, such CorDapps can be further tested in the network configuration they will experience in production, utilising relevant Corda Network Services (including the Identity Operator, Network Map and notaries).
+For owners of tested CorDapps with a firm plan to take them into production, a bespoke UAT environment can be provided by R3. Here, such CorDapps can be further tested in the network configuration they will experience in production, utilising relevant Corda Network Services (including the Identity Operator, and trusted notaries).
 
 Corda UAT is not intended for customers’ full test cycles, as it is expected that the bulk of CorDapp testing will occur in simpler network configurations run by the CorDapp provider, but is available for testing of functionally complete and tested CorDapps in realistic network settings to simulate the real-world business environment, including the production settings of network parameters, Corda network services and supported Corda versions.
 
@@ -20,9 +18,9 @@ UAT is therefore more aligned to the testing of the operational characteristics 
 More information about UAT will continue to be uploaded on this site or related sub-sites.
 
 
-## Joining the Pre-Production environment
+## Joining the UAT environment
 
-*The below joining steps assume the potential participant is joining the Pre-Production environment directly, and as such is not “sponsoring” or onboarding other participants. If this is the case, please contact your Corda representative for how to ‘sponsor’ end-participants on.*
+*The below joining steps assume the potential participant is joining the UAT environment directly, and as such is not “sponsoring” or onboarding other participants. If this is the case, please contact your Corda representative for how to ‘sponsor’ end-participants onto UAT.*
 
 **Pre-requisites:**
 
@@ -32,7 +30,7 @@ More information about UAT will continue to be uploaded on this site or related 
 * One or more physical or virtual machines upon which to deploy Corda, with compatible operating system and a compatible Java version (e.g. Oracle JDK 8u131+)
 
 
-* Corda software - either Open Source or Corda Enterprise (CE requires a license from R3)
+* Corda software - either Open Source or Corda Enterprise (license from R3)
 
 
 * A static external IP addresses must be available for each machine on which Corda will be run.
@@ -48,13 +46,13 @@ More information about UAT will continue to be uploaded on this site or related 
 
 
 **Note**:
-                Corda Network Pre-Production is governed by an [independent Foundation](https://corda.network/governance/index.html).
+                *Corda Network UAT is an R3 owned and operated environment and service designed to support parties intending to join Corda Network proper with realistic network test facilities. In contrast, Corda Network is a production network governed by an `independent Foundation <https://corda.network/governance/index.html>`_ and has no responsibility for Corda Network UAT. Corda Network UAT seeks to provide a test environment which is as close as possible to Corda Network in its make-up and operation.*
 
 
-## Steps to join the Pre-Production environment
+## Steps to join UAT environment
 
-Steps to join are outlined on the [Corda Network site](https://corda.network/participation/index.html).
+Steps to join are outlined on the [Corda Network UAT microsite](http://uat.network.r3.com/pages/joining/joining.html)
 
-For further questions on this process, please contact us - preferably on the mailing list: [https://groups.io/g/corda-network](https://groups.io/g/corda-network) or at [info@corda.network](mailto:info@corda.network)
+For further questions on this process, please contact us - preferably on the mailing list: [https://groups.io/g/corda-network](https://groups.io/g/corda-network)
 
 

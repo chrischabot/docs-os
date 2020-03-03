@@ -1,33 +1,34 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Networks
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Networks
 
 
-* [What is a compatibility zone?](compatibility-zones)
+* [What is a compatibility zone?](compatibility-zones.md)
 
-* [Network certificates](permissioning)
+* [Network certificates](permissioning.md)
 
-* [The network map](network-map)
+* [The network map](network-map.md)
 
-* [Cipher suites supported by Corda](cipher-suites)
+* [Cipher suites supported by Corda](cipher-suites.md)
 
-* [Joining an existing compatibility zone](joining-a-compatibility-zone)
+* [Joining an existing compatibility zone](joining-a-compatibility-zone.md)
 
-* [Joining Corda Testnet](corda-testnet-intro)
+* [Joining Corda Testnet](corda-testnet-intro.md)
 
-* [Deploying Corda to Testnet](deploy-to-testnet-index)
+* [Deploying Corda to Testnet](deploy-to-testnet-index.md)
 
-* [Using the Node Explorer to test a Corda node on Corda Testnet](testnet-explorer-corda)
+* [Using the Node Explorer to test a Corda node on Corda Testnet](testnet-explorer-corda.md)
 
-* [Setting up a dynamic compatibility zone](setting-up-a-dynamic-compatibility-zone)
+* [Setting up a dynamic compatibility zone](setting-up-a-dynamic-compatibility-zone.md)
 
-* [Setting up a notary service](running-a-notary)
+* [Setting up a notary service](running-a-notary.md)
 
 
 

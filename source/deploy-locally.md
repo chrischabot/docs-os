@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Deploying Corda to Corda Testnet from your local environment
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Deploying Corda to Corda Testnet from your local environment
 
 This document explains how to set up your local network to enable a
             Corda node to connect to the Corda Testnet. This assumes you are
@@ -183,6 +184,6 @@ It is possible to copy the `node.zip` file from your local machine to any other 
 
 ## Testing your deployment
 
-To test your deployment is working correctly follow the instructions in [Using the Node Explorer to test a Corda node on Corda Testnet](testnet-explorer-corda) to set up the Finance CorDapp and issue cash to a counterparty.
+To test your deployment is working correctly follow the instructions in [Using the Node Explorer to test a Corda node on Corda Testnet](testnet-explorer-corda.md) to set up the Finance CorDapp and issue cash to a counterparty.
 
 

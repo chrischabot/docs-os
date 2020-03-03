@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Network certificates
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Network certificates
 
 
 ## Certificate hierarchy
@@ -77,10 +78,10 @@ The required key pairs and certificates take the form of the following Java-styl
 The key pairs and certificates must obey the following restrictions:
 
 
-* The certificates must follow the [X.509v3 standard](https://tools.ietf.orgrfc5280)
+* The certificates must follow the [X.509v3 standard](https://tools.ietf.org/html/rfc5280)
 
 
-* The TLS certificates must follow the [TLS v1.2 standard](https://tools.ietf.orgrfc5246)
+* The TLS certificates must follow the [TLS v1.2 standard](https://tools.ietf.org/html/rfc5246)
 
 
 * The root network CA, doorman CA, and node CA keys, as well as the node TLS keys, must follow one of the following schemes:

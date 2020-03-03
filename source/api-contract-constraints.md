@@ -1,25 +1,19 @@
 ---
-title: 'API: Contract Constraints'
-description: Learn how to use Contract Constraints
 date: '2020-01-08T09:59:25Z'
-version: corda-os-4.4
+menu:
+- corda-os-4.1
+title: 'API: Contract Constraints'
+version: corda-os-4.1
 ---
 
 
 
+# API: Contract Constraints
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Before reading this page, you should be familiar with the key concepts of [Contracts](key-concepts-contracts).
-
-
-</div>
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-As of Corda 4.4 the *minimumPlatformVersion* required to use these features is 4
-                (see [Network Parameters](network-map#network-parameters) and [Corda Features to Versions](features-versions) for more details).
+Before reading this page, you should be familiar with the key concepts of [Contracts](key-concepts-contracts.md).
 
 
 </div>
@@ -65,7 +59,7 @@ The advantage of pre-authorising upgrades using constraints is that you don’t 
                     anticipate a need to do so. But it requires everyone to sign, manually authorise the upgrade,
                     consumes notary and ledger resources, and is just in general more complex.
 
-This article focuses on the first approach. To learn about the second please see [Release new CorDapp versions](upgrading-cordapps).
+This article focuses on the first approach. To learn about the second please see [Release new CorDapp versions](upgrading-cordapps.md).
 
 
 ## Types of Contract Constraints
@@ -115,104 +109,11 @@ Expanding on the previous section, for an app to use Signature Constraints, it m
                     The signers of the app can consist of a single organisation or multiple organisations. Once the app has been signed, it can be distributed
                     across the nodes that intend to use it.
 
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-The platform currently supports `CompositeKey`s with up to 20 keys maximum.
-                        This maximum limit is assuming keys that are either 2048-bit `RSA` keys or  256-bit elliptic curve (`EC`) keys.
-
-
-</div>
 Each transaction received by a node will then verify that the apps attached to it have the correct signers as specified by its
                     Signature Constraints. This ensures that the version of each app is acceptable to the transaction’s input states.
 
-If a node receives a transaction that uses an attachment that it doesn’t trust, but there is another attachment present on the node with
-                    at least one common signature, then the node will trust the received attachment. This means that nodes
-                    are no longer required to have every version of a CorDapp uploaded to them in order to verify transactions running older versions of a CorDapp.
-                    Instead, it is sufficient to have any version of the CorDapp contract installed.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-An attachment is considered trusted if it was manually installed or uploaded via RPC.
-
-
-</div>
-Signers can also be blacklisted to prevent attachments received from a peer from being loaded and used in processing transactions. Only a
-                    single signer of an attachment needs to be blacklisted for an attachment to be considered untrusted. CorDapps
-                    and other attachments installed on a node can still be used without issue, even if they are signed by a blacklisted key. Only attachments
-                    received from a peer are affected.
-
-Below are two examples of possible scenarios around blacklisting signing keys:
-
-> 
-> 
-> * The statements below are true for both examples:
-> 
-> > 
-> > 
-> >     * `Alice` has `Contracts CorDapp` installed
-> > 
-> > 
-> >     * `Bob` has an upgraded version of `Contracts CorDapp` (known as `Contracts CorDapp V2`) installed
-> > 
-> > 
-> >     * Both `Alice` and `Bob` have the `Workflows CorDapp` allowing them to transact with each other
-> > 
-> > 
-> >     * `Contracts CorDapp` is signed by both `Alice` and `Bob`
-> > 
-> > 
-> >     * `Contracts CorDapp V2` is signed by both `Alice` and `Bob`
-> > 
-> > 
-> 
-> * Example 1:
-> 
-> > 
-> > 
-> >     * `Alice` has not blacklisted any attachment signing keys
-> > 
-> > 
-> >     * `Bob` transacts with `Alice`
-> > 
-> > 
-> >     * `Alice` receives `Contracts CorDapp V2` and stores it
-> > 
-> > 
-> >     * When verifying the attachments loaded into the contract verification code, `Contracts CorDapp V2` is accepted and used
-> > 
-> > 
-> >     * The contract verification code in `Contracts CorDapp V2` is run
-> > 
-> > 
-> 
-> * Example 2:
-> 
-> > 
-> > 
-> >     * `Alice` blacklists `Bob`’s attachment signing key
-> > 
-> > 
-> >     * `Bob` transacts with `Alice`
-> > 
-> > 
-> >     * `Alice` receives `Contracts CorDapp V2` and stores it
-> > 
-> > 
-> >     * When verifying the attachments loaded in the contract verification code, `Contracts CorDapp V2` is declined because it is signed
-> >                                             by `Bob`’s blacklisted key
-> > 
-> > 
-> >     * The contract verification code in `Contracts CorDapp V2` is not run and the transaction fails
-> > 
-> > 
-> 
-Information on blacklisting attachment signing keys can be found in the
-                    [node configuration documentation](corda-configuration-file#corda-configuration-file-blacklisted-attachment-signer-keys).
-
 More information on how to sign an app directly from Gradle can be found in the
-                    [CorDapp Jar signing](cordapp-build-systems#cordapp-build-system-signing-cordapp-jar-ref) section of the documentation.
+                    [CorDapp Jar signing](cordapp-build-systems.md#cordapp-build-system-signing-cordapp-jar-ref) section of the documentation.
 
 
 ### Using Signature Constraints in transactions
@@ -231,7 +132,9 @@ Signature Constraints are used by default except when a new transaction contains
 
 ### App versioning with Signature Constraints
 
-Signed apps require a version number to be provided, see [Versioning](versioning).
+Signed apps require a version number to be provided, see [Versioning](versioning.md). You can’t import two different
+                    JARs that claim to be the same version, provide the same contract classes and which are both signed. At runtime
+                    the node will throw a `DuplicateContractClassException` exception if this condition is violated.
 
 
 ## Hash Constraints
@@ -274,33 +177,19 @@ Starting with Corda 4, a `ContractState` must explicitly indicate which `Contrac
 There are two mechanisms for indicating ownership. One is to annotate the `ContractState` with the `BelongsToContract` annotation,
                 indicating the `Contract` class to which it is tied:
 
-<div><Tabs value={value} aria-label="code tabs"><Tab label="java" /><Tab label="kotlin" /></Tabs>
-<TabPanel value={value} index={0}>
-
 ```java
-@BelongsToContract(MyContract.class)
+@BelongToContract(MyContract.class)
 public class MyState implements ContractState {
     // implementation goes here
 }
 ```
-
-</TabPanel>
-<TabPanel value={value} index={1}>
-
 ```kotlin
 @BelongsToContract(MyContract::class)
 data class MyState(val value: Int) : ContractState {
     // implementation goes here
 }
 ```
-
-</TabPanel>
-
-</div>
-The other is to define the `ContractState` class as an inner class of the `Contract` class:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="java" /><Tab label="kotlin" /></Tabs>
-<TabPanel value={value} index={0}>
+The other is to define the `ContractState` class as an inner class of the `Contract` class
 
 ```java
 public class MyContract implements Contract {
@@ -312,24 +201,11 @@ public class MyContract implements Contract {
     // contract implementation goes here
 }
 ```
-
-</TabPanel>
-<TabPanel value={value} index={1}>
-
 ```kotlin
 class MyContract : Contract {
-
-    data class MyState(val value: Int) : ContractState {
-        // state implementation goes here
-    }
-
-    // contract implementation goes here
+    data class MyState(val value: Int) : ContractState
 }
 ```
-
-</TabPanel>
-
-</div>
 If a `ContractState`’s owning `Contract` cannot be identified by either of these mechanisms, and the `targetVersion` of the
                 CorDapp is 4 or greater, then transaction verification will fail with a `TransactionRequiredContractUnspecifiedException`. If
                 the owning `Contract` *can* be identified, but the `ContractState` has been bundled with a different contract, then
@@ -401,7 +277,7 @@ private fun transaction(): TransactionBuilder {
 
 ## CorDapps as attachments
 
-CorDapp JARs (see [What is a CorDapp?](cordapp-overview)) that contain classes implementing the `Contract` interface are automatically
+CorDapp JARs (see [What is a CorDapp?](cordapp-overview.md)) that contain classes implementing the `Contract` interface are automatically
                 loaded into the `AttachmentStorage` of a node, and made available as `ContractAttachments`.
 
 They are retrievable by hash using `AttachmentStorage.openAttachment`. These JARs can either be installed on the
@@ -415,7 +291,7 @@ The obvious way to write a CorDapp is to put all you states, contracts, flows an
                     (1) it is inefficient, and (2) it means changes to your flows or other parts of the app will be seen by the ledger
                     as a “new app”, which may end up requiring essentially unnecessary upgrade procedures. It’s better to split your
                     app into multiple modules: one which contains just states, contracts and core data types. And another which contains
-                    the rest of the app. See [Modules](writing-a-cordapp#cordapp-structure).
+                    the rest of the app. See [Modules](writing-a-cordapp.md#cordapp-structure).
 
 
 </div>
@@ -446,7 +322,7 @@ During transaction building the `AutomaticPlaceholderConstraint` for output stat
 
 ## Constraints migration to Corda 4
 
-Please read [CorDapp constraints migration](cordapp-constraint-migration) to understand how to consume and evolve pre-Corda 4 issued hash or CZ whitelisted constrained states
+Please read [CorDapp constraints migration](cordapp-constraint-migration.md) to understand how to consume and evolve pre-Corda 4 issued hash or CZ whitelisted constrained states
                 using a Corda 4 signed CorDapp (using signature constraints).
 
 
@@ -455,64 +331,37 @@ Please read [CorDapp constraints migration](cordapp-constraint-migration) to und
 If an attachment constraint cannot be resolved, a `MissingContractAttachments` exception is thrown. There are three common sources of
                 `MissingContractAttachments` exceptions:
 
-
-### Not setting CorDapp packages in tests
-
 You are running a test and have not specified the CorDapp packages to scan.
-                    When using `MockNetwork` ensure you have provided a package containing the contract class in `MockNetworkParameters`. See [API: Testing](api-testing).
+                When using `MockNetwork` ensure you have provided a package containing the contract class in `MockNetworkParameters`. See [API: Testing](api-testing.md).
 
 Similarly package names need to be provided when testing using `DriverDSl`. `DriverParameters` has a property `cordappsForAllNodes` (Kotlin)
-                    or method `withCordappsForAllNodes` in Java. Pass the collection of `TestCordapp` created by utility method `TestCordapp.findCordapp(String)`.
+                or method `withCordappsForAllNodes` in Java. Pass the collection of `TestCordapp` created by utility method `TestCordapp.findCordapp(String)`.
 
-Example of creation of two Cordapps with Finance App Flows and Finance App Contracts:
+Example of creation of two Cordapps with Finance App Flows and Finance App Contracts in Kotlin:
 
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-Driver.driver(DriverParameters(
-    cordappsForAllNodes = listOf(
-        TestCordapp.findCordapp("net.corda.finance.schemas"),
-        TestCordapp.findCordapp("net.corda.finance.flows")
-    )
-) {
-    // Your test code goes here
-})
+> 
+> ```kotlin
+> Driver.driver(DriverParameters(cordappsForAllNodes = listOf(TestCordapp.findCordapp("net.corda.finance.schemas"),
+>         TestCordapp.findCordapp("net.corda.finance.flows"))) {
+>     // Your test code goes here
+> })
 ```
+The same example in Java:
 
-</TabPanel>
-<TabPanel value={value} index={1}>
-
-```java
-Driver.driver(
-    new DriverParameters()
-        .withCordappsForAllNodes(
-            Arrays.asList(
-                TestCordapp.findCordapp("net.corda.finance.schemas"),
-                TestCordapp.findCordapp("net.corda.finance.flows")
-            )
-        ),
-    dsl -> {
-      // Your test code goes here
-    }
-);
+> 
+> ```java
+> Driver.driver(new DriverParameters()
+>         .withCordappsForAllNodes(Arrays.asList(TestCordapp.findCordapp("net.corda.finance.schemas"),
+>         TestCordapp.findCordapp("net.corda.finance.flows"))), dsl -> {
+>     // Your test code goes here
+> });
 ```
-
-</TabPanel>
-
-</div>
-
-### Starting a node missing CorDapp(s)
-
 When running the Corda node ensure all CordDapp JARs are placed in `cordapps` directory of each node.
-                    By default Gradle Cordform task `deployNodes` copies all JARs if CorDapps to deploy are specified.
-                    See [Creating nodes locally](generating-a-node) for detailed instructions.
-
-
-### Wrong fully-qualified contract name
+                By default Gradle Cordform task `deployNodes` copies all JARs if CorDapps to deploy are specified.
+                See [Creating nodes locally](generating-a-node.md) for detailed instructions.
 
 You are specifying the fully-qualified name of the contract incorrectly. For example, you’ve defined `MyContract` in
-                    the package `com.mycompany.myapp.contracts`, but the fully-qualified contract name you pass to the
-                    `TransactionBuilder` is `com.mycompany.myapp.MyContract` (instead of `com.mycompany.myapp.contracts.MyContract`).
+                the package `com.mycompany.myapp.contracts`, but the fully-qualified contract name you pass to the
+                `TransactionBuilder` is `com.mycompany.myapp.MyContract` (instead of `com.mycompany.myapp.contracts.MyContract`).
 
 

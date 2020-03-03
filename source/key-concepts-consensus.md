@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Consensus
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Consensus
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -99,6 +100,6 @@ This is a problem because, although both transactions will achieve validity cons
 If one or more of the inputs have already been consumed in another transaction, this is known as a *double spend*,
                 and the transaction proposal is considered invalid.
 
-Uniqueness consensus is provided by notaries. See [Notaries](key-concepts-notaries) for more details.
+Uniqueness consensus is provided by notaries. See [Notaries](key-concepts-notaries.md) for more details.
 
 

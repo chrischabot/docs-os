@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Observer nodes
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Observer nodes
 
 Posting transactions to an observer node is a common requirement in finance, where regulators often want
             to receive comprehensive reporting on all actions taken. By running their own node, regulators can receive a stream
@@ -59,7 +60,7 @@ Just define a new flow that wraps the SendTransactionFlow/ReceiveTransactionFlow
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [AutoOfferFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/irs-demo/cordapp/workflows-irs/src/main/kotlin/net.corda.irs/flows/AutoOfferFlow.kt)
+![github](/images/svg/github.svg "github") [AutoOfferFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/samples/irs-demo/cordapp/workflows-irs/src/main/kotlin/net.corda.irs/flows/AutoOfferFlow.kt)
 
 
 </div>
@@ -77,7 +78,7 @@ In this example, the `AutoOfferFlow` is the business logic, and we define two ve
                     we do want to passively observe states we can’t change. So overriding this behaviour is required.
 
 
-If the states define a relational mapping (see [API: Persistence](api-persistence)) then the regulator will be able to query the
+If the states define a relational mapping (see [API: Persistence](api-persistence.md)) then the regulator will be able to query the
             reports from their database and observe new transactions coming in via RPC.
 
 
@@ -90,16 +91,16 @@ If the states define a relational mapping (see [API: Persistence](api-persistenc
                         This also means that `Cash.generateSpend` should not be used when recording `Cash.State` states as an observer
 
 
+* Nodes only record each transaction once. If a node has already recorded a transaction in non-observer mode, it cannot
+                        later re-record the same transaction as an observer. This issue is tracked here:
+                        [https://r3-cev.atlassian.net/browse/CORDA-883](https://r3-cev.atlassian.net/browse/CORDA-883)
+
+
 * When an observer node is sent a transaction with the ALL_VISIBLE flag set, any transactions in the transaction history
                         that have not already been received will also have ALL_VISIBLE states recorded. This mean a node that is both an observer
                         and a participant may have some transactions with all states recorded and some with only relevant states recorded, even
                         if those transactions are part of the same chain. As a result, there may be more states present in the vault than would be
                         expected if just those transactions sent with the ALL_VISIBLE recording flag were processed in this way.
-
-
-* Nodes may re-record transaction if they have previously recorded them as a participant and wish to record them as an observer. However,
-                        the node cannot resolve a forward chain of transactions if this is done. This means that if you wish to re-record a chain of transactions
-                        and get the new output states to be correctly marked as consumed, the full chain must be sent to the node *in order*.
 
 
 

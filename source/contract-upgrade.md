@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Upgrading contracts
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Upgrading contracts
 
 While every care is taken in development of contract code, inevitably upgrades will be required to fix bugs (in either
             design or implementation). Upgrades can involve a substitution of one version of the contract code for another or
@@ -81,14 +82,14 @@ class Authorise(
 ) : FlowLogic<Void?>() {
 
 ```
-[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)```kotlin
+[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)```kotlin
 @StartableByRPC
 class Deauthorise(val stateRef: StateRef) : FlowLogic<Void?>() {
     @Suspendable
     override fun call(): Void? {
 
 ```
-[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)
+[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.1/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)
 ## Proposing an upgrade
 
 After all parties have authorised the contract upgrade for the state, one of the contract participants can initiate the
@@ -115,27 +116,6 @@ Bank A and Bank B decide to upgrade the contract to `DummyContractV2`:
 class DummyContractV2 : UpgradedContractWithLegacyConstraint<DummyContract.State, DummyContractV2.State> {
     companion object {
         const val PROGRAM_ID: ContractClassName = "net.corda.testing.contracts.DummyContractV2"
-
-        /**
-         * An overload of move for just one input state.
-         */
-        @JvmStatic
-        fun move(prior: StateAndRef<State>, newOwner: AbstractParty) = move(listOf(prior), newOwner)
-
-        /**
-         * Returns a [TransactionBuilder] that takes the given input states and transfers them to the newOwner.
-         */
-        @JvmStatic
-        fun move(priors: List<StateAndRef<State>>, newOwner: AbstractParty): TransactionBuilder {
-            require(priors.isNotEmpty()) { "States to move to new owner must not be empty" }
-            val priorState = priors[0].state.data
-            val (, state) = priorState.withNewOwner(newOwner)
-            return TransactionBuilder(notary = priors[0].state.notary).withItems(
-                    /* INPUTS  */ *priors.toTypedArray(),
-                    /* COMMAND */ Command(, priorState.owners.map { it.owningKey }),
-                    /* OUTPUT  */ StateAndContract(state, DummyContractV2.PROGRAM_ID)
-            )
-        }
     }
 
     override val legacyContract: String = DummyContract::class.java.name
@@ -143,11 +123,6 @@ class DummyContractV2 : UpgradedContractWithLegacyConstraint<DummyContract.State
 
     data class State(val magicNumber: Int = 0, val owners: List<AbstractParty>) : ContractState {
         override val participants: List<AbstractParty> = owners
-
-        fun withNewOwner(newOwner: AbstractParty): Pair<Commands, State> {
-            val newState = this.copy(owners = listOf(newOwner))
-            return Pair(Commands.Move(), newState)
-        }
     }
 
     interface Commands : CommandData {
@@ -165,14 +140,14 @@ class DummyContractV2 : UpgradedContractWithLegacyConstraint<DummyContract.State
 }
 
 ```
-[DummyContractV2.kt](https://github.com/corda/corda/blob/release/os/4.4/testing/test-utils/src/main/kotlin/net/corda/testing/contracts/DummyContractV2.kt)
+[DummyContractV2.kt](https://github.com/corda/corda/blob/release/os/4.1/testing/test-utils/src/main/kotlin/net/corda/testing/contracts/DummyContractV2.kt)
 * Bank A instructs its node to accept the contract upgrade to `DummyContractV2` for the contract state.
 
 
-<div><Tabs value={value} aria-label="code tabs"><Tab label="none" /></Tabs>
+<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
 <TabPanel value={value} index={0}>
 
-```none
+```kotlin
 val rpcClient : CordaRPCClient = << Bank A's Corda RPC Client >>
 val rpcA = rpcClient.proxy()
 rpcA.startFlow(ContractUpgradeFlow.Authorise(<<StateAndRef of the contract state>>, DummyContractV2::class.java))
@@ -187,10 +162,10 @@ rpcA.startFlow(ContractUpgradeFlow.Authorise(<<StateAndRef of the contract state
                         and agreed with the upgrade. The upgraded transaction will be recorded in every participant’s node by the flow.
 
 
-<div><Tabs value={value} aria-label="code tabs"><Tab label="none" /></Tabs>
+<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
 <TabPanel value={value} index={0}>
 
-```none
+```kotlin
 val rpcClient : CordaRPCClient = << Bank B's Corda RPC Client >>
 val rpcB = rpcClient.proxy()
 rpcB.startFlow({ stateAndRef, upgrade -> ContractUpgradeFlow(stateAndRef, upgrade) },

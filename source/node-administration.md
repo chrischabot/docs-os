@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Node administration
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Node administration
 
 
 ## Logging
@@ -27,18 +28,8 @@ The node is using log4j2 asynchronous logging by default (configured via log4j2 
                 to ensure that log message flushing is not slowing down the actual processing.
                 If you need to switch to synchronous logging (e.g. for debugging/testing purposes), you can override this behaviour
                 by adding `-DLog4jContextSelector=org.apache.logging.log4j.core.selector.ClassLoaderContextSelector` to the node’s
-                command line or to the `jvmArgs` section of the node configuration (see [Node configuration](corda-configuration-file)).
+                command line or to the `jvmArgs` section of the node configuration (see [Node configuration](corda-configuration-file.md)).
 
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-Ensure that `shutdownHook="disable"` is set if you are overriding the log4j2 configuration file
-                    otherwise logs will not be flushed properly on shutdown and loss may occur. The option is set in the `Configuration`
-                    tag of the log4j configuration file, for example `<Configuration ... shutdownHook="disable">`. This is because
-                    Corda overrides the default log4j2 shutdown logic in order to make sure it gets shut down correctly.
-
-
-</div>
 
 ### Example
 
@@ -77,68 +68,56 @@ To determine the name of the logger, for Corda objects, use the fully qualified 
 
 ## SSH access
 
-Node can be configured to run SSH server. See [Node shell](shell) for details.
+Node can be configured to run SSH server. See [Node shell](shell.md) for details.
 
 
 ## Database access
 
 When running a node backed with a H2 database, the node can be configured to expose the database over a socket
-                (see [Database access when running H2](node-database-access-h2)).
+                (see [Database access when running H2](node-database-access-h2.md)).
 
 Note that in production, exposing the database via the node is not recommended.
 
 
 ## Monitoring your node
 
-This section covers monitoring performance and health of a node in Corda Enterprise with Jolokia and Graphite. General best practices for monitoring (e.g. setting up TCP checks for the ports the node communicates on, database health checks etc.) are not covered here but should be followed.
-
-
-### Monitoring via Jolokia
-
 Like most Java servers, the node can be configured to export various useful metrics and management operations via the industry-standard
-                    [JMX infrastructure](https://en.wikipedia.org/wiki/Java_Management_Extensions). JMX is a standard API
-                    for registering so-called *MBeans* … objects whose properties and methods are intended for server management. As Java
-                    serialization in the node has been restricted for security reasons, the metrics can only be exported via a Jolokia agent.
+                [JMX infrastructure](https://en.wikipedia.org/wiki/Java_Management_Extensions). JMX is a standard API
+                for registering so-called *MBeans* … objects whose properties and methods are intended for server management. As Java
+                serialization in the node has been restricted for security reasons, the metrics can only be exported via a Jolokia agent.
 
 [Jolokia](https://jolokia.org/) allows you to access the raw data and operations without connecting to the JMX port
-                    directly. Nodes can be configured to export the data over HTTP on the `/jolokia` HTTP endpoint, Jolokia defines the JSON and REST
-                    formats for accessing MBeans, and provides client libraries to work with that protocol as well.
+                directly. Nodes can be configured to export the data over HTTP on the `/jolokia` HTTP endpoint, Jolokia defines the JSON and REST
+                formats for accessing MBeans, and provides client libraries to work with that protocol as well.
 
 Here are a few ways to build dashboards and extract monitoring data for a node:
 
 
 * [Hawtio](http://hawt.io) is a web based console that connects directly to JVM’s that have been instrumented with a
-                            jolokia agent. This tool provides a nice JMX dashboard very similar to the traditional JVisualVM / JConsole MBbeans original.
+                        jolokia agent. This tool provides a nice JMX dashboard very similar to the traditional JVisualVM / JConsole MBbeans original.
 
 
 * [JMX2Graphite](https://github.com/logzio/jmx2graphite) is a tool that can be pointed to /monitoring/json and will
-                            scrape the statistics found there, then insert them into the Graphite monitoring tool on a regular basis. It runs
-                            in Docker and can be started with a single command.
+                        scrape the statistics found there, then insert them into the Graphite monitoring tool on a regular basis. It runs
+                        in Docker and can be started with a single command.
 
 
 * [JMXTrans](https://github.com/jmxtrans/jmxtrans) is another tool for Graphite, this time, it’s got its own agent
-                            (JVM plugin) which reads a custom config file and exports only the named data. It’s more configurable than
-                            JMX2Graphite and doesn’t require a separate process, as the JVM will write directly to Graphite.
+                        (JVM plugin) which reads a custom config file and exports only the named data. It’s more configurable than
+                        JMX2Graphite and doesn’t require a separate process, as the JVM will write directly to Graphite.
 
 
 * Cloud metrics services like New Relic also understand JMX, typically, by providing their own agent that uploads the
-                            data to their service on a regular schedule.
+                        data to their service on a regular schedule.
 
 
 * [Telegraf](https://github.com/influxdata/telegraf) is a tool to collect, process, aggregate, and write metrics.
-                            It can bridge any data input to any output using their plugin system, for example, Telegraf can
-                            be configured to collect data from Jolokia and write to DataDog web api.
+                        It can bridge any data input to any output using their plugin system, for example, Telegraf can
+                        be configured to collect data from Jolokia and write to DataDog web api.
 
 
-In order to ensure that a Jolokia agent is instrumented with the JVM run-time, you can choose one of these options:
-
-
-* Specify the Node configuration parameter `jmxMonitoringHttpPort` which will attempt to load the jolokia driver from the `drivers` folder.
-                            The format of the driver name needs to be `jolokia-jvm-{VERSION}-agent.jar` where VERSION is the version required by Corda, currently 1.6.1.
-
-
-* Start the node with `java -Dcapsule.jvm.args="-javaagent:drivers/jolokia-jvm-1.6.1-agent.jar=port=7777,host=localhost" -jar corda.jar`.
-
+The Node configuration parameter *jmxMonitoringHttpPort* has to be present in order to ensure a Jolokia agent is instrumented with
+                the JVM run-time.
 
 The following JMX statistics are exported:
 
@@ -163,16 +142,14 @@ Also ensure to have restrictive Jolokia access policy in place for access to pro
                     Several Jolokia policy based security configuration files (`jolokia-access.xml`) are available for dev, test, and prod
                     environments under `/config/<env>`.
 
-To pass a security policy use `java -Dcapsule.jvm.args=-javaagent:./drivers/jolokia-jvm-1.6.0-agent.jar,policyLocation=file:./config-path/jolokia-access.xml -jar corda.jar`
-
 
 ### Notes for development use
 
 When running in dev mode, Hibernate statistics are also available via the Jolkia interface. These are disabled otherwise
                     due to expensive run-time costs. They can be turned on and off explicitly regardless of dev mode via the
-                    `exportHibernateJMXStatistics` flag on the [database configuration](corda-configuration-file#database-properties-ref).
+                    `exportHibernateJMXStatistics` flag on the [database configuration](corda-configuration-file.md#database-properties-ref).
 
-When starting Corda nodes using Cordformation runner (see [Running nodes locally](running-a-node)), you should see a startup message similar to the following:
+When starting Corda nodes using Cordformation runner (see [Running nodes locally](running-a-node.md)), you should see a startup message similar to the following:
                     **Jolokia: Agent started with URL http://127.0.0.1:7005/jolokia/**
 
 When starting Corda nodes using the ‘driver DSL’, you should see a startup message in the logs similar to the following:
@@ -203,11 +180,6 @@ Unfortunately the JVM does not let you limit the total memory usage of Java prog
 
 
 </div>
-A node which is running out of memory is expected to stop immediately to preserve ledger consistency and avoid flaws in operations.
-                Note that it’s a responsibility of a client application to handle RPC reconnection in case this happens. It’s also advised to have
-                necessary JVM monitoring and restart infrastructure in place.
-                See [Setting JVM arguments](running-a-node#setting-jvm-args) for further details on JVM out-of-memory related parameters.
-
 
 ## Hiding sensitive data
 
@@ -215,7 +187,7 @@ A frequent requirement is that configuration files must not expose passwords to 
 
 Take a simple node config that wishes to protect the node cryptographic stores:
 
-```none
+```kotlin
 myLegalName = "O=PasswordProtectedNode,OU=corda,L=London,C=GB"
 keyStorePassword = ${KEY_PASS}
 trustStorePassword = ${TRUST_PASS}
@@ -306,109 +278,4 @@ Private keys used to sign transactions should be preserved with the utmost care.
 
 
 </div>
-
-## Checking node version and installed CorDapps
-
-A `nodeDiagnosticInfo` RPC call can be made to obtain version information about the Corda platform running on the node. The returned `NodeDiagnosticInfo` object also includes information about the CorDapps installed on the node.
-                The RPC call is also available as the `run nodeDiagnosticInfo` command executable from the Corda shell that can be accessed via the local terminal, SSH, or as the standalone shell.
-
-
-### Example
-
-Here is a sample output displayed by the `run nodeDiagnosticInfo` command executed from the Corda shell:
-
-```none
-version: "4.4"
-revision: "d7e4a0050049be357999f57f69d8bca41a2b8274"
-platformVersion: 4
-vendor: "Corda Open Source"
-cordapps:
-- type: "Contract CorDapp"
-  name: "corda-finance-contracts-4.4"
-  shortName: "Corda Finance Demo"
-  minimumPlatformVersion: 1
-  targetPlatformVersion: 4
-  version: "1"
-  vendor: "R3"
-  licence: "Open Source (Apache 2)"
-  jarHash: "570EEB9DF4B43680586F3BE663F9C5844518BC2E410EAF9904E8DEE930B7E45C"
-- type: "Workflow CorDapp"
-  name: "corda-finance-workflows-4.4"
-  shortName: "Corda Finance Demo"
-  minimumPlatformVersion: 1
-  targetPlatformVersion: 4
-  version: "1"
-  vendor: "R3"
-  licence: "Open Source (Apache 2)"
-  jarHash: "6EA4E0B36010F1DD27B5677F3686B4713BA40C316804A4188DCA20F477FDB23F"
-```
-
-## Managing trusted attachments
-
-The node comes equipped with tools to manage attachments, including tooling to examine installed and uploaded attachments as well as those
-                that were received over the network.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-A Contract CorDapp (an attachment) received over the network, is only allowed to be evaluated if there are other Contract
-                    CorDapps installed in the node that have been signed by at least one of the received CorDapp’s keys.
-
-See [Signature Constraints](api-contract-constraints#signature-constraints) and
-                    [Signing CorDapps for use with Signature Constraints](api-contract-constraints#signing-cordapps-for-use-with-signature-constraints) for more information
-
-
-</div>
-
-### Shell commands
-
-The following shell command can be used to extract information about attachments from the node:
-
-> 
-> 
-> * `attachments trustInfo`
-> 
-> 
-> Outputs to the shell a list of all attachments along with the following information:
-> 
-> > 
-> > 
-> > * Whether an attachment is installed locally
-> > 
-> > > 
-> > > 
-> > >     * `True` if the attachment is installed in the CorDapps directory or uploaded via RPC
-> > > 
-> > > 
-> > >     * `False` in all other scenarios, including attachments received from a peer node or uploaded via any means other than RPC
-> > > 
-> > > 
-> > 
-> > * If an attachment is trusted
-> > 
-> > 
-> > * Which other attachment, if any, provided trust to an attachment
-> > 
-> > 
-> Below is an example out the command’s output:
-> 
-> ```none
-> Name                                          Attachment ID                                                        Installed             Trusted                Trust Root
-> --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-> net.corda.dummy-cordapp-contracts-states      654CDFD0F195269B1C839DD9D539592B4DE7DD09BF29A3762EF600F94AE45E18     true                  true                   net.corda.dummy-cordapp-contracts-states
-> Corda Finance Demo                            71154836EBE54C0A60C6C5D9513EE015DB722EED57034B34428C72459CF133D7     true                  true                   Corda Finance Demo
-> Received from: O=PartyA, L=London, C=GB       CDDDD9A5C97DBF839445FFD79F604078D9D9766D178F698780EA4F9EA7A02D5F     false                 true                   net.corda.dummy-cordapp-contracts-states
-> ```
-> <div class="r3-o-note" role="alert"><span>Note: </span>
-> 
-> 
-> The `Name` column will be empty if the attachment has been stored without a name. `Trust Root` will also display an attachment
->                             hash if there is no name to display.
-> 
-> 
-> </div>
-> The output above shows that two CorDapps have been installed locally and are therefore trusted. The 3rd record is an attachment received
->                         from another node, hence the `Name` field containing `Received from: O=PartyA, L=London, C=GB`. The CorDapp is also trusted as another
->                         CorDapp has been signed by a common key, the `Trust Root` field is filled in to highlight this.
-
 

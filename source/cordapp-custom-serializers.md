@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Pluggable Serializers for CorDapps
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Pluggable Serializers for CorDapps
 
 To be serializable by Corda Java classes must be compiled with the -parameters switch to enable matching of its properties
             to constructor parameters. This is important because Corda’s internal AMQP serialization scheme will only construct
@@ -19,7 +20,7 @@ To be serializable by Corda Java classes must be compiled with the -parameters s
 
 ## Serializer Location
 
-Custom serializer classes should follow the rules for including classes found in [Building and installing a CorDapp](cordapp-build-systems)
+Custom serializer classes should follow the rules for including classes found in [Building and installing a CorDapp](cordapp-build-systems.md)
 
 
 ## Writing a Custom Serializer
@@ -37,7 +38,10 @@ Serializers must
 > * Implement the `toProxy` and `fromProxy` methods
 > 
 > 
-> * Be either included into the CorDapp Jar or made available in the system class path of the running process
+> * Be either included into the CorDapp Jar or made known to the running process via the `amqp.custom.serialization.scanSpec`
+>                             system property. This system property may be necessary to be able to discover custom serializer in the classpath.
+>                             At a minimum the value of the property should include comma separated set of packages where custom serializers located.
+>                             Full syntax includes scanning specification as defined by: *<http://github.com/lukehutch/fast-classpath-scanner/wiki/2.-Constructor#scan-spec>*
 > 
 > 
 Serializers inheriting from `SerializationCustomSerializer` have to implement two methods and two types.

@@ -1,17 +1,18 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Hello, World! Pt.2 - Contract constraints
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Hello, World! Pt.2 - Contract constraints
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-This tutorial extends the CorDapp built during the [Hello, World tutorial](hello-world-introduction).
+This tutorial extends the CorDapp built during the [Hello, World tutorial](hello-world-introduction.md).
 
 
 </div>
@@ -34,9 +35,9 @@ In this tutorial, we’ll write a contract to imposes rules on how an `IOUState`
 We’ll start by writing the contract.
 
 
-* [Writing the contract](tut-two-party-contract)
+* [Writing the contract](tut-two-party-contract.md)
 
-* [Updating the flow](tut-two-party-flow)
+* [Updating the flow](tut-two-party-flow.md)
 
 
 

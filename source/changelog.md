@@ -1,167 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Changelog
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Changelog
 
 Here’s a summary of what’s changed in each Corda release. For guidance on how to upgrade code from the previous
-            release, see [Upgrading CorDapps to newer Platform Versions](app-upgrade-notes).
+            release, see [Upgrading apps to Corda 4](app-upgrade-notes.md).
 
 
 ## Unreleased
-
-
-* Added ability for `CordaService` to register for receiving node lifecycle events to perform initialisation and clean-up actions.
-
-
-* Custom serializer classes implementing `SerializationCustomSerializer` should ideally be packaged in the same CorDapp as the
-                        contract classes. Corda 4 could therefore fail to verify transactions created with Corda 3 if their custom serializer classes
-                        had been packaged somewhere else. Add a “fallback mechanism” to Corda’s transaction verification logic which will attempt to
-                        include any missing custom serializers from other CorDapps within `AttachmentStorage`.
-
-
-* `AppServiceHub` been extended to provide access to `database` which will enable the Service class to perform DB transactions
-                        from the threads managed by the custom Service.
-
-
-* Moved and renamed the testing web server to the `testing` subproject. Also renamed the published artifact to `corda-testserver.jar`.
-
-
-* New Vault Query criteria to specify exact matches for specified participants.
-
-
-* Support for Java 11 (compatibility mode). Please read [https://github.com/corda/corda/pull/5356](https://github.com/corda/corda/pull/5356).
-
-
-* Updating FinalityFlow with functionality to indicate the appropriate StatesToRecord. This allows the initiating party to record states
-                        from transactions which they are proposing, but are not necessarily participants of.
-
-
-* Removed the RPC exception privacy feature. Previously, in production mode, the exceptions thrown on the node were stripped of all content
-                        when rethrown on the RPC client.
-
-
-* Introduced a new parameter `externalIds: List<UUID>` to `VaultQueryCriteria` which allows CorDapp developers to constrain queries
-                        to a specified set of external IDs. This feature should be used when querying states for a particular “account” (see accounts CorDapp for
-                        further information).
-
-
-* Introduced a new API on `IdentityService` called `RegisterKey` which maps a `PublicKey` to a specified `CordaX500Name` and to an
-                        optional `UUID` (external Id).
-
-
-* Introduced a new API on `IdentityService` called `publicKeyToExternalId` which facilitates lookups of ``PublicKey` s to
-                        `externalId` s (Account IDs).
-
-
-* Introduced a new API on `IdentityService` called `publicKeysForExternalId` which returns all the `PublicKey` s associated with a
-                        particular external ID.
-
-
-* `StatePointer` has been marked as ``@DoNotImplement`, which was an omission in the original release.
-
-
-* Introduced a new low level flow diagnostics tool: checkpoint agent (that can be used standalone or in conjunction with the `checkpoints dump` shell command).
-                        See [Checkpoint Tooling](checkpoint-tooling) for more information.
-
-
-* `NotaryFlow.Client` now performs transaction verification by default to prevent accidentally sending an invalid transaction to a
-                        non-validating notary. The behaviour can be controlled by passing a constructor parameter flag `skipVerification`.
-                        Note: this only affects flows that invoke `NotaryFlow.Client` directly – no behavioural change if using `FinalityFlow`.
-
-
-* The MockNet now supports setting a custom Notary class name, as was already supported by normal node config. See [Writing a custom notary service (experimental)](tutorial-custom-notary).
-
-
-* Introduced a new `Destination` abstraction for communicating with non-Party destinations using the new `FlowLogic.initateFlow(Destination)`
-                        method. `Party` and `AnonymousParty` have been retrofitted to implement `Destination`. Initiating a flow to an `AnonymousParty`
-                        means resolving to the well-known identity `Party` and then communicating with that.
-
-
-* Removed `finance-workflows` dependency on jackson library.  The functions that used jackson (e.g. `FinanceJSONSupport`) have been moved
-                        into IRS Demo.
-
-
-* The introductory and technical white papers have been refreshed. They have new content and a clearer organisation.
-
-
-* Information about checkpointed flows can be retrieved from the shell. Calling `checkpoints dump` will create a zip file inside the node’s
-                        `log` directory. This zip will contain a JSON representation of each checkpointed flow. This information can then be used to determine the
-                        state of stuck flows or flows that experienced internal errors and were kept in the node for manual intervention.
-
-
-* It is now possible to re-record transactions if a node wishes to record as an observer a transaction it has participated in. If this is
-                        done, then the node may record new output states that are not relevant to the node.
-
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-Nodes may re-record transactions if they have previously recorded them as a participant and wish to record them as an observer.
-                            However, the node cannot resolve the forward chain of transactions if this is done. This means that if you wish to re-record a chain of
-                            transactions and get the new output states to be correctly marked as consumed, the full chain must be sent to the node *in order*.
-
-
-</div>
-
-* Added `nodeDiagnosticInfo` to the RPC API. The new RPC is also available as the `run nodeDiagnosticInfo` command executable from
-                        the Corda shell. It retrieves version information about the Corda platform and the CorDapps installed on the node.
-
-
-* `CordaRPCClient.start` has a new `gracefulReconnect` parameter. The class `GracefulReconnect` takes two lambdas - one for callbacks
-                        on disconnect, and one for callbacks on reconnection.  When provided (ie. the `gracefulReconnect` parameter is not null) the RPC client
-                        will to try to automatically reconnect to the node on disconnect. Further any `Observable` s previously created will continue to vend new
-                        events on reconnect.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-This is only best-effort and there are no guarantees of reliability.
-
-
-</div>
-
-* Contract attachments are now automatically whitelisted by the node if another contract attachment is present with the same contract classes,
-                        signed by the same public keys, and uploaded by a trusted uploader. This allows the node to resolve transactions that use earlier versions
-                        of a contract without having to manually install that version, provided a newer version is installed. Similarly, non-contract attachments
-                        are whitelisted if another attachment is present on the node that is signed by the same public key.
-
-
-* Package namespace ownership configurations can be now be set as described in
-                        [Package namespace ownership](generating-a-node#node-package-namespace-ownership), when using the Cordformation plugin version 4.0.43.
-
-
-* Wildcards can now be used when specifying RPC permissions, for example `StartFlow.foo.bar.*` will allow users to start any flow in the
-                        `foo.bar` package. See [rpcUsers](corda-configuration-file#corda-configuration-file-rpc-users) for more information.
-
-
-* `-XX:+HeapDumpOnOutOfMemoryError` and `-XX:+CrashOnOutOfMemoryError` have been added to the default JVM options of the node.
-                        A node which is running out of memory is now expected to stop immediately to preserve ledger consistency and avoid flaws in operations.
-                        Note that it’s a responsibility of a client application to handle RPC reconnection in case this happens.
-                        See [Setting JVM arguments](running-a-node#setting-jvm-args) and [Memory usage and tuning](node-administration#memory-usage-and-tuning) for further details.
-
-
-* design/data-model-upgrades/package-namespace-ownership configurations can be now be set as described in
-                        [Package namespace ownership](generating-a-node#node-package-namespace-ownership), when using the Cordformation plugin version 4.0.43.
-
-
-* Environment variables and system properties can now be provided with underscore separators instead of dots. Neither are case sensitive.
-                        See [overriding config values](corda-configuration-file#corda-configuration-file-overriding-config) for more information.
-
-
-* SSH server in the [Node shell](shell) has been updated to remove outdated weak ciphers and algorithms.
-
-
-* Removed support for external SSH connections to the standalone shell. As a result, `--sshd-port` and `--sshd-hostkey-directory`
-                        options, as well as `extensions.sshd` configuration entry, have been removed from the standalone shell.
-                        Available alternatives are either to use the standalone shell directly, or connect to the node embedded shell via SSH.
-
-
-
-## Version 4.1
 
 
 * Fix a bug in Corda 4.0 that combined commands in `TransactionBuilder` if they only differed by the signers list.  The behaviour is now consistent with prior Corda releases.
@@ -203,7 +55,7 @@ This is only best-effort and there are no guarantees of reliability.
 
 * Introduction of unique CorDapp version identifiers in jar manifests for contract and flows/services CorDapps.
                         Updated all sample CorDapps to reflect new conventions.
-                        See [CorDapp separation](cordapp-build-systems#cordapp-separation-ref) for further information.
+                        See [CorDapp separation](cordapp-build-systems.md#cordapp-separation-ref) for further information.
 
 
 * Automatic Constraints propagation for hash-constrained states to signature-constrained states.
@@ -242,7 +94,7 @@ This is only best-effort and there are no guarantees of reliability.
 
 
 * Added auto-acceptance of network parameters for network updates. This behaviour is available for a subset of the network parameters
-                        and is configurable via the node config. See [The network map](network-map) for more information.
+                        and is configurable via the node config. See [The network map](network-map.md) for more information.
 
 
 * Deprecated `SerializationContext.withAttachmentsClassLoader`. This functionality has always been disabled by flags
@@ -279,11 +131,11 @@ This is only best-effort and there are no guarantees of reliability.
 * `FinalityFlow` is now an inlined flow and requires `FlowSession` s to each party intended to receive the transaction. This is to fix the
                         security problem with the old API that required every node to accept any transaction it received without any checks. Existing CorDapp
                         binaries relying on this old behaviour will continue to function as previously. However, it is strongly recommended CorDapps switch to
-                        this new API. See [Upgrading CorDapps to newer Platform Versions](app-upgrade-notes) for further details.
+                        this new API. See [Upgrading apps to Corda 4](app-upgrade-notes.md) for further details.
 
 
 * For similar reasons, `SwapIdentitiesFlow`, from confidential-identities, is also now an inlined flow. The old API has been preserved but
-                        it is strongly recommended CorDapps switch to this new API. See [Upgrading CorDapps to newer Platform Versions](app-upgrade-notes) for further details.
+                        it is strongly recommended CorDapps switch to this new API. See [Upgrading apps to Corda 4](app-upgrade-notes.md) for further details.
 
 
 * Introduced new optional network bootstrapper command line option (–minimum-platform-version) to set as a network parameter
@@ -394,8 +246,8 @@ This is only best-effort and there are no guarantees of reliability.
 
 
 * Doorman and NetworkMap url’s can now be configured individually rather than being assumed to be
-                        the same server. Current `compatibilityZoneURL` configurations remain valid. See both [Node configuration](corda-configuration-file)
-                        and [Network certificates](permissioning) for details.
+                        the same server. Current `compatibilityZoneURL` configurations remain valid. See both [Node configuration](corda-configuration-file.md)
+                        and [Network certificates](permissioning.md) for details.
 
 
 * Improved audit trail for `FinalityFlow` and related sub-flows.
@@ -476,7 +328,7 @@ This is only best-effort and there are no guarantees of reliability.
     * The deprecated web server now has its own `web-server.conf` file, separate from `node.conf`.
 
 
-    * Property keys with double quotes (e.g. “key”) in `node.conf` are no longer allowed, for rationale refer to [Node configuration](corda-configuration-file).
+    * Property keys with double quotes (e.g. “key”) in `node.conf` are no longer allowed, for rationale refer to [Node configuration](corda-configuration-file.md).
 
 
     * The `issuableCurrencies` property is no longer valid for `node.conf`. Instead, it has been moved to the finance workflows CorDapp configuration.
@@ -484,7 +336,7 @@ This is only best-effort and there are no guarantees of reliability.
 
 
 * Added public support for creating `CordaRPCClient` using SSL. For this to work the node needs to provide client applications
-                        a certificate to be added to a truststore. See [Using the client RPC API](tutorial-clientrpc-api)
+                        a certificate to be added to a truststore. See [Using the client RPC API](tutorial-clientrpc-api.md)
 
 
 * The node RPC broker opens 2 endpoints that are configured with `address` and `adminAddress`. RPC Clients would connect
@@ -518,7 +370,7 @@ This is only best-effort and there are no guarantees of reliability.
 * Serializing an inner class (non-static nested class in Java, inner class in Kotlin) will be rejected explicitly by the serialization
                         framework. Prior to this change it didn’t work, but the error thrown was opaque (complaining about too few arguments
                         to a constructor). Whilst this was possible in the older Kryo implementation (Kryo passing null as the synthesised
-                        reference to the outer class) as per the Java documentation [here](https://docs.oracle.com/javase/tutorial/java/javaOO/nested)
+                        reference to the outer class) as per the Java documentation [here](https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html)
                         we are disallowing this as the paradigm in general makes little sense for contract states.
 
 
@@ -531,7 +383,7 @@ This is only best-effort and there are no guarantees of reliability.
                         The class is used as database Primary Key columns of other entities and databases already impose those columns as non-nullable
                         (even if JPA annotation nullable=false was absent).
                         In case your Cordapps use this entity class to persist data in own custom tables as non Primary Key columns refer to
-                        [Upgrading CorDapps to newer Platform Versions](app-upgrade-notes) for upgrade instructions.
+                        [Upgrading apps to Corda 4](app-upgrade-notes.md) for upgrade instructions.
 
 
 * Adding a public method to check if a public key satisfies Corda recommended algorithm specs, `Crypto.validatePublicKey(java.security.PublicKey)`.
@@ -589,7 +441,7 @@ This is only best-effort and there are no guarantees of reliability.
 
 
 * All sample CorDapps were split into separate apps: workflows and contracts to reflect new convention. It is recommended to structure your CorDapps
-                        this way, see [Upgrading CorDapps to newer Platform Versions](app-upgrade-notes) on upgrading your CorDapp.
+                        this way, see [Upgrading apps to Corda 4](app-upgrade-notes.md) on upgrading your CorDapp.
 
 
 * The format of the shell commands’ output can now be customized via the node shell, using the `output-format` command.
@@ -636,5 +488,7 @@ The only exception to this is `Interpolator` and related classes. These are now 
 * Vault states are migrated when moving from V3 to V4: the relevancy column is correctly filled, and the state party table is populated.
                         Note: This means Corda can be slow to start up for the first time after upgrading from V3 to V4.
 
+
+End of changelog.
 
 

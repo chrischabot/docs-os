@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Versioning
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Versioning
 
 As the Corda platform evolves and new features are added it becomes important to have a versioning system which allows
             its users to easily compare versions and know what feature are available to them. Each Corda release uses the standard
@@ -19,7 +20,7 @@ As the Corda platform evolves and new features are added it becomes important to
 ## Platform version
 
 It is much easier to use a single incrementing integer value to represent the API version of the Corda platform, which
-                is called the *platform version*. It is similar to Android’s [API Level](https://developer.android.com/guide/topics/manifest/uses-sdk-element).
+                is called the *platform version*. It is similar to Android’s [API Level](https://developer.android.com/guide/topics/manifest/uses-sdk-element.html).
                 It starts at 1 and will increment by exactly 1 for each release which changes any of the publicly exposed APIs in the
                 entire platform. This includes public APIs on the node itself, the RPC system, messaging, serialisation, etc. API backwards
                 compatibility will always be maintained, with the use of deprecation to suggest migration away from old APIs. In very rare
@@ -114,7 +115,8 @@ It’s entirely expected and reasonable to have an open source contracts module 
 <div class="r3-o-important" role="alert"><span>Important: </span>
 
 
-The `versionId` specified for the JAR manifest is currently used for informative purposes only.
+The `versionId` specified for the JAR manifest is checked by the platform and is used for informative purposes only.
+                    See “[App versioning with Signature Constraints](api-contract-constraints.md#app-versioning-with-signature-constraints)” for more information.
 
 
 </div>

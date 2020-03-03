@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Oracles
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Oracles
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -49,7 +50,7 @@ For privacy purposes, the oracle does not require to have access on every part o
                 information it needs to see is their embedded, related to this oracle, command(s). We should also provide
                 guarantees that all of the commands requiring a signature from this oracle should be visible to
                 the oracle entity, but not the rest. To achieve that we use filtered transactions, in which the transaction proposer(s)
-                uses a nested Merkle tree approach to “tear off” the unrelated parts of the transaction. See [Transaction tear-offs](key-concepts-tearoffs)
+                uses a nested Merkle tree approach to “tear off” the unrelated parts of the transaction. See [Transaction tear-offs](key-concepts-tearoffs.md)
                 for more information on how transaction tear-offs work.
 
 If they wish to monetize their services, oracles can choose to only sign a transaction and attest to the validity of

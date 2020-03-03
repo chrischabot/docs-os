@@ -1,43 +1,38 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Nodes
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Nodes
 
 
-* [Node folder structure](node-structure)
+* [Node folder structure](node-structure.md)
 
-* [Node identity](node-naming)
+* [Node identity](node-naming.md)
 
-* [Node configuration](corda-configuration-file)
+* [Node configuration](corda-configuration-file.md)
 
-* [Node command-line options](node-commandline)
+* [Node command-line options](node-commandline.md)
 
-* [Node administration](node-administration)
+* [Node administration](node-administration.md)
 
-* [Deploying a node to a server](deploying-a-node)
+* [Deploying a node to a server](deploying-a-node.md)
 
-* [Node database](node-database)
+* [Node database](node-database.md)
 
-* [Database access when running H2](node-database-access-h2)
+* [Database access when running H2](node-database-access-h2.md)
 
-* [Database tables](node-database-tables)
+* [Node shell](shell.md)
 
-* [Upgrading CorDapps on a node](node-operations-upgrade-cordapps)
+* [Interacting with a node](clientrpc.md)
 
-* [Node shell](shell)
+* [Creating nodes locally](generating-a-node.md)
 
-* [Interacting with a node](clientrpc)
-
-* [Creating nodes locally](generating-a-node)
-
-* [Running nodes locally](running-a-node)
-
-* [Flow Hospital](node-flow-hospital)
+* [Running nodes locally](running-a-node.md)
 
 
 

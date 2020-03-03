@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Getting set up for CorDapp development
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Getting set up for CorDapp development
 
 There are four pieces of required software for CorDapp development: the Java 8 JDK, IntelliJ IDEA, Git, and Gradle 4.10.
 
@@ -16,7 +17,7 @@ There are four pieces of required software for CorDapp development: the Java 8 J
 
 > 
 > 
-> * [Oracle JDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151)
+> * [Oracle JDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 > 
 > 
 > * [Amazon Corretto](https://aws.amazon.com/corretto/)
@@ -52,12 +53,12 @@ There are four pieces of required software for CorDapp development: the Java 8 J
 
 ## Next steps
 
-First, run the [example CorDapp](tutorial-cordapp).
+First, run the [example CorDapp](tutorial-cordapp.md).
 
-Next, read through the [Corda Key Concepts](key-concepts) to understand how Corda works.
+Next, read through the [Corda Key Concepts](key-concepts.md) to understand how Corda works.
 
 By then, you’ll be ready to start writing your own CorDapps. You may want to refer to the
-                API documentation, the [flow cookbook](flow-cookbook) and the
+                [API documentation](corda-api.md), the [flow cookbook](flow-cookbook.md) and the
                 [samples](https://www.corda.net/samples/) along the way.
 
 If you encounter any issues, please ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/corda) or via [our Slack channels](http://slack.corda.net/).

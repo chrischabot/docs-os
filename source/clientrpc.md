@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Interacting with a node
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Interacting with a node
 
 
 ## Overview
 
-To interact with your node, you need to write a client in a JVM-compatible language using the [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) class.
+To interact with your node, you need to write a client in a JVM-compatible language using the [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) class.
                 This class allows you to connect to your node via a message queue protocol and provides a simple RPC interface for
                 interacting with the node. You make calls on a JVM object as normal, and the marshalling back-and-forth is handled for
                 you.
@@ -20,9 +21,9 @@ To interact with your node, you need to write a client in a JVM-compatible langu
 <div class="r3-o-warning" role="alert"><span>Warning: </span>
 
 
-The built-in Corda test webserver is deprecated and unsuitable for production use. If you want to interact with
+The built-in Corda webserver is deprecated and unsuitable for production use. If you want to interact with
                     your node via HTTP, you will need to stand up your own webserver that connects to your node using the
-                    [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) class. You can find an example of how to do this using the popular Spring Boot server
+                    [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) class. You can find an example of how to do this using the popular Spring Boot server
                     [here](https://github.com/corda/spring-webserver).
 
 
@@ -30,14 +31,14 @@ The built-in Corda test webserver is deprecated and unsuitable for production us
 
 ## Connecting to a node via RPC
 
-To use [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient), you must add `net.corda:corda-rpc:$corda_release_version` as a `cordaCompile` dependency
+To use [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html), you must add `net.corda:corda-rpc:$corda_release_version` as a `cordaCompile` dependency
                 in your client’s `build.gradle` file.
 
-[CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) has a `start` method that takes the node’s RPC address and returns a [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html).
-                [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection) has a `proxy` method that takes an RPC username and password and returns a [CordaRPCOps](api/javadoc/net/corda/core/messaging/CordaRPCOps.html)
+[CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) has a `start` method that takes the node’s RPC address and returns a [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html).
+                [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html) has a `proxy` method that takes an RPC username and password and returns a [CordaRPCOps](api/javadoc/net/corda/core/messaging/CordaRPCOps.html)
                 object that you can use to interact with the node.
 
-Here is an example of using [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) to connect to a node and log the current time on its internal clock:
+Here is an example of using [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) to connect to a node and log the current time on its internal clock:
 
 <div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
 <TabPanel value={value} index={0}>
@@ -106,21 +107,21 @@ class ClientRpcExample {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [ClientRpcExample.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/ClientRpcExample.kt) | [ClientRpcExample.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/ClientRpcExample.java)
+![github](/images/svg/github.svg "github") [ClientRpcExample.kt](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/ClientRpcExample.kt) | [ClientRpcExample.java](https://github.com/corda/corda/blob/release/os/4.1/docs/source/example-code/src/main/java/net/corda/docs/java/ClientRpcExample.java)
 
 
 </div>
 <div class="r3-o-warning" role="alert"><span>Warning: </span>
 
 
-The returned [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection) is somewhat expensive to create and consumes a small amount of
+The returned [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html) is somewhat expensive to create and consumes a small amount of
                     server side resources. When you’re done with it, call `close` on it. Alternatively you may use the `use`
-                    method on [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) which cleans up automatically after the passed in lambda finishes. Don’t create
+                    method on [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) which cleans up automatically after the passed in lambda finishes. Don’t create
                     a new proxy for every call you make - reuse an existing one.
 
 
 </div>
-For further information on using the RPC API, see [Using the client RPC API](tutorial-clientrpc-api).
+For further information on using the RPC API, see [Using the client RPC API](tutorial-clientrpc-api.md).
 
 
 ## RPC permissions
@@ -130,6 +131,9 @@ For a node’s owner to interact with their node via RPC, they must define one o
                 can perform. Permissions are not required to interact with the node via the shell, unless the shell is being accessed via SSH.
 
 RPC users are created by adding them to the `rpcUsers` list in the node’s `node.conf` file:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 rpcUsers=[
@@ -141,6 +145,10 @@ rpcUsers=[
     ...
 ]
 ```
+
+</TabPanel>
+
+</div>
 By default, RPC users are not permissioned to perform any RPC operations.
 
 
@@ -148,6 +156,9 @@ By default, RPC users are not permissioned to perform any RPC operations.
 
 You provide an RPC user with the permission to start a specific flow using the syntax
                     `StartFlow.<fully qualified flow name>`:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 rpcUsers=[
@@ -162,8 +173,15 @@ rpcUsers=[
     ...
 ]
 ```
+
+</TabPanel>
+
+</div>
 You can also provide an RPC user with the permission to start any flow using the syntax
                     `InvokeRpc.startFlow`:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 rpcUsers=[
@@ -178,10 +196,17 @@ rpcUsers=[
 ]
 ```
 
+</TabPanel>
+
+</div>
+
 ### Granting other RPC permissions
 
 You provide an RPC user with the permission to perform a specific RPC operation using the syntax
                     `InvokeRpc.<rpc method name>`:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 rpcUsers=[
@@ -197,10 +222,17 @@ rpcUsers=[
 ]
 ```
 
+</TabPanel>
+
+</div>
+
 ### Granting all permissions
 
 You can provide an RPC user with the permission to perform any RPC operation (including starting any flow) using the
                     `ALL` permission:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 rpcUsers=[
@@ -214,6 +246,10 @@ rpcUsers=[
     ...
 ]
 ```
+
+</TabPanel>
+
+</div>
 
 ## RPC security management
 
@@ -229,12 +265,15 @@ Setting `rpcUsers` provides a simple way of granting RPC permissions to a fixed 
 > 
 > 
 > * Password stored in hash-encrypted form. This is regarded as must-have when security is a concern. Corda currently supports
->                             a flexible password hash format conforming to the Modular Crypt Format provided by the [Apache Shiro framework](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat)
+>                             a flexible password hash format conforming to the Modular Crypt Format provided by the [Apache Shiro framework](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat.html)
 > 
 > 
 These features are controlled by a set of options nested in the `security` field of `node.conf`.
                 The following example shows how to configure retrieval of users credentials and permissions from a remote database with
                 passwords in hash-encrypted format and enable in-memory caching of users data:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 security = {
@@ -258,8 +297,15 @@ security = {
     }
 }
 ```
+
+</TabPanel>
+
+</div>
 It is also possible to have a static list of users embedded in the `security` structure by specifying a `dataSource`
                 of `INMEMORY` type:
+
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
 
 ```groovy
 security = {
@@ -278,6 +324,10 @@ security = {
     }
 }
 ```
+
+</TabPanel>
+
+</div>
 <div class="r3-o-warning" role="alert"><span>Warning: </span>
 
 
@@ -331,13 +381,20 @@ The `dataSource` structure defines the data provider supplying credentials and p
 Storing passwords in plain text is discouraged in applications where security is critical. Passwords are assumed
                     to be in plain format by default, unless a different format is specified by the `passwordEncryption` field, like:
 
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
+
 ```groovy
 passwordEncryption = SHIRO_1_CRYPT
 ```
+
+</TabPanel>
+
+</div>
 `SHIRO_1_CRYPT` identifies the [Apache Shiro fully reversible
-                        Modular Crypt Format](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat),
+                        Modular Crypt Format](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat.html),
                     it is currently the only non-plain password hash-encryption format supported. Hash-encrypted passwords in this
-                    format can be produced by using the [Apache Shiro Hasher command line tool](https://shiro.apache.org/command-line-hasher).
+                    format can be produced by using the [Apache Shiro Hasher command line tool](https://shiro.apache.org/command-line-hasher.html).
 
 
 ### Caching user accounts data
@@ -347,6 +404,9 @@ A cache layer on top of the external data source of users credentials and permis
                     Caching is disabled by default, it can be enabled by defining the `options.cache` field in `security.authService`,
                     for example:
 
+<div><Tabs value={value} aria-label="code tabs"><Tab label="groovy" /></Tabs>
+<TabPanel value={value} index={0}>
+
 ```groovy
 options = {
      cache = {
@@ -355,6 +415,10 @@ options = {
      }
 }
 ```
+
+</TabPanel>
+
+</div>
 This will enable a non-persistent cache contained in the node’s memory with maximum number of entries set to `maxEntries`
                     where entries are expired and refreshed after `expireAfterSecs` seconds.
 
@@ -406,7 +470,7 @@ A method can also return a `CordaFuture` in its object graph and it will be trea
 
 ## Versioning
 
-The client RPC protocol is versioned using the node’s platform version number (see [Versioning](versioning)). When a proxy is created
+The client RPC protocol is versioned using the node’s platform version number (see [Versioning](versioning.md)). When a proxy is created
                 the server is queried for its version, and you can specify your minimum requirement. Methods added in later versions
                 are tagged with the `@RPCSinceVersion` annotation. If you try to use a method that the server isn’t advertising support
                 of, an `UnsupportedOperationException` is thrown. If you want to know the version of the server, just use the
@@ -428,179 +492,125 @@ A proxy is thread safe, blocking, and allows multiple RPCs to be in flight at on
 
 ## Error handling
 
-If something goes wrong with the RPC infrastructure itself, an `RPCException` is thrown.  If something
-                goes wrong that needs a manual intervention to resolve (e.g. a configuration error), an
-                `UnrecoverableRPCException` is thrown. If you call a method that requires a higher version of the protocol
-                than the server supports, `UnsupportedOperationException` is thrown. Otherwise the behaviour depends
-                on the `devMode` node configuration option.
+If something goes wrong with the RPC infrastructure itself, an `RPCException` is thrown. If you call a method that
+                requires a higher version of the protocol than the server supports, `UnsupportedOperationException` is thrown.
+                Otherwise the behaviour depends on the `devMode` node configuration option.
 
-If the server implementation throws an exception, that exception is serialised and rethrown on the client
+In `devMode`, if the server implementation throws an exception, that exception is serialised and rethrown on the client
                 side as if it was thrown from inside the called RPC method. These exceptions can be caught as normal.
+
+When not in `devMode`, the server will mask exceptions not meant for clients and return an `InternalNodeException` instead.
+                This does not expose internal information to clients, strengthening privacy and security. CorDapps can have exceptions implement
+                `ClientRelevantError` to allow them to reach RPC clients.
 
 
 ## Reconnecting RPC clients
 
-In the current version of Corda, an RPC client connected to a node stops functioning when the node becomes unavailable or the associated TCP connection is interrupted.
-                Running RPC commands after this has happened will just throw exceptions. Any subscriptions to `Observable`s that have been created before the disconnection will stop receiving events after the connection is re-established.
-                RPC calls that have a side effect, such as starting flows, may or may not have executed on the node depending on when the client was disconnected.
+In the current version of Corda the RPC connection and all the observervables that are created by a client will just throw exceptions and die
+                when the node or TCP connection become unavailable.
 
-It is the responsibility of application code to handle these errors and reconnect once the node is running again. The client will have to retrieve new `Observable`s and re-subscribe to them in order to keep receiving updates.
-                With regards to RPCs with side effects (e.g. flow invocations), the application code will have to inspect the state of the node to infer whether the call was executed on the server side (e.g. if the flow was executed or not) before retrying it.
+It is the client’s responsibility to handle these errors and reconnect once the node is running again. Running RPC commands against a stopped
+                node will just throw exceptions. Previously created Observables will not emit any events after the node restarts. The client must explicitly re-run the command and
+                re-subscribe to receive more events.
 
-You can make use of the options described below in order to take advantage of some automatic reconnection functionality that mitigates some of these issues.
+RPCs which have a side effect, such as starting flows, may have executed on the node even if the return value is not received by the client.
+                The only way to confirm is to perform a business-level query and retry accordingly. The sample *runFlowWithLogicalRetry* helps with this.
 
+In case users require such a functionality to write a resilient RPC client we have a sample that showcases how this can be implemented and also
+                a thorough test that demonstrates it works as expected.
 
-### Enabling automatic reconnection
-
-If you provide a list of addresses via the `haAddressPool` argument when instantiating a `CordaRPCClient`, then automatic reconnection will be performed when the existing connection is dropped.
-                    However, the application code is responsible for waiting for the connection to be established again in order to perform any calls, retrieve new observables and re-subscribe to them.
-                    This can be done by doing a simple, side-effect free RPC call (e.g. `nodeInfo`).
+The code that performs the reconnecting logic is: [ReconnectingCordaRPCOps.kt](https://github.com/corda/corda/blob/master/client/rpc/src/main/kotlin/net/corda/client/rpc/internal/ReconnectingCordaRPCOps.kt).
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Any RPC calls that had not been acknowledged to the RPC client from the node at the point the disconnection happened, they will fail with a `ConnectionFailureException`.
-                        It is important to note this does not mean the node did not execute the RPC calls, it only means the completion was not acknowledged. As described above, application code will have to check after the connection is re-established to determine whether these calls were actually executed.
-                        Any observables that were returned before the disconnection will call the `onError` handlers.
+This sample code is not exposed as an official Corda API, and must be included directly in the client codebase and adjusted.
 
 
 </div>
+The usage is showcased in the: [RpcReconnectTests.kt](https://github.com/corda/corda/blob/master/node/src/integration-test/kotlin/net/corda/node/services/rpc/RpcReconnectTests.kt).
+                In case resiliency is a requirement, then it is recommended that users will write a similar test.
 
-### Enabling graceful reconnection
-
-A more graceful form of reconnection is also available. This will:
-
-
-* reconnect any existing `Observable`s after a reconnection, so that they keep emitting events to the existing subscriptions.
-
-
-* block any RPC calls that arrive during a reconnection or any RPC calls that were not acknowledged at the point of reconnection and will execute them after the connection is re-established.
-
-
-* by default continue retrying indefinitely until the connection is re-established.  See `CordaRPCClientConfiguration.maxReconnectAttempts` for adjusting the number of retries.
-
-
-More specifically, the behaviour in the second case is a bit more subtle:
-
-
-* Any RPC calls that do not have any side-effects (e.g. `nodeInfo`) will be retried automatically across reconnections.
-                            This will work transparently for application code that will not be able to determine whether there was a reconnection.
-                            These RPC calls will remain blocked during a reconnection and will return successfully after the connection has been re-established.
-
-
-* Any RPC calls that do have side-effects, such as the ones invoking flows (e.g. `startFlow`), will not be retried and they will fail with `CouldNotStartFlowException`.
-                            This is done in order to avoid duplicate invocations of a flow, thus providing at-most-once guarantees. Application code is responsible for determining whether the flow needs to be retried and retrying it, if needed.
-
-
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-In this approach, some events might be lost during a reconnection and not sent from the subscribed `Observable`s.
-
-
-</div>
-You can enable this graceful form of reconnection by using the `gracefulReconnect` parameter, which is an object containing 3 optional fields:
-
-
-* `onDisconnect`: A callback handler that will be invoked every time the connection is disconnected.
-
-
-* `onReconnect`: A callback handler that will be invoked every time the connection is established again after a disconnection.
-
-
-* `maxAttempts`: The maximum number of attempts that will be performed per *RPC operation*. A negative value implies infinite retries. The default value is 5.
-
-
-This can be used in the following way:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
-<TabPanel value={value} index={0}>
+How to initialize the *ReconnectingCordaRPCOps*:
 
 ```kotlin
-val gracefulReconnect = GracefulReconnect(onDisconnect={/*insert disconnect handling*/}, onReconnect{/*insert reconnect handling*/}, maxAttempts = 3)
-val cordaClient = CordaRPCClient(nodeRpcAddress)
-val cordaRpcOps = cordaClient.start(rpcUserName, rpcUserPassword, gracefulReconnect = gracefulReconnect).proxy
+            val bankAReconnectingRpc = ReconnectingCordaRPCOps(bankAAddress, demoUser.username, demoUser.password)
+
 ```
-
-</TabPanel>
-<TabPanel value={value} index={1}>
-
-```java
-private void onDisconnect() {
-    // Insert implementation
-}
-
-private void onReconnect() {
-    // Insert implementation
-}
-
-void method() {
-    GracefulReconnect gracefulReconnect = new GracefulReconnect(this::onDisconnect, this::onReconnect, 3);
-    CordaRPCClient cordaClient = new CordaRPCClient(nodeRpcAddress);
-    CordaRPCConnection cordaRpcOps = cordaClient.start(rpcUserName, rpcUserPassword, gracefulReconnect);
-}
-```
-
-</TabPanel>
-
-</div>
-
-### Retrying flow invocations
-
-As implied above, when graceful reconnection is enabled, flow invocations will not be retried across reconnections to avoid duplicate invocations.
-                    This retrying can be done from the application code after checking whether the flow was triggered previously by inspecting whether its side-effects have taken place.
-                    A simplified, sample skeleton of such code could look like the following code:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
-<TabPanel value={value} index={0}>
+[RpcReconnectTests.kt](https://github.com/corda/corda/blob/release/os/4.1/node/src/integration-test/kotlin/net/corda/node/services/rpc/RpcReconnectTests.kt)How to track the vault :
 
 ```kotlin
-fun runFlowWithRetries(client: CordaRPCOps) {
-    try {
-        client.startFlowDynamic(...)
-    } catch (exception: CouldNotStartFlowException) {
-        if (!wasFlowTriggered()) {
-            runFlowWithRetries(client)
-        }
-    }
-}
+            val vaultFeed = bankAReconnectingRpc.vaultTrackByWithPagingSpec(
+                    Cash.State::class.java,
+                    QueryCriteria.VaultQueryCriteria(),
+                    PageSpecification(1, 1))
+            val vaultObserverHandle = vaultFeed.updates.asReconnecting().subscribe { update: Vault.Update<Cash.State> ->
+                log.info("vault update produced ${update.produced.map { it.state.data.amount }} consumed ${update.consumed.map { it.ref }}")
+                vaultEvents.add(update)
+            }
+
 ```
+[RpcReconnectTests.kt](https://github.com/corda/corda/blob/release/os/4.1/node/src/integration-test/kotlin/net/corda/node/services/rpc/RpcReconnectTests.kt)How to start a flow with a logical retry function that checks for the side effects of the flow:
 
-</TabPanel>
-<TabPanel value={value} index={1}>
+```kotlin
+                bankAReconnectingRpc.runFlowWithLogicalRetry(
+                        runFlow = { rpc ->
+                            log.info("Starting CashIssueAndPaymentFlow for $amount")
+                            val flowHandle = rpc.startTrackedFlowDynamic(
+                                    CashIssueAndPaymentFlow::class.java,
+                                    baseAmount.plus(Amount.parseCurrency("$amount USD")),
+                                    issuerRef,
+                                    bankB.nodeInfo.legalIdentities.first(),
+                                    false,
+                                    notary
+                            )
+                            val flowId = flowHandle.id
+                            log.info("Started flow $amount with flowId: $flowId")
+                            flowProgressEvents.addEvent(flowId, null)
 
-```java
-void runFlowWithRetries(CordaRPCOps client) {
-    try {
-        client.startFlowDynamic(...);
-    } catch (CouldNotStartFlowException exception) {
-        if (!wasFlowTriggered()) {
-            runFlowWithRetries(client);
-        }
-    }
-}
+                            // No reconnecting possible.
+                            flowHandle.progress.subscribe(
+                                    { prog ->
+                                        flowProgressEvents.addEvent(flowId, prog)
+                                        log.info("Progress $flowId : $prog")
+                                    },
+                                    { error ->
+                                        log.error("Error thrown in the flow progress observer", error)
+                                    })
+                            flowHandle.id
+                        },
+                        hasFlowStarted = { rpc ->
+                            // Query for a state that is the result of this flow.
+                            val criteria = QueryCriteria.VaultCustomQueryCriteria(builder { CashSchemaV1.PersistentCashState::pennies.equal(amount.toLong() * 100) }, status = Vault.StateStatus.ALL)
+                            val results = rpc.vaultQueryByCriteria(criteria, Cash.State::class.java)
+                            log.info("$amount - Found states ${results.states}")
+                            // The flow has completed if a state is found
+                            results.states.isNotEmpty()
+                        },
+                        onFlowConfirmed = {
+                            flowsCountdownLatch.countDown()
+                            log.info("Flow started for $amount. Remaining flows: ${flowsCountdownLatch.count}")
+                        }
+                )
+
 ```
+[RpcReconnectTests.kt](https://github.com/corda/corda/blob/release/os/4.1/node/src/integration-test/kotlin/net/corda/node/services/rpc/RpcReconnectTests.kt)Note that, as shown by the test, during reconnecting some events might be lost.
 
-</TabPanel>
+```kotlin
+            // Check that enough vault events were received.
+            // This check is fuzzy because events can go missing during node restarts.
+            // Ideally there should be nrOfFlowsToRun events receive but some might get lost for each restart.
+            assertTrue(vaultEvents!!.size + nrFailures * 2 >= nrOfFlowsToRun, "Not all vault events were received")
 
-</div>
-The logic of the `wasFlowTriggered()` function is naturally dependent on the flow logic, so it can differ per use-case.
-
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-This approach provides at-least-once guarantees. It cannot provide exactly-once guarantees, because of race conditions between the moment the check is performed and the moment the side-effects of the flow become visible.
-
-
-</div>
-
+```
+[RpcReconnectTests.kt](https://github.com/corda/corda/blob/release/os/4.1/node/src/integration-test/kotlin/net/corda/node/services/rpc/RpcReconnectTests.kt)
 ## Wire security
 
-If TLS communications to the RPC endpoint are required the node should be configured with `rpcSettings.useSSL=true` see [Node configuration](corda-configuration-file).
-                The node admin should then create a node specific RPC certificate and key, by running the node once with `generate-rpc-ssl-settings` command specified (see [Node command-line options](node-commandline)).
+If TLS communications to the RPC endpoint are required the node should be configured with `rpcSettings.useSSL=true` see [Node configuration](corda-configuration-file.md).
+                The node admin should then create a node specific RPC certificate and key, by running the node once with `generate-rpc-ssl-settings` command specified (see [Node command-line options](node-commandline.md)).
                 The generated RPC TLS trust root certificate will be exported to a `certificates/export/rpcssltruststore.jks` file which should be distributed to the authorised RPC clients.
 
-The connecting `CordaRPCClient` code must then use one of the constructors with a parameter of type `ClientRpcSslOptions` ([JavaDoc](api/javadoc/net/corda/client/rpc/CordaRPCClient)) and set this constructor
+The connecting `CordaRPCClient` code must then use one of the constructors with a parameter of type `ClientRpcSslOptions` ([JavaDoc](api/javadoc/net/corda/client/rpc/CordaRPCClient.html)) and set this constructor
                 argument with the appropriate path for the `rpcssltruststore.jks` file. The client connection will then use this to validate the RPC server handshake.
 
 Note that RPC TLS does not use mutual authentication, and delegates fine grained user authentication and authorisation to the RPC security features detailed above.
@@ -610,6 +620,6 @@ Note that RPC TLS does not use mutual authentication, and delegates fine grained
 
 CorDapps must whitelist any classes used over RPC with Corda’s serialization framework, unless they are whitelisted by
                 default in `DefaultWhitelist`. The whitelisting is done either via the plugin architecture or by using the
-                `@CordaSerializable` annotation.  See [Object serialization](serialization). An example is shown in [Using the client RPC API](tutorial-clientrpc-api).
+                `@CordaSerializable` annotation.  See [Object serialization](serialization.md). An example is shown in [Using the client RPC API](tutorial-clientrpc-api.md).
 
 

@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Using the Node Explorer to test a Corda node on Corda Testnet
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Using the Node Explorer to test a Corda node on Corda Testnet
 
 This document will explain how to test the installation of a Corda node on Testnet.
 
@@ -18,7 +19,7 @@ This guide assumes you have deployed a Corda node to the Corda Testnet.
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-If you need to set up a node on Testnet first please follow the instructions: [Joining Corda Testnet](corda-testnet-intro).
+If you need to set up a node on Testnet first please follow the instructions: [Joining Corda Testnet](corda-testnet-intro.md).
 
 
 </div>
@@ -43,20 +44,20 @@ ps aux | grep corda.jar | awk '{ print $2 }' | xargs sudo kill
 In the terminal on your cloud instance run:
 
 ```bash
-wget https://software.r3.com/artifactory/corda-releases/net/corda/corda-finance-contracts/4.4/corda-finance-contracts-4.4.jar
-wget https://software.r3.com/artifactory/corda-releases/net/corda/corda-finance-workflows/4.4/corda-finance-workflows-4.4.jar
+wget https://software.r3.com/artifactory/corda-releases/net/corda/corda-finance-contracts/4.1/corda-finance-contracts-4.1.jar
+wget https://software.r3.com/artifactory/corda-releases/net/corda/corda-finance-workflows/4.1/corda-finance-workflows-4.1.jar
 ```
 This is required to run some flows to check your connections, and to issue/transfer cash to counterparties. Copy it to
                         the Corda installation location:
 
 ```bash
-sudo cp /home/<USER>/corda-finance-4.4-corda.jar /opt/corda/cordapps/
+sudo cp /home/<USER>/corda-finance-4.1-corda.jar /opt/corda/cordapps/
 ```
 
 * Run the following to create a config file for the finance CorDapp:
 
 ```bash
-echo "issuableCurrencies = [ USD ]" > /opt/corda/cordapps/config/corda-finance-4.4-corda.conf
+echo "issuableCurrencies = [ USD ]" > /opt/corda/cordapps/config/corda-finance-4.1-corda.conf
 ```
 
 * Restart the Corda node:
@@ -88,7 +89,7 @@ Node Explorer is a JavaFX GUI which connects to the node over the RPC interface 
 Download the Node Explorer from here:
 
 ```bash
-https://software.r3.com/artifactory/corda-releases/net/corda/corda-tools-explorer/4.4-corda/corda-tools-explorer-4.4-corda.jar
+https://software.r3.com/artifactory/corda-releases/net/corda/corda-tools-explorer/4.1-corda/corda-tools-explorer-4.1-corda.jar
 ```
 <div class="r3-o-warning" role="alert"><span>Warning: </span>
 
@@ -102,7 +103,7 @@ This Node Explorer is incompatible with the Corda Enterprise distribution and vi
 * Run the Node Explorer tool on your **LOCAL** machine.
 
 ```bash
-java -jar corda-tools-explorer-4.4-corda.jar
+java -jar corda-tools-explorer-4.1-corda.jar
 ```
 ![explorer login](resources/explorer-login.png "explorer login")
 

@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Joining an existing compatibility zone
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
 
+# Joining an existing compatibility zone
 
 To connect to a compatibility zone you need to register with its certificate signing authority (or *doorman*) by
             submitting a certificate signing request (CSR) to obtain a valid identity for the zone. This process is only necessary
@@ -26,7 +27,7 @@ The utility performs the following steps:
 
 
 * It creates a certificate signing request based on the following information from the node’s configuration file (see
-                    [Node configuration](corda-configuration-file)):
+                    [Node configuration](corda-configuration-file.md)):
 
 
 * **myLegalName** Your company’s legal name as an X.500 string. X.500 allows differentiation between entities with the same

@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Upgrading your node to Corda 4
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Upgrading your node to Corda 4
 
 Corda releases strive to be backwards compatible, so upgrading a node is fairly straightforward and should not require changes to
             applications. It consists of the following steps:
@@ -32,8 +33,8 @@ The protocol is designed to tolerate node outages, so during the upgrade process
 
 ## Step 1. Drain the node
 
-Before a node or application on it can be upgraded, the node must be put in [Draining mode](key-concepts-node#draining-mode). This brings the currently running
-                [Flows](key-concepts-flows) to a smooth halt such that existing work is finished and new work is queuing up rather than being processed.
+Before a node or application on it can be upgraded, the node must be put in [Draining mode](key-concepts-node.md#draining-mode). This brings the currently running
+                [Flows](key-concepts-flows.md) to a smooth halt such that existing work is finished and new work is queuing up rather than being processed.
 
 Draining flows is a key task for node administrators to perform. It exists to simplify applications by ensuring apps don’t have to be
                 able to migrate workflows from any arbitrary point to other arbitrary points, a task that would rapidly become infeasible as workflow
@@ -58,7 +59,7 @@ It’s always a good idea to make a backup of your data before upgrading any ser
                 You can simply make a copy of the node’s data directory to enable this. If you use an external non-H2 database please consult your database
                 user guide to learn how to make backups.
 
-We provide some [backup recommendations](node-administration#backup-recommendations) if you’d like more detail.
+We provide some [backup recommendations](node-administration.md#backup-recommendations) if you’d like more detail.
 
 
 ## Step 3. Upgrade the node database to Corda 3.2 or later
@@ -73,7 +74,7 @@ Ensure your node is running Corda 3.2 or later.
 ## Step 4. Replace `corda.jar` with the new version
 
 Download the latest version of Corda from [our Artifactory site](https://software.r3.com/artifactory/webapp/#/artifacts/browse/simple/General/corda/net/corda/corda-node).
-                Make sure it’s available on your path, and that you’ve read the [Release notes](release-notes), in particular to discover what version of Java this
+                Make sure it’s available on your path, and that you’ve read the [Release notes](release-notes.md), in particular to discover what version of Java this
                 node requires.
 
 <div class="r3-o-important" role="alert"><span>Important: </span>

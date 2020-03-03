@@ -1,19 +1,20 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Flow Hospital
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Flow Hospital
 
 
 ## Overview
 
 The **flow hospital** refers to a built-in node service that manages flows that have encountered an error.
 
-This service is responsible for recording, tracking, diagnosing, recovering and retrying flows. It determines whether errored flows should be retried
+This service is responsible for recording, tracking, diagnosing, recovering and retrying. It determines whether errored flows should be retried
                 from their previous checkpoints or have their errors propagate. Flows may be recoverable under certain scenarios (eg. manual intervention
                 may be required to install a missing contract JAR version). For a given errored flow, the flow hospital service determines the next course of
                 action towards recovery and retry.
@@ -21,9 +22,8 @@ This service is responsible for recording, tracking, diagnosing, recovering and 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-If the raised exception cannot be handled from the hospital, it will be propagated to the application code.
-                    If the exception is not handled by the application code either, then the flow will terminate and any records of it will be removed from the hospital.
-                    Below, you can find a list of the errors that are handled by the hospital.
+The flow hospital will never terminate a flow, but will propagate its error back to the state machine, and ultimately, end user code to handle
+                    if it ultimately proves impossible to resolve automatically.
 
 
 </div>
@@ -67,53 +67,49 @@ There is currently no retry API. If you don’t want to install the cordapp, you
 * Once started, if a flow experiences an error, the following failure scenarios are handled:
 
 
-* `SQLException` mentioning a **deadlock**:
-                                    If this happens, the flow will retry. If it retries more than once, a back off delay is applied to try and reduce contention.
+* SQLException mentioning a deadlock*:
+                                    if this happens, the flow will retry. If it retries more than once, a back off delay is applied to try and reduce contention.
                                     Current policy means these types of failed flows will retry forever (unless explicitly killed).  No intervention required.
 
 
-* **Database constraint violation** (`ConstraintViolationException`):
-                                    This scenario may occur due to natural contention between racing flows as Corda delegates handling using the database’s optimistic concurrency control.
-                                    If this exception occurs, the flow will retry. After retrying a number of times, the errored flow is kept in for observation.
+* Database constraint violation:
+                                    this scenario may occur due to natural contention between racing flows as Corda delegates handling using the database’s optimistic concurrency control.
+                                    As the likelihood of re-occurrence should be low, the flow will actually error and fail if it experiences this at the same point more than 3 times. No intervention required.
 
 
-* `SQLTransientConnectionException`:
-                                    Database connection pooling errors are dealt with. If this exception occurs, the flow will retry. After retrying a number of times, the errored flow is kept in for observation.
-
-
-* All other instances of `SQLException`:
-                                    Any `SQLException` that is thrown and not handled by any of the scenarios detailed above, will be kept in for observation after their first failure.
-
-
-* **Finality Flow handling** - Corda 3.x (old style) `FinalityFlow` and Corda 4.x `ReceiveFinalityFlow` handling:
-                                    If on the receive side of the finality flow, any error will result in the flow being kept in for observation to allow the cause of the
+* Finality Flow handling - Corda 3.x (old style) `FinalityFlow` and Corda 4.x `ReceiveFinalityFlow` handling:
+                                    if on the receive side of the finality flow, any error will result in the flow being kept in for observation to allow the cause of the
                                     error to be rectified (so that the transaction isn’t lost if, for example, associated contract JARs are missing).
                                     Intervention is expected to be “rectify error, perhaps uploading attachment, and restart node” (or alternatively reject and call *killFlow*).
 
 
-* `FlowTimeoutException`:
-                                    This is used internally by the notary client flow when talking to an HA notary.  It’s used to cause the client to try and talk to a different
+* *FlowTimeoutException*:
+                                    this is used internally by the notary client flow when talking to an HA notary.  It’s used to cause the client to try and talk to a different
                                     member of the notary cluster if it doesn’t hear back from the original member it sent the request to within a “reasonable” time.
                                     The time is hard to document as the notary members, if actually alive, will inform the requester of the ETA of a response.
                                     This can occur an infinite number of times.  i.e. we never give up notarising.  No intervention required.
 
 
-* `HospitalizeFlowException`:
-                                    The aim of this exception is to provide user code a way to retry a flow from its last checkpoint if a known intermittent failure occurred.
-                                    Any `HospitalizeFlowException` that is thrown and not handled by any of the scenarios detailed above, will be kept in for observation.
 
 
-* **Internal Corda errors**:
-                                    Flows that experience errors from inside the Corda statemachine, that are not handled by any of the scenarios details above, will be retried a number of times
-                                    and then kept in for observation if the error continues.
+## Futures
+
+The flow hospital will be extended in the following areas:
 
 
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-Flows that are kept in for observation are retried upon node restart.
+* Human Computer Interaction (HCI) with MQ integration <ref design/CID>
 
 
-</div>
+* Addition of Public APIs (and CRaSH utility functions) to trigger retries
+
+
+* Improved back-off and retry policies
+
+
+* Improved Explorer visualization operational controls (eg. ability to select and retry or terminate a failed flow).
+
+
+* Tighter integration with Corda Enterprise monitoring and management tooling
+
+
 

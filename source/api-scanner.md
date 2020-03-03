@@ -1,15 +1,16 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.1
 title: Checking API stability
-version: corda-os-4.4
+version: corda-os-4.1
 ---
 
 
+# Checking API stability
 
 We have committed not to alter Corda’s API so that developers will not have to keep rewriting their CorDapps with each
-            new Corda release. The stable Corda modules are listed [here](api-stability-guarantees#internal-apis-and-stability-guarantees). Our CI process runs an “API Stability”
+            new Corda release. The stable Corda modules are listed [here](corda-api.md#internal-apis-and-stability-guarantees). Our CI process runs an “API Stability”
             check for each GitHub pull request in order to check that we don’t accidentally introduce an API-breaking change.
 
 
@@ -38,7 +39,7 @@ There are three kinds of breaking change:
 
 
 * Exposure of an internal type via a public API. Internal types are considered to be anything in a `*.internal.` package
-                        or anything in a module that isn’t in the stable modules list [here](api-stability-guarantees#internal-apis-and-stability-guarantees).
+                        or anything in a module that isn’t in the stable modules list [here](corda-api.md#internal-apis-and-stability-guarantees).
 
 
 Developers can execute these commands themselves before submitting their PR, to ensure that they haven’t inadvertently
@@ -47,7 +48,7 @@ Developers can execute these commands themselves before submitting their PR, to 
 
 ## How it works
 
-The `generateApi` Gradle task writes a summary of Corda’s public API into the file `build/api/api-corda-4.4.txt`.
+The `generateApi` Gradle task writes a summary of Corda’s public API into the file `build/api/api-corda-4.1.txt`.
                 The `.ci/check-api-changes.sh` script then compares this file with the contents of `.ci/api-current.txt`, which is a
                 managed file within the Corda repository.
 
