@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Configuring Responder Flows
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Configuring Responder Flows
 
 A flow can be a fairly complex thing that interacts with many backend systems, and so it is likely that different users
             of a specific CorDapp will require differences in how flows interact with their specific infrastructure.

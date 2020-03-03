@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Deterministic JVM
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Deterministic JVM
 
 
 ## Introduction
@@ -370,30 +371,38 @@ You can download and unpack `corda-djvm-cli.zip` from the R3 Artifactory.
 
 Open your terminial and clone the DJVM repository from GitHub:
 
-```shell
-$ git clone https://github.com/corda/djvm
-```
+:: shell
+
+> 
+> $ git clone [https://github.com/corda/djvm](https://github.com/corda/djvm)
+
 Navigate to this newly created `djvm` directory, and then issue the following command:
 
-```shell
-$ djvm/shell/install
-```
+:: shell
+
+> 
+> $ djvm/shell/install
+
 This will build the DJVM tool and install a shortcut on Bash-enabled systems. It will also generate a Bash completion
                 file and store it in the `shell` folder. This file can be sourced from your Bash initialisation script.
 
-```shell
-$ cd ~
-$ djvm
-```
+:: shell
+
+> 
+> $ cd ~
+>                     $ djvm
+
 Now, you can create a new Java file from a skeleton that `djvm` provides, compile the file, and consequently run it
                 by issuing the following commands:
 
-```shell
-$ djvm new Hello
-$ vim tmp/net/corda/sandbox/Hello.java
-$ djvm build Hello
-$ djvm run Hello
-```
+:: shell
+
+> 
+> $ djvm new Hello
+>                     $ vim tmp/net/corda/sandbox/Hello.java
+>                     $ djvm build Hello
+>                     $ djvm run Hello
+
 This run will produce some output similar to this:
 
 ```kotlin

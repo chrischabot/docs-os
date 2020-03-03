@@ -1,17 +1,18 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Blob Inspector
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Blob Inspector
 
-There are many benefits to having a custom binary serialisation format (see [Object serialization](serialization) for details) but one
+There are many benefits to having a custom binary serialisation format (see [Object serialization](serialization.md) for details) but one
             disadvantage is the inability to view the contents in a human-friendly manner. The Corda Blob Inspector tool alleviates
             this issue by allowing the contents of a binary blob file (or URL end-point) to be output in either YAML or JSON. It
-            uses `JacksonSupport` to do this (see [JSON](json)).
+            uses `JacksonSupport` to do this (see [JSON](json.md)).
 
 The tool can be downloaded from [here](https://corda.net/resources).
 
@@ -110,7 +111,7 @@ Notice the file is actually a serialised `SignedNodeInfo` object, which has a `r
 
 ## Classpath
 
-If you run the blob inspector without any JAR files on the classpath, then it will deserialize objects using the Class Carpenter (see [Object serialization](serialization) for details).
+If you run the blob inspector without any JAR files on the classpath, then it will deserialize objects using the Class Carpenter (see [Object serialization](serialization.md) for details).
                 The reason for this is that the types are not available, so the serialization framework has to synthesise them.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
@@ -161,6 +162,6 @@ blob-inspector [-hvV] [--full-parties] [--schema] [--format=type]
 
 ### Sub-commands
 
-`install-shell-extensions`: Install `blob-inspector` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions) for more info.
+`install-shell-extensions`: Install `blob-inspector` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions.md) for more info.
 
 

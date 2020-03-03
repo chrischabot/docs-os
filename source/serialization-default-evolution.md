@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Default Class Evolution
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Default Class Evolution
 
 Whilst more complex evolutionary modifications to classes require annotating, Corda’s serialization
             framework supports several minor modifications to classes without any external modification save

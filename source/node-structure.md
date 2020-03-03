@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Node folder structure
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Node folder structure
 
 A folder containing a Corda node files has the following structure:
 
@@ -51,6 +52,6 @@ The keystores store the key pairs and certificates under the following aliases:
 All the keystores use the password provided in the node’s configuration file using the `keyStorePassword` attribute.
             If no password is configured, it defaults to `cordacadevpass`.
 
-To learn more, see [Network certificates](permissioning).
+To learn more, see [Network certificates](permissioning.md).
 
 

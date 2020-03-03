@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Azure Marketplace
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Azure Marketplace
 
 To help you design, build and test applications on Corda, called CorDapps, a Corda network can be deployed on the [Microsoft Azure Marketplace](https://azure.microsoft.com/en-gb/overview/what-is-azure)
 

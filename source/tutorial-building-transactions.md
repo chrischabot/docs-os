@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Building transactions
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Building transactions
 
 
 ## Introduction
@@ -151,7 +152,7 @@ private fun gatherOurInputs(serviceHub: ServiceHub,
 }
 
 ```
-[FxTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FxTransactionBuildTutorial.kt)This is a foreign exchange transaction, so we expect another set of input states of another currency from a
+[FxTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FxTransactionBuildTutorial.kt)This is a foreign exchange transaction, so we expect another set of input states of another currency from a
                 counterparty. However, the Corda privacy model means we are not aware of the other node’s states. Our flow must
                 therefore ask the other node to carry out a similar query and return the additional inputs to the transaction (see the
                 `ForeignExchangeFlow` for more details of the exchange). We now have all the required input `StateRef` items, and
@@ -188,7 +189,7 @@ val criteria = VaultQueryCriteria(stateRefs = listOf(ref))
 val latestRecord = serviceHub.vaultService.queryBy<TradeApprovalContract.State>(criteria).states.single()
 
 ```
-[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)
+[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)
 ## Generating Commands
 
 For the commands that will be added to the transaction, these will need
@@ -259,7 +260,7 @@ val outputs = if (residual > 0L) {
 return Pair(inputs, outputs)
 
 ```
-[FxTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FxTransactionBuildTutorial.kt)
+[FxTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FxTransactionBuildTutorial.kt)
 ## Building the SignedTransaction
 
 Having gathered all the components for the transaction we now need to use a `TransactionBuilder` to construct the
@@ -298,7 +299,7 @@ tx.setTimeWindow(serviceHub.clock.instant(), 60.seconds)
 val selfSignedTx = serviceHub.signInitialTransaction(tx)
 
 ```
-[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)```kotlin
+[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)```kotlin
 private fun buildTradeProposal(ourInputStates: List<StateAndRef<Cash.State>>,
                                ourOutputState: List<Cash.State>,
                                theirInputStates: List<StateAndRef<Cash.State>>,
@@ -326,7 +327,7 @@ private fun buildTradeProposal(ourInputStates: List<StateAndRef<Cash.State>>,
 }
 
 ```
-[FxTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FxTransactionBuildTutorial.kt)
+[FxTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FxTransactionBuildTutorial.kt)
 ## Completing the SignedTransaction
 
 Having created an initial `TransactionBuilder` and converted this to a `SignedTransaction`, the process of
@@ -378,7 +379,7 @@ val completeTx = sourceSession.receive<SignedTransaction>().unwrap {
 }
 
 ```
-[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)After verification the remote flow will return its signature to the
+[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)After verification the remote flow will return its signature to the
                 originator. The originator should apply that signature to the starting
                 `SignedTransaction` and recheck the signatures match.
 
@@ -394,7 +395,7 @@ Once all the signatures are applied to the `SignedTransaction`, the
 subFlow(FinalityFlow(allPartySignedTx, sourceSession))
 
 ```
-[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)
+[WorkflowTransactionBuildTutorial.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/txbuild/WorkflowTransactionBuildTutorial.kt)
 ## Partially Visible Transactions
 
 The discussion so far has assumed that the parties need full visibility
@@ -412,6 +413,6 @@ The discussion so far has assumed that the parties need full visibility
                 not expose that data to the other node directly. A full example of this
                 can be found in the `NodeInterestRates` Oracle code from the
                 `irs-demo` project which interacts with the `RatesFixFlow` flow.
-                Also, refer to the [Transaction tear-offs](tutorial-tear-offs).
+                Also, refer to the [Transaction tear-offs](tutorial-tear-offs.md).
 
 

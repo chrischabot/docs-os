@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Running nodes locally
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Running nodes locally
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
 You should already have generated your node(s) with their CorDapps installed by following the instructions in
-                [Creating nodes locally](generating-a-node).
+                [Creating nodes locally](generating-a-node.md).
 
 
 </div>
@@ -21,7 +22,7 @@ There are several ways to run a Corda node locally for testing purposes.
 
 ## Starting a Corda node using DemoBench
 
-See the instructions in [DemoBench](demobench).
+See the instructions in [DemoBench](demobench.md).
 
 
 ## Starting a Corda node from the command line
@@ -169,7 +170,7 @@ By default, `Cordform` expects the nodes it generates to be run on the same mach
 To create nodes locally and run on a remote machine perform the following steps:
 
 
-* Configure Cordform task and deploy the nodes locally as described in [Creating nodes locally](generating-a-node).
+* Configure Cordform task and deploy the nodes locally as described in [Creating nodes locally](generating-a-node.md).
 
 
 * Copy the generated directory structure to a remote machine using e.g. Secure Copy.
@@ -181,7 +182,7 @@ This is optional step when a remote machine doesn’t accept `localhost` address
 
 If required change host addresses in top level configuration files `[NODE NAME]_node.conf` for entries `p2pAddress` , `rpcSettings.address` and  `rpcSettings.adminAddress`.
 
-Run the network bootstrapper tool to regenerate the nodes network map (see for more explanation [Network Bootstrapper](network-bootstrapper)):
+Run the network bootstrapper tool to regenerate the nodes network map (see for more explanation [Network Bootstrapper](network-bootstrapper.md)):
 
 `java -jar corda-tools-network-bootstrapper-Master.jar --dir <nodes-root-dir>`
 

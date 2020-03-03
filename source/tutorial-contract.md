@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Writing a contract
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Writing a contract
 
 This tutorial will take you through writing a contract, using a simple commercial paper contract as an example.
             Smart contracts in Corda have three key elements:
@@ -187,7 +188,7 @@ public class State implements OwnableState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [State.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/State.java)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [State.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/State.java)
 
 
 </div>
@@ -208,10 +209,10 @@ We have four fields in our state:
 
 * `faceValue`, an `Amount<Issued<Currency>>`, which wraps an integer number of pennies and a currency that is
                         specific to some issuer (e.g. a regular bank, a central bank, etc). You can read more about this very common
-                        type in [API: Core types](api-core-types).
+                        type in [API: Core types](api-core-types.md).
 
 
-* `maturityDate`, an [Instant](https://docs.oracle.com/javase/8/docs/api/java/time/Instant), which is a type
+* `maturityDate`, an [Instant](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html), which is a type
                         from the Java 8 standard time library. It defines a point on the timeline.
 
 
@@ -280,7 +281,7 @@ public static class Commands implements CommandData {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
 
 
 </div>
@@ -322,12 +323,12 @@ override fun verify(tx: LedgerTransaction) {
 @Override
 public void verify(LedgerTransaction tx) {
     List<InOutGroup<State, State>> groups = tx.groupStates(State.class, State::withoutOwner);
-    CommandWithParties<Commands>  = requireSingleCommand(tx.getCommands(), Commands.class);
+    CommandWithParties<Commands> cmd = requireSingleCommand(tx.getCommands(), Commands.class);
 
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
 
 
 </div>
@@ -526,17 +527,17 @@ for (InOutGroup group : groups) {
     List<State> inputs = group.getInputs();
     List<State> outputs = group.getOutputs();
 
-    if (.getValue() instanceof Commands.Move) {
+    if (cmd.getValue() instanceof Commands.Move) {
         State input = inputs.get(0);
         requireThat(require -> {
-            require.using("the transaction is signed by the owner of the CP", .getSigners().contains(input.getOwner().getOwningKey()));
+            require.using("the transaction is signed by the owner of the CP", cmd.getSigners().contains(input.getOwner().getOwningKey()));
             require.using("the state is propagated", outputs.size() == 1);
             // Don't need to check anything else, as if outputs.size == 1 then the output is equal to
             // the input ignoring the owner field due to the grouping.
             return null;
         });
 
-    } else if (.getValue() instanceof Commands.Redeem) {
+    } else if (cmd.getValue() instanceof Commands.Redeem) {
         // Redemption of the paper requires movement of on-ledger cash.
         State input = inputs.get(0);
         Amount<Issued<Currency>> received = sumCashBy(tx.getOutputStates(), input.getOwner());
@@ -546,16 +547,16 @@ for (InOutGroup group : groups) {
             require.using("the paper must have matured", time.isAfter(input.getMaturityDate()));
             require.using("the received amount equals the face value", received == input.getFaceValue());
             require.using("the paper must be destroyed", outputs.isEmpty());
-            require.using("the transaction is signed by the owner of the CP", .getSigners().contains(input.getOwner().getOwningKey()));
+            require.using("the transaction is signed by the owner of the CP", cmd.getSigners().contains(input.getOwner().getOwningKey()));
             return null;
         });
-    } else if (.getValue() instanceof Commands.Issue) {
+    } else if (cmd.getValue() instanceof Commands.Issue) {
         State output = outputs.get(0);
         if (timeWindow == null) throw new IllegalArgumentException("Issuances must have a time-window");
         Instant time = timeWindow.getUntilTime();
         requireThat(require -> {
             // Don't allow people to issue commercial paper under other entities identities.
-            require.using("output states are issued by a command signer", .getSigners().contains(output.getIssuance().getParty().getOwningKey()));
+            require.using("output states are issued by a command signer", cmd.getSigners().contains(output.getIssuance().getParty().getOwningKey()));
             require.using("output values sum to more than the inputs", output.getFaceValue().getQuantity() > 0);
             require.using("the maturity date is not in the past", time.isBefore(output.getMaturityDate()));
             // Don't allow an existing CP state to be replaced by this issuance.
@@ -570,7 +571,7 @@ for (InOutGroup group : groups) {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
 
 
 </div>
@@ -668,7 +669,7 @@ To make contract testing more convenient Corda provides a language-like API for 
                 you easily construct chains of transactions and verify that they either pass validation, or fail with a particular
                 error message.
 
-Testing contracts with this domain specific language is covered in the separate tutorial, [Writing a contract test](tutorial-test-dsl).
+Testing contracts with this domain specific language is covered in the separate tutorial, [Writing a contract test](tutorial-test-dsl.md).
 
 
 ## Adding a generation API to your contract
@@ -706,7 +707,7 @@ fun generateIssue(issuance: PartyAndReference, faceValue: Amount<Issued<Currency
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt)
 
 
 </div>
@@ -752,13 +753,13 @@ public static final String IOU_CONTRACT_ID = "com.example.contract.IOUContract";
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt) | [CommercialPaper.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/contract/CommercialPaper.java)
 
 
 </div>
 This value, which is the fully qualified class name of the contract, tells the Corda platform where to find the contract
                 code that should be used to validate a transaction containing an output state of this contract type. Typically the contract
-                code will be included in the transaction as an attachment (see [Using attachments](tutorial-attachments)).
+                code will be included in the transaction as an attachment (see [Using attachments](tutorial-attachments.md)).
 
 The returned partial transaction has a `Command` object as a parameter. This is a container for any object
                 that implements the `CommandData` interface, along with a list of keys that are expected to sign this transaction. In this case,
@@ -769,7 +770,7 @@ The `TransactionBuilder` has a convenience `withItems` method that takes a varia
                 for you.
 
 There’s one final thing to be aware of: we ask the caller to select a *notary* that controls this state and
-                prevents it from being double spent. You can learn more about this topic in the [Notaries](key-concepts-notaries) article.
+                prevents it from being double spent. You can learn more about this topic in the [Notaries](key-concepts-notaries.md) article.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
@@ -795,7 +796,7 @@ fun generateMove(tx: TransactionBuilder, paper: StateAndRef<State>, newOwner: Ab
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt)
 
 
 </div>
@@ -835,7 +836,7 @@ fun generateRedeem(tx: TransactionBuilder, paper: StateAndRef<State>, services: 
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt)
+![github](/images/svg/github.svg "github") [TutorialContract.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/contract/TutorialContract.kt)
 
 
 </div>
@@ -888,7 +889,7 @@ In a classical blockchain system all data is transmitted to everyone and if you 
                 multi-party transactions are a way of life, so we provide lots of support for managing them.
 
 You can learn how transactions are moved between peers and taken through the build-sign-notarise-broadcast
-                process in a separate tutorial, [Writing flows](flow-state-machines).
+                process in a separate tutorial, [Writing flows](flow-state-machines.md).
 
 
 ## Non-asset-oriented smart contracts
@@ -900,7 +901,7 @@ Although this tutorial covers how to implement an owned asset, there is no requi
                 relational constraints.
 
 When writing a contract that handles deal-like entities rather than asset-like entities, you may wish to refer
-                to “[Interest rate swaps](contract-irs)” and the accompanying source code. Whilst all the concepts are the same, deals are
+                to “[Interest rate swaps](contract-irs.md)” and the accompanying source code. Whilst all the concepts are the same, deals are
                 typically not splittable or mergeable and thus you don’t have to worry much about grouping of states.
 
 
@@ -911,7 +912,7 @@ It would be nice if you could program your node to automatically redeem your com
                 is by default ignored, if the corresponding *Cordapp* is installed and active in your node, and if the state is
                 considered relevant by your vault (e.g. because you own it), then the node can automatically begin the process
                 of creating a transaction and taking it through the life cycle. You can learn more about this in the article
-                “[Event scheduling](event-scheduling)”.
+                “[Event scheduling](event-scheduling.md)”.
 
 
 ## Encumbrances

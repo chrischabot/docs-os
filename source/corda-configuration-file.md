@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Node configuration
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Node configuration
 
 
 ## Configuration file location
@@ -29,7 +30,7 @@ If you specify both command line arguments at the same time, the node will fail 
 ## Configuration file format
 
 The Corda configuration file uses the HOCON format which is a superset of JSON. Please visit
-                [https://github.com/typesafehub/config/blob/master/HOCON](https://github.com/typesafehub/config/blob/master/HOCON) for further details.
+                [https://github.com/typesafehub/config/blob/master/HOCON.md](https://github.com/typesafehub/config/blob/master/HOCON.md) for further details.
 
 Please do NOT use double quotes (`"`) in configuration keys.
 
@@ -51,112 +52,31 @@ If a property is defined twice the last one will take precedence. The library cu
 By default the node will fail to start in presence of unknown property keys.
                 To alter this behaviour, the `on-unknown-config-keys` command-line argument can be set to `IGNORE` (default is `FAIL`).
 
+
+## Overriding values from node.conf
+
+
+
+Environment variables
+For example: `${NODE_TRUST_STORE_PASSWORD}` would be replaced by the contents of environment variable `NODE_TRUST_STORE_PASSWORD` (see: [Logging](node-administration.md#hiding-sensitive-data) section).
+
+
+JVM options
+JVM options or environmental variables prefixed with `corda.` can override `node.conf` fields.
+                            Provided system properties can also set values for absent fields in `node.conf`.
+                            This is an example of adding/overriding the keyStore password :
+
+```shell
+java -Dcorda.rpcSettings.ssl.keyStorePassword=mypassword -jar node.jar
+```
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-As noted in the HOCON documentation, the default behaviour for resources referenced within a config file is to silently
-                    ignore them if missing. Therefore it is strongly recommended to utilise the `required` syntax for includes. See HOCON documentation
-                    for more information.
+If the same field is overriden by both an environment variable and system property, the system property
+                    takes precedence.
 
 
 </div>
-
-## Overriding configuration values
-
-
-### Placeholder Overrides
-
-It is possible to add placeholders to the `node.conf` file to override particular settings via environment variables. In this case the
-                    `rpcSettings.address` property will be overridden by the `RPC_ADDRESS` environment variable, and the node will fail to load if this
-                    environment variable isn’t present (see: [Hiding sensitive data](node-administration#hiding-sensitive-data) for more information).
-
-```groovy
-rpcSettings {
-  address=${RPC_ADDRESS}
-  adminAddress="localhost:10015"
-}
-```
-
-### Direct Overrides
-
-It is also possible to directly override Corda configuration (regardless of whether the setting is already in the `node.conf`), by using
-                    environment variables or JVM options. Simply prefix the field with `corda.` or `corda_`, using periods (`.`) or
-                    underscores (`_`) to signify nested options. For example, to override the `rpcSettings.address` setting, you can override it via environment variables:
-
-```shell
-# For *nix systems:
-export corda_rpcSettings_address=localhost:10015
-
-# On Windows systems:
-SET corda_rpcSettings_address=localhost:10015
-SET corda.rpcSettings.address=localhost:10015
-```
-Or via JVM arguments:
-
-```shell
-java -Dcorda_rpcSettings_address=localhost:10015 -jar corda.jar
-java -Dcorda.rpcSettings.address=localhost:10015 -jar corda.jar
-```
-Items in lists can be overridden by appending the list index to the configuration key. For example, the `jarDirs` setting can be
-                    overridden via:
-
-```shell
-# via JVM arguments:
-java -Dcorda.jarDirs.0=./libs -Dcorda.jarDirs.1=./morelibs -jar corda.jar
-java -Dcorda_jarDirs_0=./libs -Dcorda_jarDirs_1=./morelibs -jar corda.jar
-
-# or via environment variables
-
-# for *nix systems:
-export corda_jarDirs_0=./libs
-export corda_jarDirs_1=./morelibs
-
-# for Windows systems:
-SET corda.jarDirs.0=./libs
-SET corda.jarDirs.1=./morelibs
-# or
-SET corda_jarDirs_0=./libs
-SET corda_jarDirs_1=./morelibs
-```
-
-#### Limitations
-
-
-* If the same key is overridden by both an environment variable and system property, the system property takes precedence.
-
-
-* Variables and properties are case sensitive. Corda will warn you if a variable
-                                prefixed with `CORDA` cannot be mapped to a valid property. Shadowing occurs when two properties
-                                of the same type with the same key are defined. For example having `corda.p2Aaddress=host:port` and `corda_p2Aaddress=host1:port1`
-                                will raise an exception on startup. This is to prevent hard to spot mistakes.
-
-
-* If an item in a list is overridden via an environment variable/system property, the whole list will be overridden. E.g., with a `node.conf`
-                                containing:
-
-```groovy
-jarDirs=["./dir1", "./dir2", "./dir3"]
-```
-When Corda is started via:
-
-```shell
-java -Dcorda.jarDirs_0=./newdir1
-```
-The resulting value of `jarDirs` will be `["./newdir1"]`.
-
-
-* You can’t override a populated list with an empty list. For example, when `devMode=false`, `cordappSignerKeyFingerprintBlacklist` is
-                                pre-populated with Corda development keys. It isn’t possible to set this to an empty list via the commandline. You can however override
-                                the list with an all zero hash which will remove the keys:
-
-```shell
-java -Dcorda.cordappSignerKeyFingerprintBlacklist.0="0000000000000000000000000000000000000000000000000000000000000000"
-```
-
-* Objects in lists cannot currently be overridden. For example the `rpcUsers` configuration key is a list of user objects, overriding these
-                                via environment variables or system properties will not work.
-
-
 
 ## Configuration file fields
 
@@ -194,7 +114,7 @@ List of SHA-256 hashes of public keys. Attachments signed by any of these public
                             This property is similar to [cordappSignerKeyFingerprintBlacklist](#corda-configuration-file-signer-blacklist) but only restricts CorDapps that were
                             included as attachments in a transaction and received over the network from a peer.
 
-See [Signing CorDapps for use with Signature Constraints](api-contract-constraints#signing-cordapps-for-use-with-signature-constraints) for more information about signing CorDapps and what
+See [Signing CorDapps for use with Signature Constraints](api-contract-constraints.md#signing-cordapps-for-use-with-signature-constraints) for more information about signing CorDapps and what
                             makes an attachment trusted (a trust root).
 
 This property requires retrieving the hashes of public keys that need to be blacklisted. More information on this process can be found in [Generating a public key hash](#generating-a-public-key-hash).
@@ -204,7 +124,7 @@ This property requires retrieving the hashes of public keys that need to be blac
 
 
 compatibilityZoneURL (deprecated)
-The root address of the Corda compatibility zone network management services, it is used by the Corda node to register with the network and obtain a Corda node certificate, (See [Network certificates](permissioning) for more information.) and also is used by the node to obtain network map information.
+The root address of the Corda compatibility zone network management services, it is used by the Corda node to register with the network and obtain a Corda node certificate, (See [Network certificates](permissioning.md) for more information.) and also is used by the node to obtain network map information.
                             Cannot be set at the same time as the [networkServices](#corda-configuration-file-networkservices) option.
 
 **Important:  old configuration value, please use networkServices**
@@ -240,7 +160,7 @@ Set custom command line attributes (e.g. Java system properties) on the node pro
 
 jvmArgs:
 A list of JVM arguments to apply to the node process. This removes any defaults specified from `corda.jar`, but can be overridden from the command line.
-                                        See [Setting JVM arguments](running-a-node#setting-jvm-args) for examples and details on the precedence of the different approaches to settings arguments.
+                                        See [Setting JVM arguments](running-a-node.md#setting-jvm-args) for examples and details on the precedence of the different approaches to settings arguments.
 
 *Default:* not defined
 
@@ -361,15 +281,6 @@ An optional list of private network map UUIDs. Your node will fetch the public n
 *Default:* not defined
 
 
-
-flowExternalOperationThreadPoolSize
-The number of threads available to execute external operations that have been called from flows. See the documentation on
-                            [calling external systems inside flows](api-flows#api-flows-external-operations) for more information.
-
-*Default:* Set to the lesser of either the maximum number of cores allocated to the node, or 10.
-
-
-
 flowMonitorPeriodMillis
 Duration of the period suspended flows waiting for IO are logged.
 
@@ -417,7 +328,7 @@ Defines port for h2 DB.
 
 h2Settings
 Sets the H2 JDBC server host and port.
-                            See [Database access when running H2](node-database-access-h2).
+                            See [Database access when running H2](node-database-access-h2.md).
                             For non-localhost address the database password needs to be set in `dataSourceProperties`.
 
 *Default:* NULL
@@ -445,7 +356,7 @@ Provides an option for registering an alternative JMX reporter.
                             Available options are `JOLOKIA` and `NEW_RELIC`.
 
 The Jolokia configuration is provided by default.
-                            The New Relic configuration leverages the [Dropwizard](https://metrics.dropwizard.io/3.2.3/manual/third-party) NewRelicReporter solution.
+                            The New Relic configuration leverages the [Dropwizard](https://metrics.dropwizard.io/3.2.3/manual/third-party.html) NewRelicReporter solution.
                             See [Introduction to New Relic for Java](https://docs.newrelic.com/docs/agents/java-agent/getting-started/introduction-new-relic-java) for details on how to get started and how to install the New Relic Java agent.
 
 *Default:* `JOLOKIA`
@@ -489,7 +400,7 @@ The legal identity of the node.
                             This acts as a human-readable alias to the node’s public key and can be used with the network map to look up the node’s info.
                             This is the name that is used in the node’s certificates (either when requesting them from the doorman, or when auto-generating them in dev mode).
                             At runtime, Corda checks whether this name matches the name in the node’s certificates.
-                            For more details please read [Node identity](node-naming#node-naming) chapter.
+                            For more details please read [Node identity](node-naming.md#node-naming) chapter.
 
 *Default:* not defined
 
@@ -512,14 +423,6 @@ If the node is part of a distributed cluster, specify the legal name of the clus
                                         At runtime, Corda checks whether this name matches the name of the certificate of the notary cluster.
 
 *Default:* not defined
-
-
-etaMessageThresholdSeconds
-If the wait time estimate on the internal queue exceeds this value, the notary may send
-                                        a wait time update to the client (implementation specific and dependent on the counter
-                                        party version).
-
-*Default:* Implementation dependent
 
 
 raft
@@ -572,7 +475,7 @@ Optional settings for managing the network parameter auto-acceptance behaviour.
 autoAcceptEnabled
 This flag toggles auto accepting of network parameter changes.
                                         If a network operator issues a network parameter change which modifies only auto-acceptable options and this behaviour is enabled then the changes will be accepted without any manual intervention from the node operator.
-                                        See [The network map](network-map) for more information on the update process and current auto-acceptable parameters.
+                                        See [The network map](network-map.md) for more information on the update process and current auto-acceptable parameters.
                                         Set to `false` to disable.
 
 *Default:* true
@@ -608,16 +511,6 @@ Root address of the network map service.
 
 pnm
 Optional UUID of the private network operating within the compatibility zone this node should be joining.
-
-*Default:* not defined
-
-
-csrToken
-Optional token to provide alongside the certificate signing request (CSR) as part of the HTTP header during node registration.
-                                        The token can be used by certificate signing authority (or Identity Manager Service) to verify additional identity requirements.
-                                        The maximum token length is limited by the maximum HTTP header size, which is normally 8KB, assuming that a few other internal
-                                        attributes are also present in the header. Also, the token length itself may never exceed 8192, limited by the database structure.
-                                        Only US-ASCII characters are allowed.
 
 *Default:* not defined
 
@@ -725,7 +618,7 @@ A list of permissions for starting flows via RPC.
 
 security
 Contains various nested fields controlling user authentication/authorization, in particular for RPC accesses.
-                            See [Interacting with a node](clientrpc) for details.
+                            See [Interacting with a node](clientrpc.md) for details.
 
 
 
@@ -744,7 +637,7 @@ The port to start SSH server on e.g. `sshd { port = 2222 }`.
 
 systemProperties
 An optional map of additional system properties to be set when launching via `corda.jar` only.
-                            Keys and values of the map should be strings. e.g. `systemProperties = { "visualvm.display.name" = FooBar }`
+                            Keys and values of the map should be strings. e.g. `systemProperties = { visualvm.display.name = FooBar }`
 
 *Default:* not defined
 
@@ -835,8 +728,11 @@ useTestClock = false
 verifierType = InMemory
 
 ```
-[reference.conf](https://github.com/corda/corda/blob/release/os/4.4/node/src/main/resources/reference.conf)
+[reference.conf](https://github.com/corda/corda/blob/release/os/4.3/node/src/main/resources/reference.conf)
 ## Configuration examples
+
+
+### Node configuration hosting the IRSDemo services
 
 General node configuration file for hosting the IRSDemo services
 
@@ -864,7 +760,10 @@ rpcUsers = [
 devMode = true
 
 ```
-[example-node.conf](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/resources/example-node.conf)```none
+[example-node.conf](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/resources/example-node.conf)
+### Simple notary configuration file
+
+```none
 myLegalName = "O=Notary Service,OU=corda,L=London,C=GB"
 keyStorePassword = "cordacadevpass"
 trustStorePassword = "trustpass"
@@ -884,6 +783,9 @@ networkServices {
     networkMapURL = "https://cz.example.com"
 }
 ```
+
+### Node configuration with diffrent URL for NetworkMap and Doorman
+
 Configuring a node where the Corda Compatibility Zone’s registration and Network Map services exist on different URLs
 
 ```none
@@ -914,7 +816,7 @@ networkServices {
 }
 
 ```
-[example-node-with-networkservices.conf](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/resources/example-node-with-networkservices.conf)
+[example-node-with-networkservices.conf](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/resources/example-node-with-networkservices.conf)
 ## Generating a public key hash
 
 This section details how a public key hash can be extracted and generated from a signed CorDapp. This is required for a select number of

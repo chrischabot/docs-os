@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Observer nodes
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Observer nodes
 
 Posting transactions to an observer node is a common requirement in finance, where regulators often want
             to receive comprehensive reporting on all actions taken. By running their own node, regulators can receive a stream
@@ -59,7 +60,7 @@ Just define a new flow that wraps the SendTransactionFlow/ReceiveTransactionFlow
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [AutoOfferFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/irs-demo/cordapp/workflows-irs/src/main/kotlin/net.corda.irs/flows/AutoOfferFlow.kt)
+![github](/images/svg/github.svg "github") [AutoOfferFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/samples/irs-demo/cordapp/workflows-irs/src/main/kotlin/net.corda.irs/flows/AutoOfferFlow.kt)
 
 
 </div>
@@ -77,7 +78,7 @@ In this example, the `AutoOfferFlow` is the business logic, and we define two ve
                     we do want to passively observe states we can’t change. So overriding this behaviour is required.
 
 
-If the states define a relational mapping (see [API: Persistence](api-persistence)) then the regulator will be able to query the
+If the states define a relational mapping (see [API: Persistence](api-persistence.md)) then the regulator will be able to query the
             reports from their database and observe new transactions coming in via RPC.
 
 

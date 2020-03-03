@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Contracts
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Contracts
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -93,7 +94,7 @@ Future versions of Corda will evaluate transactions in a strictly deterministic 
                 the information included in the transaction itself.
 
 **Tip:** Developers can pre-verify that their CorDapps are deterministic by linking their CorDapps against the deterministic modules
-                (see the [Deterministic Corda Modules](deterministic-modules)).
+                (see the [Deterministic Corda Modules](deterministic-modules.md)).
 
 
 ## Contract limitations
@@ -111,7 +112,7 @@ Peers should therefore check the contents of a transaction before signing it, *e
 ## Oracles
 
 Sometimes, transaction validity will depend on some external piece of information, such as an exchange rate. In
-                these cases, an oracle is required. See [Oracles](key-concepts-oracles) for further details.
+                these cases, an oracle is required. See [Oracles](key-concepts-oracles.md) for further details.
 
 
 ## Legal prose

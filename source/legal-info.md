@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Legal notice
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Legal notice
 
 CORDA Open Source 4.1 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
             Do Not Translate or Localize
@@ -470,8 +471,7 @@ This file is based on or incorporates material from the projects listed below (T
 * sshd-pam
 
 
-* netty-tcnative-boringssl-static
-
+=========== START OF NOTICES AND INFORMATION for the following component=========
 
 jdom 1.0
             Copyright (C) 2000-2012 Jason Hunter & Brett McLaughlin.
@@ -709,10 +709,6 @@ netty-resolver  4.1.29.Final
             [https://netty.io/](https://netty.io/)
             [https://github.com/netty/netty/blob/4.1/LICENSE.txt](https://github.com/netty/netty/blob/4.1/LICENSE.txt)
 
-netty-tcnative-boringssl-static 2.0.14.Final
-            [https://netty.io/](https://netty.io/)
-            [https://github.com/netty/netty/blob/4.1/LICENSE.txt](https://github.com/netty/netty/blob/4.1/LICENSE.txt)
-
 netty-transport 4.1.29.Final
             [https://netty.io/](https://netty.io/)
             [https://github.com/netty/netty/blob/4.1/LICENSE.txt](https://github.com/netty/netty/blob/4.1/LICENSE.txt)
@@ -735,7 +731,7 @@ rxjava 1.3.8
 
 byte-buddy 1.8.17
             [https://bytebuddy.net/#/](https://bytebuddy.net/#/)
-            [http://www.apache.org/licenses/LICENSE-2.0.html](http://www.apache.org/licenses/LICENSE-2.0)
+            [http://www.apache.org/licenses/LICENSE-2.0.html](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 corda 4.0
             Copyright 2016 - 2019, R3 Limited.
@@ -873,7 +869,7 @@ mina-core 2.0.16
             [https://github.com/apache/mina/blob/trunk/LICENSE](https://github.com/apache/mina/blob/trunk/LICENSE)
 
 proton-j 0.33.0
-            [https://qpid.apache.org/releases/qpid-proton-j-0.33.0/index.html](https://qpid.apache.org/releases/qpid-proton-j-0.33.0/index)
+            [https://qpid.apache.org/releases/qpid-proton-j-0.33.0/index.html](https://qpid.apache.org/releases/qpid-proton-j-0.33.0/index.html)
             [https://github.com/apache/qpid-proton-j/blob/master/LICENSE](https://github.com/apache/qpid-proton-j/blob/master/LICENSE)
 
 shiro-cache 1.4.0
@@ -982,15 +978,15 @@ kotlin-stdlib-jre8 1.2.71
 
 jgroups 3.6.13.Final
             [http://www.jgroups.org/](http://www.jgroups.org/)
-            [http://www.jgroups.org/license.html](http://www.jgroups.org/license)
+            [http://www.jgroups.org/license.html](http://www.jgroups.org/license.html)
 
 jolokia-core 1.6.0
             [https://jolokia.org/](https://jolokia.org/)
-            [https://jolokia.org/license.html](https://jolokia.org/license)
+            [https://jolokia.org/license.html](https://jolokia.org/license.html)
 
 jolokia-jvm 1.6.0
             [https://jolokia.org/](https://jolokia.org/)
-            [https://jolokia.org/license.html](https://jolokia.org/license)
+            [https://jolokia.org/license.html](https://jolokia.org/license.html)
 
 liquibase-core 3.5.5
             [https://github.com/liquibase/liquibase](https://github.com/liquibase/liquibase)
@@ -998,7 +994,7 @@ liquibase-core 3.5.5
 
 objenesis 2.2
             [http://objenesis.org/](http://objenesis.org/)
-            [http://objenesis.org/license.html](http://objenesis.org/license)
+            [http://objenesis.org/license.html](http://objenesis.org/license.html)
 
 snakeyaml 1.18
             [http://www.snakeyaml.org/](http://www.snakeyaml.org/)
@@ -1243,17 +1239,17 @@ snakeyaml 1.18
 jackson-annotations     2.9.6
             [https://github.com/FasterXML/jackson-annotations](https://github.com/FasterXML/jackson-annotations)
             [http://www.apache.org/licenses/LICENSE-2.0.txt](http://www.apache.org/licenses/LICENSE-2.0.txt)
-            [https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html](https://www.gnu.org/licenses/old-licenses/lgpl-2.1)
+            [https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 jackson-core 2.9.6
             [https://github.com/FasterXML/jackson](https://github.com/FasterXML/jackson)
             [http://www.apache.org/licenses/LICENSE-2.0.txt](http://www.apache.org/licenses/LICENSE-2.0.txt)
-            [https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html](https://www.gnu.org/licenses/old-licenses/lgpl-2.1)
+            [https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 jackson-databind 2.9.6
             [https://github.com/FasterXML/jackson-databind](https://github.com/FasterXML/jackson-databind)
             [http://www.apache.org/licenses/LICENSE-2.0.txt](http://www.apache.org/licenses/LICENSE-2.0.txt)
-            [https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html](https://www.gnu.org/licenses/old-licenses/lgpl-2.1)
+            [https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 ———————–START OF LICENSE TEXT———————————–
 
@@ -1677,7 +1673,7 @@ END OF TERMS AND CONDITIONS
 javassist 3.23.1-GA
             Copyright (C) 1999-2019 by Shigeru Chiba, All rights reserved.
             [http://www.javassist.org/](http://www.javassist.org/)
-            [https://github.com/jboss-javassist/javassist/blob/master/License.html](https://github.com/jboss-javassist/javassist/blob/master/License)
+            [https://github.com/jboss-javassist/javassist/blob/master/License.html](https://github.com/jboss-javassist/javassist/blob/master/License.html)
 
 ———————–START OF LICENSE TEXT———————————–
 
@@ -1987,7 +1983,7 @@ Alternatively, the contents of this software may be used under the terms of the 
 antlr 2.7.7
             Copyright © 2012 Terence Parr & Sam Harwell
             [https://www.antlr.org/](https://www.antlr.org/)
-            [https://www.antlr.org/license.html](https://www.antlr.org/license)
+            [https://www.antlr.org/license.html](https://www.antlr.org/license.html)
 
 jcabi-log 0.14
             Copyright (c) 2012-2017, jcabi.com
@@ -2210,7 +2206,7 @@ ea-agent-loader 1.0.3
 kryo 4.0.0
             Copyright (c) 2008-2018, Nathan Sweet
             [https://github.com/EsotericSoftware/kryo/releases/tag/kryo-parent-4.0.0](https://github.com/EsotericSoftware/kryo/releases/tag/kryo-parent-4.0.0)
-            [https://github.com/EsotericSoftware/kryo/blob/master/LICENSE](https://github.com/EsotericSoftware/kryo/blob/master/LICENSE)
+            [https://github.com/EsotericSoftware/kryo/blob/master/LICENSE.md](https://github.com/EsotericSoftware/kryo/blob/master/LICENSE.md)
 
 minlog 1.3.0
             Copyright (c) 2008, Nathan Sweet
@@ -2224,13 +2220,13 @@ reflectasm 1.11.3
 
 asm 5.2
             Copyright (c) 2000-2011 INRIA, France Telecom
-            [https://asm.ow2.io/index.html](https://asm.ow2.io/index)
-            [https://asm.ow2.io/license.html](https://asm.ow2.io/license)
+            [https://asm.ow2.io/index.html](https://asm.ow2.io/index.html)
+            [https://asm.ow2.io/license.html](https://asm.ow2.io/license.html)
 
 javax.activation-api    1.2.0
             Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
             [https://github.com/eclipse-ee4j/jaf](https://github.com/eclipse-ee4j/jaf)
-            [https://github.com/eclipse-ee4j/jaf/blob/master/LICENSE](https://github.com/eclipse-ee4j/jaf/blob/master/LICENSE)
+            [https://github.com/eclipse-ee4j/jaf/blob/master/LICENSE.md](https://github.com/eclipse-ee4j/jaf/blob/master/LICENSE.md)
 
 ———————–START OF LICENSE TEXT———————————–
 
@@ -2862,7 +2858,7 @@ under the terms of the GNU Lesser General Public License version 3.0
 javax.persistence-api 2.2
             Copyright (c) 2008, 2019 Oracle and/or its affiliates. All rights reserved.
             [https://github.com/eclipse-ee4j/jpa-api](https://github.com/eclipse-ee4j/jpa-api)
-            [https://github.com/eclipse-ee4j/jpa-api/blob/master/LICENSE](https://github.com/eclipse-ee4j/jpa-api/blob/master/LICENSE)
+            [https://github.com/eclipse-ee4j/jpa-api/blob/master/LICENSE.md](https://github.com/eclipse-ee4j/jpa-api/blob/master/LICENSE.md)
 
 ———————–START OF LICENSE TEXT———————————–
 
@@ -3178,7 +3174,7 @@ Exhibit A - Form of Secondary Licenses Notice
 
 h2 1.0; 1.4.192; 1.4.197
             [http://www.h2database.com/](http://www.h2database.com/)
-            [http://h2database.comlicense.html](http://h2database.com/html/license)
+            [http://h2database.com/html/license.html](http://h2database.com/html/license.html)
 
 ———————–START OF LICENSE TEXT———————————–
 
@@ -3201,7 +3197,7 @@ This software contains unmodified binary redistributions for
             which is dual licensed and available under the MPL 2.0
             (Mozilla Public License) or under the EPL 1.0 (Eclipse Public License).
             An original copy of the license agreement can be found at:
-            [http://www.h2database.comlicense.html](http://www.h2database.com/html/license)
+            [http://www.h2database.com/html/license.html](http://www.h2database.com/html/license.html)
             Mozilla Public License Version 2.0
             1. Definitions
             1.1. “Contributor” means each individual or legal entity that creates, contributes to the creation of, or owns Covered Software.
@@ -4104,7 +4100,7 @@ END OF TERMS AND CONDITIONS
 
 jsr305  3.0.2
             [http://findbugs.sourceforge.net/](http://findbugs.sourceforge.net/)
-            [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0)
+            [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html)
 
 ———————–START OF LICENSE TEXT———————————–
 
@@ -4190,7 +4186,7 @@ If the Library as you received it specifies that a proxy can decide whether futu
 liquibase-slf4j 2.0.0
             Copyright (c) 2012-2015 Matt Bertolini
             [https://github.com/mattbertolini/liquibase-slf4j](https://github.com/mattbertolini/liquibase-slf4j)
-            [https://opensource.org/licenses/mit-license.html](https://opensource.org/licenses/mit-license)
+            [https://opensource.org/licenses/mit-license.html](https://opensource.org/licenses/mit-license.html)
 
 classgraph 4.6.12
             Copyright (c) 2019 Luke Hutchison
@@ -4204,17 +4200,17 @@ jquery 1.11.0-rc1
 
 bcpkix-jdk15on 1.60
             Copyright (c) 2000-2019 The Legion of the Bouncy Castle Inc.
-            [http://www.bouncycastle.org/java.html](http://www.bouncycastle.org/java)
-            [http://www.bouncycastle.org/licence.html](http://www.bouncycastle.org/licence)
+            [http://www.bouncycastle.org/java.html](http://www.bouncycastle.org/java.html)
+            [http://www.bouncycastle.org/licence.html](http://www.bouncycastle.org/licence.html)
 
 bcprov-jdk15on  1.60
             Copyright (c) 2000-2019 The Legion of the Bouncy Castle Inc.
-            [http://www.bouncycastle.org/java.html](http://www.bouncycastle.org/java)
-            [http://www.bouncycastle.org/licence.html](http://www.bouncycastle.org/licence)
+            [http://www.bouncycastle.org/java.html](http://www.bouncycastle.org/java.html)
+            [http://www.bouncycastle.org/licence.html](http://www.bouncycastle.org/licence.html)
 
 animal-snifferannotations 1.14
-            [https://www.mojohaus.org/animal-sniffer/index.html](https://www.mojohaus.org/animal-sniffer/index)
-            [https://www.mojohaus.org/animal-sniffer/license.html](https://www.mojohaus.org/animal-sniffer/license)
+            [https://www.mojohaus.org/animal-sniffer/index.html](https://www.mojohaus.org/animal-sniffer/index.html)
+            [https://www.mojohaus.org/animal-sniffer/license.html](https://www.mojohaus.org/animal-sniffer/license.html)
 
 jcl-over-slf4j 1.7.25
             Copyright (c) 2004-2017 QOS.ch

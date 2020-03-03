@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: API stability guarantees
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# API stability guarantees
 
 Corda makes certain commitments about what parts of the API will preserve backwards compatibility as they change and
             which will not. Over time, more of the API will fall under the stability guarantees. Thus, APIs can be categorized in the following 2 broad categories:
@@ -57,20 +58,13 @@ Additionally, the **Tokens SDK (com.r3.corda.lib.tokens)** available in [the Tok
 
 # Non-public API (experimental)
 
-The following are not part of the Corda’s public API and no backwards compatibility guarantees are provided:
+The following modules are not part of the Corda’s public API and no backwards compatibility guarantees are provided. They are further categorized in 2 classes:
 
 
-* Incubating modules, for which we will do our best to minimise disruption to developers using them until we are able to graduate them into the public API
+* the incubating modules, for which we will do our best to minimise disruption to developers using them until we are able to graduate them into the public API
 
 
-* Internal modules, which are not to be used, and will change without notice
-
-
-* Anything defined in a package containing `.internal` (for example, `net.corda.core.internal` and sub-packages should
-                    not be used)
-
-
-* Any interfaces, classes or methods whose name contains the word `internal` or `Internal`
+* the internal modules, which are not to be used, and will change without notice
 
 
 The **finance module** was the first CorDapp ever written and is a legacy module. Although it is not a part of our API guarantees, we also
@@ -95,7 +89,8 @@ The **finance module** was the first CorDapp ever written and is a legacy module
 
 ## Corda internal modules
 
-Every other module is internal and will change without notice, even deleted, and should not be used.
+Everything else is internal and will change without notice, even deleted, and should not be used. This also includes any package that has
+                `.internal` in it. So for example, `net.corda.core.internal` and sub-packages should not be used.
 
 Some of the public modules may depend on internal modules, so be careful to not rely on these transitive dependencies. In particular, the
                 testing modules depend on the node module and so you may end having the node in your test classpath.

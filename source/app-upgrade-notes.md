@@ -1,16 +1,17 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Upgrading CorDapps to newer Platform Versions
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Upgrading CorDapps to newer Platform Versions
 
 These notes provide instructions for upgrading your CorDapps from previous versions. Corda provides backwards compatibility for public,
-            non-experimental APIs that have been committed to. A list can be found in the [API stability guarantees](api-stability-guarantees) page.
+            non-experimental APIs that have been committed to. A list can be found in the [API stability guarantees](api-stability-guarantees.md) page.
 
 This means that you can upgrade your node across versions *without recompiling or adjusting your CorDapps*. You just have to upgrade
             your node and restart.
@@ -72,8 +73,8 @@ The issue here is that a new `Destination` interface introduced in Platform Vers
                     used as an `AbstractParty` but has an actual value that is one of `Party` or `AnonymousParty`. These subclasses
                     implement `Destination`, while the superclass does not. Kotlin must pick a type for the variable, and so chooses the most specific
                     ancestor of both `AbstractParty` and `Destination`. This is `Any`, which is not a valid type for use as an `AbstractParty` later.
-                    (For more information on `Destination`, see the [Changelog](changelog) for Platform Version 5, or the KDocs for the interface
-                    [here](https://docs.corda.net/head/api/kotlin/corda/net.corda.core.flows/-destination))
+                    (For more information on `Destination`, see the [Changelog](changelog.md) for Platform Version 5, or the KDocs for the interface
+                    [here](https://docs.corda.net/head/api/kotlin/corda/net.corda.core.flows/-destination.html))
 
 Note that this is a Kotlin-specific issue. Java can instead choose `? extends AbstractParty & Destination` here, which can later be used
                     as `AbstractParty`.
@@ -137,10 +138,10 @@ Although the RPC API is backwards compatible with Corda 3, the RPC wire protocol
 Alter the versions you depend on in your Gradle file like so:
 
 ```groovy
-ext.corda_release_version = '4.4'
-ext.corda_gradle_plugins_version = '5.0.6'
+ext.corda_release_version = '4.3'
+ext.corda_gradle_plugins_version = '5.0.4'
 ext.kotlin_version = '1.2.71'
-ext.quasar_version = '0.7.12_r3'
+ext.quasar_version = '0.7.10'
 ```
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
@@ -204,7 +205,7 @@ Watch out for the UK spelling of the word licence (with a c).
 </div>
 Name, vendor and licence can be set to any string you like, they don’t have to be Corda identities.
 
-Target versioning is a new concept introduced in Corda 4. Learn more by reading [Versioning](versioning).
+Target versioning is a new concept introduced in Corda 4. Learn more by reading [Versioning](versioning.md).
                     Setting a target version of 4 opts in to changes that might not be 100% backwards compatible, such as
                     API semantics changes or disabling workarounds for bugs that may be in your apps, so by doing this you
                     are promising that you have thoroughly tested your app on the new version. Using a high target version is
@@ -276,7 +277,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
     }
 }
 ```
-See [CorDapp configuration files](cordapp-build-systems#cordapp-configuration-files-ref) for more information.
+See [CorDapp configuration files](cordapp-build-systems.md#cordapp-configuration-files-ref) for more information.
 
 
 ### Step 5. Security: Upgrade your use of FinalityFlow
@@ -356,7 +357,7 @@ public static class SimpleFlowUsingOldApi extends FlowLogic<SignedTransaction> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
+![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
 
 
 </div>
@@ -402,7 +403,7 @@ public static class SimpleFlowUsingNewApi extends FlowLogic<SignedTransaction> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
+![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
 
 
 </div>
@@ -446,7 +447,7 @@ public static class SimpleNewResponderFlow extends FlowLogic<Void> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
+![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
 
 
 </div>
@@ -524,7 +525,7 @@ public static class ExistingInitiatingFlow extends FlowLogic<SignedTransaction> 
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
+![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
 
 
 </div>
@@ -581,7 +582,7 @@ if (otherSide.getCounterpartyFlowInfo().getFlowVersion() >= 2) {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
+![github](/images/svg/github.svg "github") [FinalityFlowMigration.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FinalityFlowMigration.kt) | [FinalityFlowMigration.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FinalityFlowMigration.java)
 
 
 </div>
@@ -592,7 +593,7 @@ You may already be using `waitForLedgerCommit` in your responder flow for the fi
 
 ### Step 6. Security: Upgrade your use of SwapIdentitiesFlow
 
-The [Confidential identities](api-identity#confidential-identities-ref) API is experimental in Corda 3 and remains so in Corda 4. In this release, the `SwapIdentitiesFlow`
+The [Confidential identities](api-identity.md#confidential-identities-ref) API is experimental in Corda 3 and remains so in Corda 4. In this release, the `SwapIdentitiesFlow`
                     has been adjusted in the same way as `FinalityFlow` above, to close problems with confidential identities being injectable into a node
                     outside of other flow context. Old code will still work, but it is recommended to adjust your call sites so a session is passed into
                     the `SwapIdentitiesFlow`.
@@ -753,27 +754,27 @@ In Corda 4 the platform takes over this responsibility from the app, if the app 
 * Annotated with `@BelongsToContract` which specifies the contract class explicitly.
 
 
-Learn more by reading [Contract/State Agreement](api-contract-constraints#contract-state-agreement). If an app targets Corda 3 or lower (i.e. does not specify a target version),
+Learn more by reading [Contract/State Agreement](api-contract-constraints.md#contract-state-agreement). If an app targets Corda 3 or lower (i.e. does not specify a target version),
                     states that point to contracts outside their package will trigger a log warning but validation will proceed.
 
 
 ### Step 9. Learn about signature constraints and JAR signing
 
-[Signature Constraints](api-contract-constraints#signature-constraints) are a new data model feature introduced in Corda 4. They make it much easier to
+[Signature Constraints](api-contract-constraints.md#signature-constraints) are a new data model feature introduced in Corda 4. They make it much easier to
                     deploy application upgrades smoothly and in a decentralised manner. Signature constraints are the new default mode for CorDapps, and
                     the act of upgrading your app to use the version 4 Gradle plugins will result in your app being automatically signed, and new states
                     automatically using new signature constraints selected automatically based on these signing keys.
 
-You can read more about signature constraints and what they do in [API: Contract Constraints](api-contract-constraints). The `TransactionBuilder` class will
+You can read more about signature constraints and what they do in [API: Contract Constraints](api-contract-constraints.md). The `TransactionBuilder` class will
                     automatically use them if your application JAR is signed. **We recommend all JARs are signed**. To learn how to sign your JAR files, read
-                    [Signing the CorDapp JAR](cordapp-build-systems#cordapp-build-system-signing-cordapp-jar-ref). In dev mode, all JARs are signed by developer certificates. If a JAR that was signed
+                    [Signing the CorDapp JAR](cordapp-build-systems.md#cordapp-build-system-signing-cordapp-jar-ref). In dev mode, all JARs are signed by developer certificates. If a JAR that was signed
                     with developer certificates is deployed to a production node, the node will refuse to start. Therefore to deploy apps built for Corda 4
                     to production you will need to generate signing keys and integrate them with the build process.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Please read the [CorDapp constraints migration](cordapp-constraint-migration) guide to understand how to upgrade CorDapps to use Corda 4 signature constraints and consume
+Please read the [CorDapp constraints migration](cordapp-constraint-migration.md) guide to understand how to upgrade CorDapps to use Corda 4 signature constraints and consume
                         existing states on ledger issued with older constraint types (e.g. Corda 3.x states issued with **hash** or **CZ whitelisted** constraints).
 
 
@@ -817,15 +818,15 @@ In Corda 4 it is possible for flows in one app to subclass and take over flows f
                     that causes transaction details to be converted to a PDF and sent to a particular printer. This would be an inappropriate feature to put
                     into shared business logic, but it makes perfect sense to put into a user-specific app they developed themselves.
 
-If your flows could benefit from being extended in this way, read “[Configuring Responder Flows](flow-overriding)” to learn more.
+If your flows could benefit from being extended in this way, read “[Configuring Responder Flows](flow-overriding.md)” to learn more.
 
 
 ### Step 12. Possibly update vault state queries
 
 In Corda 4 queries made on a node’s vault can filter by the relevancy of those states to the node. As this functionality does not exist in
                     Corda 3, apps will continue to receive all states in any vault queries. However, it may make sense to migrate queries expecting just those states relevant
-                    to the node in question to query for only relevant states. See [API: Vault Query](api-vault-query) for more details on how to do this. Not doing this
-                    may result in queries returning more states than expected if the node is using observer functionality (see “[Observer nodes](tutorial-observer-nodes)”).
+                    to the node in question to query for only relevant states. See [API: Vault Query](api-vault-query.md) for more details on how to do this. Not doing this
+                    may result in queries returning more states than expected if the node is using observer functionality (see “[Observer nodes](tutorial-observer-nodes.md)”).
 
 
 ### Step 13. Explore other new features that may be useful
@@ -836,13 +837,13 @@ Corda 4 adds several new APIs that help you build applications. Why not explore:
 * The [new withEntityManager API](api/javadoc/net/corda/core/node/ServiceHub.html#withEntityManager-block-) for using JPA inside your flows and services.
 
 
-* [Reference States](api-states#reference-states), that let you use an input state without consuming it.
+* [Reference States](api-states.md#reference-states), that let you use an input state without consuming it.
 
 
-* [State Pointers](api-states#state-pointers), that make it easier to ‘point’ to one state from another and follow the latest version of a linear state.
+* [State Pointers](api-states.md#state-pointers), that make it easier to ‘point’ to one state from another and follow the latest version of a linear state.
 
 
-Please also read the [CorDapp Upgradeability Guarantees](cordapp-upgradeability) associated with CorDapp upgrading.
+Please also read the [CorDapp Upgradeability Guarantees](cordapp-upgradeability.md) associated with CorDapp upgrading.
 
 
 ### Step 14. Possibly update your checked in quasar.jar
@@ -854,12 +855,12 @@ If your project is based on one of the official cordapp templates, it is likely 
 You have some choices here:
 
 
-* Upgrade your `quasar.jar` to `0.7.12_r3`
+* Upgrade your `quasar.jar` to `0.7.10`
 
 
 * Delete your `lib` directory and switch to using the Gradle test runner
 
 
-Instructions for both options can be found in [Running tests in Intellij](tutorial-cordapp#tutorial-cordapp-running-tests-intellij).
+Instructions for both options can be found in [Running tests in Intellij](tutorial-cordapp.md#tutorial-cordapp-running-tests-intellij).
 
 

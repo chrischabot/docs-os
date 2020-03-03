@@ -1,24 +1,25 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Upgrading CorDapps on a node
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Upgrading CorDapps on a node
 
 In order to upgrade a CorDapp on a node to a new version, it needs to be determined whether any backwards compatible
             changes have been made. These could range from database changes, to changes in the protocol.
 
-For developer information on upgrading CorDapps, see [Release new CorDapp versions](upgrading-cordapps).
+For developer information on upgrading CorDapps, see [Release new CorDapp versions](upgrading-cordapps.md).
 
 CorDapps must ship with database migration scripts or clear documentation about how to update the database to be compatible with the new version.
 
 
 ## Flow upgrades
 
-If any backwards-incompatible changes have been made (see [What constitutes a non-backwards compatible flow change?](upgrading-cordapps#upgrading-cordapps-backwards-incompatible-flow-changes)
+If any backwards-incompatible changes have been made (see [What constitutes a non-backwards compatible flow change?](upgrading-cordapps.md#upgrading-cordapps-backwards-incompatible-flow-changes)
                 for more information), the upgrade method detailed below will need to be followed. Otherwise the CorDapp JAR can just
                 be replaced with the new version.
 
@@ -29,7 +30,7 @@ There are two types of contract/state upgrade:
 
 
 * *Implicit:* By allowing multiple implementations of the contract ahead of time, using constraints. See
-                        [API: Contract Constraints](api-contract-constraints) to learn more.
+                        [API: Contract Constraints](api-contract-constraints.md) to learn more.
 
 
 * *Explicit:* By creating a special *contract upgrade transaction* and getting all participants of a state to sign it using the
@@ -61,7 +62,7 @@ If a contract or state requires an explicit upgrade then all states will need up
 In order to perform the upgrade, follow the following steps:
 
 
-* If required, do a flow drain to avoid the definition of states or contracts changing whilst a flow is in progress (see [Flow drains](upgrading-cordapps#upgrading-cordapps-flow-drains) for more information)
+* If required, do a flow drain to avoid the definition of states or contracts changing whilst a flow is in progress (see [Flow drains](upgrading-cordapps.md#upgrading-cordapps-flow-drains) for more information)
 
 
     * By RPC using the `setFlowsDrainingModeEnabled` method with the parameter `true`

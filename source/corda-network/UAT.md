@@ -1,9 +1,9 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: 'Corda Network: Pre-Production Environment'
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
@@ -53,7 +53,7 @@ More information about UAT will continue to be uploaded on this site or related 
 
 ## Steps to join the Pre-Production environment
 
-Steps to join are outlined on the [Corda Network site](https://corda.network/participation/index.html).
+Steps to join are outlined on the [Corda Network microsite](https://corda.network/participation/index.html) - follow any specific instructions for ‘Pre-Production’.
 
 For further questions on this process, please contact us - preferably on the mailing list: [https://groups.io/g/corda-network](https://groups.io/g/corda-network) or at [info@corda.network](mailto:info@corda.network)
 

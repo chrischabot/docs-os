@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Networking and messaging
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Networking and messaging
 
 Corda uses AMQP/1.0 over TLS between nodes which is currently implemented using Apache Artemis, an embeddable message
             queue broker. Building on established MQ protocols gives us features like persistence to disk, automatic delivery
@@ -25,7 +26,7 @@ A future version of Corda will allow the MQ broker to be split out of the main n
 
 </div>
 There are multiple ways of interacting with the network. When writing an application you typically won’t use the
-            messaging subsystem directly. Instead you will build on top of the [flow framework](flow-state-machines),
+            messaging subsystem directly. Instead you will build on top of the [flow framework](flow-state-machines.md),
             which adds a layer on top of raw messaging to manage multi-step flows and let you think in terms of identities
             rather than specific network endpoints.
 

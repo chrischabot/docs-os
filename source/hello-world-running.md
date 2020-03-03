@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Running our CorDapp
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Running our CorDapp
 
 Now that we’ve written a CorDapp, it’s time to test it by running it on some real Corda nodes.
 
@@ -115,7 +116,7 @@ Go to the terminal window displaying the CRaSH shell of PartyA. Typing `help` wi
 
 
 Local terminal shell is available only in a development mode. In production environment SSH server can be enabled.
-                    More about SSH and how to connect can be found on the [Node shell](shell) page.
+                    More about SSH and how to connect can be found on the [Node shell](shell.md) page.
 
 
 </div>

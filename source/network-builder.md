@@ -1,25 +1,26 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Corda Network Builder
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Corda Network Builder
 
 The Corda Network Builder is a tool for building Corda networks for testing purposes. It leverages Docker and
             containers to abstract the complexity of managing a distributed network away from the user.
 
 ![network builder v4](_static/images/network-builder-v4.png "network builder v4")The network you build will either be made up of local `Docker` nodes *or* of nodes spread across Azure
             containers.
-            For each node a separate Docker image is built based on [corda/corda-zulu-java1.8-4.4](https://hub.docker.com/r/corda/corda-zulu-java1.8-4.4).
+            For each node a separate Docker image is built based on [corda/corda-zulu-java1.8-4.3](https://hub.docker.com/r/corda/corda-zulu-java1.8-4.3).
             Unlike the official image, a *node.conf* file and CorDapps are embedded into the image
             (they are not externally provided to the running container via volumes/mount points).
             More backends may be added in future. The tool is open source, so contributions to add more
             destinations for the containers are welcome!
 
-[Download the Corda Network Builder](https://software.r3.com/artifactory/corda-releases/net/corda/corda-tools-network-builder/4.4/corda-tools-network-builder-4.4-all.jar).
+[Download the Corda Network Builder](https://software.r3.com/artifactory/corda-releases/net/corda/corda-tools-network-builder/4.3/corda-tools-network-builder-4.3.jar).
 
 
 ## Prerequisites
@@ -118,10 +119,10 @@ Useful commands include 'help' to see what is available, and 'bye' to shut down 
 
 >>> run networkMapSnapshot
 [
-  { "addresses" : [ "partya0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyA, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701330613 },
-  { "addresses" : [ "notary0:10020" ], "legalIdentitiesAndCerts" : [ "O=Notary, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701305115 },
-  { "addresses" : [ "partyc0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyC, L=Paris, C=FR" ], "platformVersion" : 6, "serial" : 1532701331608 },
-  { "addresses" : [ "partyb0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyB, L=New York, C=US" ], "platformVersion" : 6, "serial" : 1532701330118 }
+  { "addresses" : [ "partya0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyA, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701330613 },
+  { "addresses" : [ "notary0:10020" ], "legalIdentitiesAndCerts" : [ "O=Notary, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701305115 },
+  { "addresses" : [ "partyc0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyC, L=Paris, C=FR" ], "platformVersion" : 5, "serial" : 1532701331608 },
+  { "addresses" : [ "partyb0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyB, L=New York, C=US" ], "platformVersion" : 5, "serial" : 1532701330118 }
 ]
 
 >>>
@@ -144,11 +145,11 @@ To confirm the node has been started correctly, run the following in the previou
 ```shell
 Tue Jul 17 15:47:14 GMT 2018>>> run networkMapSnapshot
 [
-  { "addresses" : [ "partya0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyA, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701330613 },
-  { "addresses" : [ "notary0:10020" ], "legalIdentitiesAndCerts" : [ "O=Notary, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701305115 },
-  { "addresses" : [ "partyc0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyC, L=Paris, C=FR" ], "platformVersion" : 6, "serial" : 1532701331608 },
-  { "addresses" : [ "partyb0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyB, L=New York, C=US" ], "platformVersion" : 6, "serial" : 1532701330118 },
-  { "addresses" : [ "partya1:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyZ, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701630861 }
+  { "addresses" : [ "partya0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyA, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701330613 },
+  { "addresses" : [ "notary0:10020" ], "legalIdentitiesAndCerts" : [ "O=Notary, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701305115 },
+  { "addresses" : [ "partyc0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyC, L=Paris, C=FR" ], "platformVersion" : 5, "serial" : 1532701331608 },
+  { "addresses" : [ "partyb0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyB, L=New York, C=US" ], "platformVersion" : 5, "serial" : 1532701330118 },
+  { "addresses" : [ "partya1:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyZ, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701630861 }
 ]
 ```
 
@@ -215,11 +216,11 @@ If you click on `partya` in the pane, you should see an additional instance list
 ```shell
 Tue Jul 17 15:47:14 GMT 2018>>> run networkMapSnapshot
 [
-  { "addresses" : [ "partya0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyA, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701330613 },
-  { "addresses" : [ "notary0:10020" ], "legalIdentitiesAndCerts" : [ "O=Notary, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701305115 },
-  { "addresses" : [ "partyc0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyC, L=Paris, C=FR" ], "platformVersion" : 6, "serial" : 1532701331608 },
-  { "addresses" : [ "partyb0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyB, L=New York, C=US" ], "platformVersion" : 6, "serial" : 1532701330118 },
-  { "addresses" : [ "partya1:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyZ, L=London, C=GB" ], "platformVersion" : 6, "serial" : 1532701630861 }
+  { "addresses" : [ "partya0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyA, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701330613 },
+  { "addresses" : [ "notary0:10020" ], "legalIdentitiesAndCerts" : [ "O=Notary, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701305115 },
+  { "addresses" : [ "partyc0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyC, L=Paris, C=FR" ], "platformVersion" : 5, "serial" : 1532701331608 },
+  { "addresses" : [ "partyb0:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyB, L=New York, C=US" ], "platformVersion" : 5, "serial" : 1532701330118 },
+  { "addresses" : [ "partya1:10020" ], "legalIdentitiesAndCerts" : [ "O=PartyZ, L=London, C=GB" ], "platformVersion" : 5, "serial" : 1532701630861 }
 ]
 ```
 

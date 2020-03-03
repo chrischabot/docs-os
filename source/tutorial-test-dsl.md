@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Writing a contract test
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Writing a contract test
 
 This tutorial will take you through the steps required to write a contract test using Kotlin and Java.
 
@@ -107,7 +108,7 @@ private static final TestIdentity bigCorp = new TestIdentity(new CordaX500Name("
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -183,7 +184,7 @@ This is deliberate: The DSL forces us to specify either `verifies()` or ``fails 
 
 ```kotlin
 // This example test will fail with this exception.
-@Test(expected = IllegalStateException::class, timeout=300_000)
+@Test(expected = IllegalStateException::class)
 fun simpleCP() {
     val inState = getPaper()
     ledgerServices.ledger(dummyNotary.party) {
@@ -218,7 +219,7 @@ public void simpleCP() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -229,7 +230,7 @@ Let’s take a look at a transaction that fails.
 
 ```kotlin
 // This example test will fail with this exception.
-@Test(expected = TransactionVerificationException.ContractRejection::class, timeout=300_000)
+@Test(expected = TransactionVerificationException.ContractRejection::class)
 fun simpleCPMove() {
     val inState = getPaper()
     ledgerServices.ledger(dummyNotary.party) {
@@ -266,7 +267,7 @@ public void simpleCPMove() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -296,8 +297,8 @@ The transaction verification failed, because we wanted to move paper but didn’
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- simpleCPMoveFails() {
+@Test
+fun simpleCPMoveFails() {
     val inState = getPaper()
     ledgerServices.ledger(dummyNotary.party) {
         transaction {
@@ -332,7 +333,7 @@ public void simpleCPMoveFails() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -342,8 +343,8 @@ We can continue to build the transaction until it `verifies`:
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- simpleCPMoveFailureAndSuccess() {
+@Test
+fun simpleCPMoveFailureAndSuccess() {
     val inState = getPaper()
     ledgerServices.ledger(dummyNotary.party) {
         transaction {
@@ -382,7 +383,7 @@ public void simpleCPMoveSuccessAndFailure() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -399,8 +400,8 @@ What should we do if we wanted to test what happens when the wrong party signs t
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- `simple issuance with tweak`() {
+@Test
+fun `simple issuance with tweak`() {
     ledgerServices.ledger(dummyNotary.party) {
         transaction {
             output(CP_PROGRAM_ID, "paper", getPaper()) // Some CP is issued onto the ledger by MegaCorp.
@@ -446,7 +447,7 @@ public void simpleIssuanceWithTweak() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -461,8 +462,8 @@ We now have a neat little test that tests a single transaction. This is already 
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- `simple issuance with tweak and top level transaction`() {
+@Test
+fun `simple issuance with tweak and top level transaction`() {
     ledgerServices.transaction(dummyNotary.party) {
         output(CP_PROGRAM_ID, "paper", getPaper()) // Some CP is issued onto the ledger by MegaCorp.
         attachments(CP_PROGRAM_ID)
@@ -503,7 +504,7 @@ public void simpleIssuanceWithTweakTopLevelTx() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -516,8 +517,8 @@ Now that we know how to define a single transaction, let’s look at how to defi
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- `chain commercial paper`() {
+@Test
+fun `chain commercial paper`() {
     val issuer = megaCorp.party.ref(123)
     ledgerServices.ledger(dummyNotary.party) {
         unverifiedTransaction {
@@ -590,7 +591,7 @@ public void chainCommercialPaper() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -611,8 +612,8 @@ We can also test whole ledger calling `verifies()` and `fails()` on the ledger l
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- `chain commercial paper double spend`() {
+@Test
+fun `chain commercial paper double spend`() {
     val issuer = megaCorp.party.ref(123)
     ledgerServices.ledger(dummyNotary.party) {
         unverifiedTransaction {
@@ -704,7 +705,7 @@ public void chainCommercialPaperDoubleSpend() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>
@@ -715,8 +716,8 @@ The transactions `verifies()` individually, however the state was spent twice! T
 <TabPanel value={value} index={0}>
 
 ```kotlin
-@Test(timeout=300_000)
- `chain commercial tweak`() {
+@Test
+fun `chain commercial tweak`() {
     val issuer = megaCorp.party.ref(123)
     ledgerServices.ledger(dummyNotary.party) {
         unverifiedTransaction {
@@ -815,7 +816,7 @@ public void chainCommercialPaperTweak() {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
+![github](/images/svg/github.svg "github") [TutorialTestDSL.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/kotlin/net/corda/docs/kotlin/tutorial/testdsl/TutorialTestDSL.kt) | [TutorialTestDSL.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/test/java/net/corda/docs/java/tutorial/testdsl/TutorialTestDSL.java)
 
 
 </div>

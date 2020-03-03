@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: 'API: Identity'
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# API: Identity
 
 
 ## Party
@@ -50,7 +51,7 @@ The `PartyAndCertificate` class is also used by the network map service to repre
 
 
 The `confidential-identities` module is still not stabilised, so this API may change in future releases.
-                    See [API stability guarantees](api-stability-guarantees).
+                    See [API stability guarantees](api-stability-guarantees.md).
 
 
 </div>
@@ -94,7 +95,7 @@ override fun call(): SignedTransaction {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TwoPartyDealFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/finance/workflows/src/main/kotlin/net/corda/finance/flows/TwoPartyDealFlow.kt)
+![github](/images/svg/github.svg "github") [TwoPartyDealFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/finance/workflows/src/main/kotlin/net/corda/finance/flows/TwoPartyDealFlow.kt)
 
 
 </div>
@@ -163,7 +164,7 @@ val twiceSignedTx = partSignedTx + sellerSignature
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TwoPartyTradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/finance/workflows/src/main/kotlin/net/corda/finance/flows/TwoPartyTradeFlow.kt)
+![github](/images/svg/github.svg "github") [TwoPartyTradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/finance/workflows/src/main/kotlin/net/corda/finance/flows/TwoPartyTradeFlow.kt)
 
 
 </div>
@@ -211,7 +212,7 @@ subFlow(IdentitySyncFlow.Receive(otherSideSession))
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TwoPartyTradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/finance/workflows/src/main/kotlin/net/corda/finance/flows/TwoPartyTradeFlow.kt)
+![github](/images/svg/github.svg "github") [TwoPartyTradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/finance/workflows/src/main/kotlin/net/corda/finance/flows/TwoPartyTradeFlow.kt)
 
 
 </div>

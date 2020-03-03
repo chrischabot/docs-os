@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Running the example CorDapp
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Running the example CorDapp
 
 The example CorDapp allows nodes to agree IOUs with each other, as long as they obey the following contract rules:
 
@@ -42,7 +43,7 @@ Because data is only propagated on a need-to-know basis, any IOUs agreed between
 Start by downloading the example CorDapp from GitHub:
 
 
-* Set up your machine by following the [quickstart guide](getting-set-up)
+* Set up your machine by following the [quickstart guide](getting-set-up.md)
 
 
 * Clone the samples repository from using the following command: `git clone https://github.com/corda/samples`
@@ -84,7 +85,7 @@ The example CorDapp has the following structure:
 ```none
 .
 ├── LICENCE
-├── README
+├── README.md
 ├── TRADEMARK
 ├── build.gradle
 ├── clients
@@ -233,7 +234,7 @@ There are two ways to run the example CorDapp:
 
 
 Both approaches will create a set of test nodes, install the CorDapp on these nodes, and then run the nodes. You can
-                read more about how we generate nodes [here](generating-a-node).
+                read more about how we generate nodes [here](generating-a-node.md).
 
 
 ### Running the example CorDapp from the terminal
@@ -286,8 +287,8 @@ CorDapps can be written in any language targeting the JVM. In our case, we’ve 
 ├── certificates
 ├── corda.jar              // The Corda node runtime
 ├── cordapps               // The node's CorDapps
-│   ├── corda-finance-contracts-4.4.jar
-│   ├── corda-finance-workflows-4.4.jar
+│   ├── corda-finance-contracts-4.3.jar
+│   ├── corda-finance-workflows-4.3.jar
 │   └── cordapp-example-0.1.jar
 ├── drivers
 ├── logs
@@ -301,8 +302,8 @@ CorDapps can be written in any language targeting the JVM. In our case, we’ve 
 
 
 `deployNodes` is a utility task to create an entirely new set of nodes for testing your CorDapp. In production,
-                            you would instead create a single node as described in [Creating nodes locally](generating-a-node) and build your CorDapp JARs as described
-                            in [Building and installing a CorDapp](cordapp-build-systems).
+                            you would instead create a single node as described in [Creating nodes locally](generating-a-node.md) and build your CorDapp JARs as described
+                            in [Building and installing a CorDapp](cordapp-build-systems.md).
 
 
 </div>
@@ -333,7 +334,7 @@ Look for the Started ServerKt in X seconds message, don’t rely on the % indica
 
 
 On Unix/Mac OSX, do not click/change focus until all seven additional terminal windows have opened, or some
-                            nodes may fail to start. You can run `workflows-kotlin/build/nodes/runnodes --headless` to prevent each server from opening in a new terminal window. To interact with the nodes will need to use ssh, see [Node shell](shell).
+                            nodes may fail to start. You can run `workflows-kotlin/build/nodes/runnodes --headless` to prevent each server from opening in a new terminal window. To interact with the nodes will need to use ssh, see [Node shell](shell.md).
 
 
 </div>
@@ -346,14 +347,14 @@ For each node, the `runnodes` script creates a node tab/window:
 / /___  /_/ / /  / /_/ / /_/ /          always say "Ah, Interesting!"
 \____/     /_/   \__,_/\__,_/
 
---- Corda Open Source corda-4.4 (4157c25) -----------------------------------------------
+--- Corda Open Source corda-4.3 (4157c25) -----------------------------------------------
 
 
 Logs can be found in                    : /Users/joeldudley/Desktop/cordapp-example/workflows-kotlin/build/nodes/PartyA/logs
 Database connection url is              : jdbc:h2:tcp://localhost:59472/node
 Incoming connection address             : localhost:10005
 Listening on port                       : 10005
-Loaded CorDapps                         : corda-finance-corda-4.4, cordapp-example-0.1, corda-core-corda-4.4
+Loaded CorDapps                         : corda-finance-corda-4.3, cordapp-example-0.1, corda-core-corda-4.3
 Node for "PartyA" started up and registered in 38.59 sec
 
 
@@ -542,7 +543,7 @@ As before, the interactive shell of PartyC will not display any IOUs.
 ### Via the h2 web console
 
 You can connect directly to your node’s database to see its stored states, transactions and attachments. To do so,
-                    please follow the instructions in [Node database](node-database).
+                    please follow the instructions in [Node database](node-database.md).
 
 
 ## Running nodes across machines
@@ -568,7 +569,7 @@ The nodes can be configured to communicate as a network even when distributed ac
 
 
 * These changes require new node-info files to be distributed amongst the nodes. Use the network bootstrapper tool
-                        (see [Network Bootstrapper](network-bootstrapper)) to update the files and have them distributed locally:
+                        (see [Network Bootstrapper](network-bootstrapper.md)) to update the files and have them distributed locally:
 
 `java -jar network-bootstrapper.jar workflows-kotlin/build/nodes`
 
@@ -630,11 +631,11 @@ You can run the CorDapp’s integration tests by running the `Run Integration Te
 
 ### Running tests in IntelliJ
 
-See [Running tests in IntelliJ](testing#tutorial-cordapp-alternative-test-runners)
+See [Running tests in IntelliJ](testing.md#tutorial-cordapp-alternative-test-runners)
 
 
 ## Debugging your CorDapp
 
-See [Debugging a CorDapp](debugging-a-cordapp).
+See [Debugging a CorDapp](debugging-a-cordapp.md).
 
 

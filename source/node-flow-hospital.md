@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Flow Hospital
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Flow Hospital
 
 
 ## Overview
@@ -96,11 +97,6 @@ There is currently no retry API. If you don’t want to install the cordapp, you
                                     member of the notary cluster if it doesn’t hear back from the original member it sent the request to within a “reasonable” time.
                                     The time is hard to document as the notary members, if actually alive, will inform the requester of the ETA of a response.
                                     This can occur an infinite number of times.  i.e. we never give up notarising.  No intervention required.
-
-
-* `HospitalizeFlowException`:
-                                    The aim of this exception is to provide user code a way to retry a flow from its last checkpoint if a known intermittent failure occurred.
-                                    Any `HospitalizeFlowException` that is thrown and not handled by any of the scenarios detailed above, will be kept in for observation.
 
 
 * **Internal Corda errors**:

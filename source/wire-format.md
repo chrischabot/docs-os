@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Wire format
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Wire format
 
 This document describes the Corda wire format. With the following information and an implementation of the AMQP/1.0
             specification, you can read Corda serialised binary messages. An example implementation of AMQP/1.0 would be Apache
@@ -29,7 +30,7 @@ The first version byte is set to 1 and indicates the major version of the format
 ## AMQP intro
 
 AMQP/1.0 (which is quite different to AMQP/0.9) is protocol that contains a standardised binary encoding scheme, comparable to but
-                more advanced than Google protocol buffers. [The AMQP specification](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os)
+                more advanced than Google protocol buffers. [The AMQP specification](https://docs.oasis-open.org/amqp/core/v1.0/os/amqp-core-types-v1.0-os.html)
                 is quite concise and easy to read: this document will reference it in many places. It also provides a variety of encoded examples
                 that can be used to understand each byte of a message.
 

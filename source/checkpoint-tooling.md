@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Checkpoint Tooling
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Checkpoint Tooling
 
 This page contains information about checkpoint tooling. These tools can be used to debug the causes of stuck flows.
 
-Before reading this page, please ensure you understand the mechanics and principles of Corda Flows by reading [Flows](key-concepts-flows) and [Writing flows](flow-state-machines).
-            It is also recommended that you understand the purpose and behaviour of the [Flow Hospital](node-flow-hospital) in relation to *checkpoints* and flow recovery.
-            An advanced explanation of [*checkpoints*](contributing-flow-internals#flow-internals-checkpoints-ref) within the flow state machine can be found here: [Flow framework internals](contributing-flow-internals).
+Before reading this page, please ensure you understand the mechanics and principles of Corda Flows by reading [Flows](key-concepts-flows.md) and [Writing flows](flow-state-machines.md).
+            It is also recommended that you understand the purpose and behaviour of the [Flow Hospital](node-flow-hospital.md) in relation to *checkpoints* and flow recovery.
+            An advanced explanation of [*checkpoints*](contributing-flow-internals.md#flow-internals-checkpoints-ref) within the flow state machine can be found here: [Flow framework internals](contributing-flow-internals.md).
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
@@ -617,7 +618,7 @@ Useful commands include 'help' to see what is available, and 'bye' to shut down 
 
 Thu Jul 11 19:52:56 BST 2019>>> run setFlowsDrainingModeEnabled enabled: false
 ```
-See also [Flow draining mode](key-concepts-node#draining-mode).
+See also [Flow draining mode](key-concepts-node.md#draining-mode).
 
 
 * contacting other participants in the network where their nodes are not responding to an initiated flow.

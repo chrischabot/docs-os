@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Deterministic Corda Modules
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
  .red {color:red} 
+# Deterministic Corda Modules
 
 A Corda contract’s verify function should always produce the same results for the same input data. To that end,
             Corda provides the following modules:
@@ -126,7 +127,7 @@ The build generates each of Corda’s deterministic JARs in six steps:
 > }
 > 
 > ```
-> [build.gradle](https://github.com/corda/corda/blob/release/os/4.4/core-deterministic/build.gradle)This step will fail if ProGuard spots any Java API references that still cannot be satisfied by the deterministic
+> [build.gradle](https://github.com/corda/corda/blob/release/os/4.3/core-deterministic/build.gradle)This step will fail if ProGuard spots any Java API references that still cannot be satisfied by the deterministic
 >                             `rt.jar`, and hence it will break the build.
 > 
 > 
@@ -307,7 +308,7 @@ Classes that *must* be included in the deterministic JAR should be annotated as 
 annotation class KeepForDJVM
 
 ```
-[KeepForDJVM.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/KeepForDJVM.kt)To preserve any Kotlin functions, properties or type aliases that have been declared outside of a `class`,
+[KeepForDJVM.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/KeepForDJVM.kt)To preserve any Kotlin functions, properties or type aliases that have been declared outside of a `class`,
                             you should annotate the source file’s `package` declaration instead:
 
 ```kotlin
@@ -338,7 +339,7 @@ Elements that *must* be deleted from classes in the deterministic JAR should be 
 annotation class DeleteForDJVM
 
 ```
-[DeleteForDJVM.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/DeleteForDJVM.kt)You must also ensure that a deterministic class’s primary constructor does not reference any classes that are
+[DeleteForDJVM.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/DeleteForDJVM.kt)You must also ensure that a deterministic class’s primary constructor does not reference any classes that are
                             not available in the deterministic `rt.jar`. The biggest risk here would be that `JarFilter` would delete the
                             primary constructor and that the class could no longer be instantiated, although `JarFilter` will print a warning
                             in this case. However, it is also likely that the “determinised” class would have a different serialisation
@@ -397,7 +398,7 @@ Sometimes it is impossible to delete a function entirely. Or a function may have
 annotation class StubOutForDJVM
 
 ```
-[StubOutForDJVM.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/StubOutForDJVM.kt)This annotation instructs `JarFilter` to replace the function’s body with either an empty body (for functions
+[StubOutForDJVM.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/StubOutForDJVM.kt)This annotation instructs `JarFilter` to replace the function’s body with either an empty body (for functions
                             that return `void` or `Unit`) or one that throws `UnsupportedOperationException`. For example:
 
 ```kotlin

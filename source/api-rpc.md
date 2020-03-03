@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: 'API: RPC operations'
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# API: RPC operations
 
 The node’s owner interacts with the node solely via remote procedure calls (RPC). The node’s owner does not have
             access to the node’s `ServiceHub`.

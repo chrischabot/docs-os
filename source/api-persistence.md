@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: 'API: Persistence'
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# API: Persistence
 
 Corda offers developers the option to expose all or some parts of a contract state to an *Object Relational Mapping*
             (ORM) tool to be persisted in a *Relational Database Management System* (RDBMS).
 
-The purpose of this, is to assist [Vault](key-concepts-vault)
+The purpose of this, is to assist [Vault](key-concepts-vault.md)
             development and allow for the persistence of state data to a custom database table. Persisted states held in the
             vault are indexed for the purposes of executing queries. This also allows for relational joins between Corda tables
             and the organization’s existing data.
@@ -26,7 +27,7 @@ The Object Relational Mapping is specified using [Java Persistence API](https://
 
 By default, nodes use an H2 database which is accessed using *Java Database Connectivity* JDBC. Any database
                 with a JDBC driver is a candidate and several integrations have been contributed to by the community.
-                Please see the info in “[Node database](node-database)” for details.
+                Please see the info in “[Node database](node-database.md)” for details.
 
 
 </div>
@@ -55,7 +56,7 @@ interface QueryableState : ContractState {
 }
 
 ```
-[PersistentTypes.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/schemas/PersistentTypes.kt)The `QueryableState` interface requires the state to enumerate the different relational schemas it supports, for
+[PersistentTypes.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/schemas/PersistentTypes.kt)The `QueryableState` interface requires the state to enumerate the different relational schemas it supports, for
                 instance in situations where the schema has evolved. Each relational schema is represented as a `MappedSchema`
                 object returned by the state’s `supportedSchemas` method.
 
@@ -69,9 +70,14 @@ Nodes have an internal `SchemaService` which decides what data to persist by sel
  */
 interface SchemaService {
     /**
-     * All available schemas in this node
+     * Represents any options configured on the node for a schema.
      */
-    val schemas: Set<MappedSchema>
+    data class SchemaOptions(val databaseSchema: String? = null, val tablePrefix: String? = null)
+
+    /**
+     * Options configured for this node's schemas.  A missing entry for a schema implies all properties are null.
+     */
+    val schemaOptions: Map<MappedSchema, SchemaOptions>
 
     /**
      * Given a state, select schemas to map it to that are supported by [generateMappedObject] and that are configured
@@ -87,7 +93,7 @@ interface SchemaService {
 }
 
 ```
-[SchemaService.kt](https://github.com/corda/corda/blob/release/os/4.4/node/src/main/kotlin/net/corda/node/services/api/SchemaService.kt)```kotlin
+[SchemaService.kt](https://github.com/corda/corda/blob/release/os/4.3/node/src/main/kotlin/net/corda/node/services/api/SchemaService.kt)```kotlin
 /**
  * A database schema that might be configured for this node.  As well as a name and version for identifying the schema,
  * also list the classes that may be used in the generated object graph in order to configure the ORM tool.
@@ -131,7 +137,7 @@ open class MappedSchema(schemaFamily: Class<*>,
 }
 
 ```
-[PersistentTypes.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/schemas/PersistentTypes.kt)With this framework, the relational view of ledger states can evolve in a controlled fashion in lock-step with internal systems or other
+[PersistentTypes.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/schemas/PersistentTypes.kt)With this framework, the relational view of ledger states can evolve in a controlled fashion in lock-step with internal systems or other
                 integration points and is not dependant on changes to the contract code.
 
 It is expected that multiple contract state implementations might provide mappings within a single schema.
@@ -261,7 +267,7 @@ object CashSchemaV1 : MappedSchema(schemaFamily = CashSchema.javaClass, version 
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [CashSchemaV1.kt](https://github.com/corda/corda/blob/release/os/4.4/finance/contracts/src/main/kotlin/net/corda/finance/schemas/CashSchemaV1.kt)
+![github](/images/svg/github.svg "github") [CashSchemaV1.kt](https://github.com/corda/corda/blob/release/os/4.3/finance/contracts/src/main/kotlin/net/corda/finance/schemas/CashSchemaV1.kt)
 
 
 </div>
@@ -505,7 +511,7 @@ Schema entity attributes defined by identity types (`AbstractParty`, `Party`, `A
 ## JDBC session
 
 Apps may also interact directly with the underlying Node’s database by using a standard
-                JDBC connection (session) as described by the [Java SQL Connection API](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection)
+                JDBC connection (session) as described by the [Java SQL Connection API](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html)
 
 Use the `ServiceHub` `jdbcSession` function to obtain a JDBC connection as illustrated in the following example:
 
@@ -518,7 +524,7 @@ Use the `ServiceHub` `jdbcSession` function to obtain a JDBC connection as illus
             val rs = prepStatement.executeQuery()
 
 ```
-[HibernateConfigurationTest.kt](https://github.com/corda/corda/blob/release/os/4.4/node/src/test/kotlin/net/corda/node/services/persistence/HibernateConfigurationTest.kt)JDBC sessions can be used in flows and services (see “[Writing flows](flow-state-machines)”).
+[HibernateConfigurationTest.kt](https://github.com/corda/corda/blob/release/os/4.3/node/src/test/kotlin/net/corda/node/services/persistence/HibernateConfigurationTest.kt)JDBC sessions can be used in flows and services (see “[Writing flows](flow-state-machines.md)”).
 
 The following example illustrates the creation of a custom Corda service using a `jdbcSession`:
 
@@ -568,7 +574,7 @@ object CustomVaultQuery {
 }
 
 ```
-[CustomVaultQuery.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/vault/CustomVaultQuery.kt)which is then referenced within a custom flow:
+[CustomVaultQuery.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/vault/CustomVaultQuery.kt)which is then referenced within a custom flow:
 
 ```kotlin
         @Suspendable
@@ -595,7 +601,7 @@ object CustomVaultQuery {
         }
 
 ```
-[CustomVaultQuery.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/vault/CustomVaultQuery.kt)For examples on testing `@CordaService` implementations, see the oracle example [here](oracles).
+[CustomVaultQuery.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/vault/CustomVaultQuery.kt)For examples on testing `@CordaService` implementations, see the oracle example [here](oracles.md).
 
 
 ## JPA Support

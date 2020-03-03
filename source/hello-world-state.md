@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Writing the state
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Writing the state
 
 In Corda, shared facts on the blockchain are represented as states. Our first task will be to define a new state type to
             represent an IOU.
@@ -50,7 +51,7 @@ Learning some Kotlin will be very useful for understanding how Corda works inter
 
 If you do want to dive into Kotlin, there’s an official
                     [getting started guide](https://kotlinlang.org/docs/tutorials/), and a series of
-                    [Kotlin Koans](https://kotlinlang.org/docs/tutorials/koans).
+                    [Kotlin Koans](https://kotlinlang.org/docs/tutorials/koans.html).
 
 
 </div>
@@ -135,7 +136,7 @@ public class IOUState implements ContractState {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [IOUState.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUState.kt) | [IOUState.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUState.java)
+![github](/images/svg/github.svg "github") [IOUState.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/helloworld/IOUState.kt) | [IOUState.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/tutorial/helloworld/IOUState.java)
 
 
 </div>

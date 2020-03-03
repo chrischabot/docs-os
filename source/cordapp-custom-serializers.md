@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Pluggable Serializers for CorDapps
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Pluggable Serializers for CorDapps
 
 To be serializable by Corda Java classes must be compiled with the -parameters switch to enable matching of its properties
             to constructor parameters. This is important because Corda’s internal AMQP serialization scheme will only construct
@@ -19,7 +20,7 @@ To be serializable by Corda Java classes must be compiled with the -parameters s
 
 ## Serializer Location
 
-Custom serializer classes should follow the rules for including classes found in [Building and installing a CorDapp](cordapp-build-systems)
+Custom serializer classes should follow the rules for including classes found in [Building and installing a CorDapp](cordapp-build-systems.md)
 
 
 ## Writing a Custom Serializer

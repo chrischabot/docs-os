@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Deploying Corda to Corda Testnet from an Azure Cloud Platform VM
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Deploying Corda to Corda Testnet from an Azure Cloud Platform VM
 
 This document will describe how to set up a virtual machine on the Azure Cloud Platform to deploy your pre-configured
             Corda node and automatically connnect to Testnet. A self-service download link can be obtained from
@@ -140,7 +141,7 @@ tail -f /opt/corda/logs/node-<VM-NAME>.log
 
 ## Testing your deployment
 
-To test that your deployment is working correctly, follow the instructions in [Using the Node Explorer to test a Corda node on Corda Testnet](testnet-explorer-corda) to set up
+To test that your deployment is working correctly, follow the instructions in [Using the Node Explorer to test a Corda node on Corda Testnet](testnet-explorer-corda.md) to set up
                 the Finance CorDapp and issue cash to a counterparty.
 
 This will also demonstrate how to install a custom CorDapp.

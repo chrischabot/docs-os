@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Node Explorer
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Node Explorer
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
@@ -46,7 +47,7 @@ In order to connect to a given node, the node explorer must have access to all C
 
 ## Running demo nodes
 
-Node Explorer is included with the [DemoBench](demobench) application, which allows
+Node Explorer is included with the [DemoBench](demobench.md) application, which allows
                 you to create local Corda networks on your desktop. For example:
 
 > 

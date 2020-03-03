@@ -1,17 +1,18 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: CorDapp samples
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# CorDapp samples
 
 There are two distinct sets of samples provided with Corda, one introducing new developers to how to write CorDapps, and
             more complex worked examples of how solutions to a number of common designs could be implemented in a CorDapp.
             The former can be found on [the Corda website](https://www.corda.net/samples/). In particular, new developers
-            should start with the [example CorDapp](tutorial-cordapp).
+            should start with the [example CorDapp](tutorial-cordapp.md).
 
 The advanced samples are contained within the *samples/* folder of the Corda repository. The most generally useful of
             these samples are:
@@ -27,7 +28,7 @@ The advanced samples are contained within the *samples/* folder of the Corda rep
                     applications request issuance of some cash on behalf of a node called Big Corporation
 
 
-Documentation on running the samples can be found inside the sample directories themselves, in the *README* file.
+Documentation on running the samples can be found inside the sample directories themselves, in the *README.md* file.
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 

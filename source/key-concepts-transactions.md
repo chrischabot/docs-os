@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Transactions
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Transactions
 
 <div class="r3-o-topic" role="alert"><span>Topic: </span>
 
@@ -45,7 +46,7 @@ version: corda-os-4.4
 Corda uses a *UTXO* (unspent transaction output) model where every state on the ledger is immutable. The ledger
                 evolves over time by applying *transactions*. Transactions update the ledger by marking zero or more existing ledger states
                 as historic (the *inputs*), and producing zero or more new ledger states (the *outputs*). Transactions represent a
-                single link in the state sequences seen in [States](key-concepts-states).
+                single link in the state sequences seen in [States](key-concepts-states.md).
 
 Here is an example of an update transaction, with two inputs and two outputs:
 
@@ -66,7 +67,7 @@ Transactions are *atomic*; either all of the transaction’s proposed changes ar
 There are two basic types of transactions:
 
 
-* Notary-change transactions (used to change a state’s notary - see [Notaries](key-concepts-notaries))
+* Notary-change transactions (used to change a state’s notary - see [Notaries](key-concepts-notaries.md))
 
 
 * General transactions (used for everything else)
@@ -127,12 +128,12 @@ Each required signer should only sign the transaction if the following two condi
 > >     * The transaction is digitally signed by all the required parties
 > > 
 > > 
-> >     * The transaction is *contractually valid* (see [Contracts](key-concepts-contracts))
+> >     * The transaction is *contractually valid* (see [Contracts](key-concepts-contracts.md))
 > > 
 > > 
 > 
 > * **Transaction uniqueness**: There exists no other committed transaction that has consumed any of the inputs to
->                             our proposed transaction (see [Consensus](key-concepts-consensus))
+>                             our proposed transaction (see [Consensus](key-concepts-consensus.md))
 > 
 > 
 If the transaction gathers all of the required signatures, but the preceding conditions do not hold, the transaction’s outputs
@@ -141,7 +142,7 @@ If the transaction gathers all of the required signatures, but the preceding con
 
 ## Reference states
 
-As mentioned in [States](key-concepts-states), some states need to be referred to by the contracts of other input or output
+As mentioned in [States](key-concepts-states.md), some states need to be referred to by the contracts of other input or output
                 states but not updated/consumed. This is where reference states come in. When a state is added to the references list of
                 a transaction, instead of the inputs or outputs list, it is treated as a *reference state*. There are two important
                 differences between regular states and reference states:
@@ -250,7 +251,7 @@ In some cases, we want a proposed transaction to only be approved during a certa
 
 
 In such cases, we can add a *time-window* to the transaction. Time-windows specify the time period during which the
-                    transaction can be committed. The notary pool enforces time-window validity. We discuss time-windows in the section on [Time-windows](key-concepts-time-windows).
+                    transaction can be committed. The notary pool enforces time-window validity. We discuss time-windows in the section on [Time-windows](key-concepts-time-windows.md).
 
 
 ### Notary
@@ -261,6 +262,6 @@ A notary pool is a network service that provides uniqueness consensus by attesti
 
 Note that if the notary entity is absent then the transaction is not notarised at all. This is intended for
                     issuance/genesis transactions that don’t consume any other states and thus can’t double spend anything.
-                    For more information on the notary services, see [Notaries](key-concepts-notaries).
+                    For more information on the notary services, see [Notaries](key-concepts-notaries.md).
 
 

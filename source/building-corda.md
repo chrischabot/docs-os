@@ -1,15 +1,16 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Building Corda
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Building Corda
 
 These instructions are for downloading and building the Corda code locally. If you only wish to develop CorDapps for
-            use on Corda, you don’t need to do this, follow the instructions at [Getting set up for CorDapp development](getting-set-up) and use the precompiled binaries.
+            use on Corda, you don’t need to do this, follow the instructions at [Getting set up for CorDapp development](getting-set-up.md) and use the precompiled binaries.
 
 
 ## Windows
@@ -18,7 +19,7 @@ These instructions are for downloading and building the Corda code locally. If y
 ### Java
 
 
-* Visit [http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151)
+* Visit [http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 
 * Scroll down to “Java SE Development Kit 8uXXX” (where “XXX” is the latest minor version number)

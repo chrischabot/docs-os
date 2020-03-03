@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Interest rate swaps
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Interest rate swaps
 
 The Interest Rate Swap (IRS) Contract (source: IRS.kt, IRSUtils.kt, IRSExport.kt) is a bilateral contract to implement a
             vanilla fixed / floating same currency IRS.

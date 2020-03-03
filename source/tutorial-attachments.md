@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Using attachments
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Using attachments
 
 Attachments are ZIP/JAR files referenced from transaction by hash, but not included in the transaction
             itself. These files are automatically requested from the node sending the transaction when needed and cached
@@ -25,14 +26,14 @@ Attachments are ZIP/JAR files referenced from transaction by hash, but not inclu
 
 To add attachments the file must first be uploaded to the node, which returns a unique ID that can be added
             using `TransactionBuilder.addAttachment()`. Attachments can be uploaded and downloaded via RPC and the Corda
-            [Node shell](shell).
+            [Node shell](shell.md).
 
 It is encouraged that where possible attachments are reusable data, so that nodes can meaningfully cache them.
 
 
 ## Uploading and downloading
 
-To upload an attachment to the node, or download an attachment named by its hash, you use [Interacting with a node](clientrpc). This
+To upload an attachment to the node, or download an attachment named by its hash, you use [Interacting with a node](clientrpc.md). This
                 is also available for interactive use via the shell. To **upload** run:
 
 `>>> run uploadAttachment jar: path/to/the/file.jar`
@@ -58,7 +59,7 @@ which will then ask you to provide a path to save the file to. To do the same th
 
 ## Searching for attachments
 
-Attachment metadata can be queried in a similar way to the vault (see [API: Vault Query](api-vault-query)).
+Attachment metadata can be queried in a similar way to the vault (see [API: Vault Query](api-vault-query.md)).
 
 `AttachmentQueryCriteria` can be used to build a query using the following set of column operations:
 
@@ -109,7 +110,7 @@ val complexCondition =
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [NodeAttachmentServiceTest.kt](https://github.com/corda/corda/blob/release/os/4.4/node/src/test/kotlin/net/corda/node/services/persistence/NodeAttachmentServiceTest.kt)
+![github](/images/svg/github.svg "github") [NodeAttachmentServiceTest.kt](https://github.com/corda/corda/blob/release/os/4.3/node/src/test/kotlin/net/corda/node/services/persistence/NodeAttachmentServiceTest.kt)
 
 
 </div>
@@ -196,7 +197,7 @@ fun recipient(rpc: CordaRPCOps, webPort: Int) {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [AttachmentDemo.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/attachment-demo/src/main/kotlin/net/corda/attachmentdemo/AttachmentDemo.kt)
+![github](/images/svg/github.svg "github") [AttachmentDemo.kt](https://github.com/corda/corda/blob/release/os/4.3/samples/attachment-demo/src/main/kotlin/net/corda/attachmentdemo/AttachmentDemo.kt)
 
 
 </div>
@@ -234,7 +235,7 @@ private fun sender(rpc: CordaRPCOps, inputStream: InputStream, hash: SecureHash.
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [AttachmentDemo.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/attachment-demo/src/main/kotlin/net/corda/attachmentdemo/AttachmentDemo.kt)
+![github](/images/svg/github.svg "github") [AttachmentDemo.kt](https://github.com/corda/corda/blob/release/os/4.3/samples/attachment-demo/src/main/kotlin/net/corda/attachmentdemo/AttachmentDemo.kt)
 
 
 </div>

@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Interacting with a node
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Interacting with a node
 
 
 ## Overview
 
-To interact with your node, you need to write a client in a JVM-compatible language using the [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) class.
+To interact with your node, you need to write a client in a JVM-compatible language using the [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) class.
                 This class allows you to connect to your node via a message queue protocol and provides a simple RPC interface for
                 interacting with the node. You make calls on a JVM object as normal, and the marshalling back-and-forth is handled for
                 you.
@@ -22,7 +23,7 @@ To interact with your node, you need to write a client in a JVM-compatible langu
 
 The built-in Corda test webserver is deprecated and unsuitable for production use. If you want to interact with
                     your node via HTTP, you will need to stand up your own webserver that connects to your node using the
-                    [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) class. You can find an example of how to do this using the popular Spring Boot server
+                    [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) class. You can find an example of how to do this using the popular Spring Boot server
                     [here](https://github.com/corda/spring-webserver).
 
 
@@ -30,14 +31,14 @@ The built-in Corda test webserver is deprecated and unsuitable for production us
 
 ## Connecting to a node via RPC
 
-To use [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient), you must add `net.corda:corda-rpc:$corda_release_version` as a `cordaCompile` dependency
+To use [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html), you must add `net.corda:corda-rpc:$corda_release_version` as a `cordaCompile` dependency
                 in your client’s `build.gradle` file.
 
-[CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) has a `start` method that takes the node’s RPC address and returns a [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html).
-                [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection) has a `proxy` method that takes an RPC username and password and returns a [CordaRPCOps](api/javadoc/net/corda/core/messaging/CordaRPCOps.html)
+[CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) has a `start` method that takes the node’s RPC address and returns a [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html).
+                [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html) has a `proxy` method that takes an RPC username and password and returns a [CordaRPCOps](api/javadoc/net/corda/core/messaging/CordaRPCOps.html)
                 object that you can use to interact with the node.
 
-Here is an example of using [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) to connect to a node and log the current time on its internal clock:
+Here is an example of using [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) to connect to a node and log the current time on its internal clock:
 
 <div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
 <TabPanel value={value} index={0}>
@@ -106,21 +107,21 @@ class ClientRpcExample {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [ClientRpcExample.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/ClientRpcExample.kt) | [ClientRpcExample.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/ClientRpcExample.java)
+![github](/images/svg/github.svg "github") [ClientRpcExample.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/ClientRpcExample.kt) | [ClientRpcExample.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/ClientRpcExample.java)
 
 
 </div>
 <div class="r3-o-warning" role="alert"><span>Warning: </span>
 
 
-The returned [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection) is somewhat expensive to create and consumes a small amount of
+The returned [CordaRPCConnection](api/javadoc/net/corda/client/rpc/CordaRPCConnection.html) is somewhat expensive to create and consumes a small amount of
                     server side resources. When you’re done with it, call `close` on it. Alternatively you may use the `use`
-                    method on [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient) which cleans up automatically after the passed in lambda finishes. Don’t create
+                    method on [CordaRPCClient](api/javadoc/net/corda/client/rpc/CordaRPCClient.html) which cleans up automatically after the passed in lambda finishes. Don’t create
                     a new proxy for every call you make - reuse an existing one.
 
 
 </div>
-For further information on using the RPC API, see [Using the client RPC API](tutorial-clientrpc-api).
+For further information on using the RPC API, see [Using the client RPC API](tutorial-clientrpc-api.md).
 
 
 ## RPC permissions
@@ -229,7 +230,7 @@ Setting `rpcUsers` provides a simple way of granting RPC permissions to a fixed 
 > 
 > 
 > * Password stored in hash-encrypted form. This is regarded as must-have when security is a concern. Corda currently supports
->                             a flexible password hash format conforming to the Modular Crypt Format provided by the [Apache Shiro framework](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat)
+>                             a flexible password hash format conforming to the Modular Crypt Format provided by the [Apache Shiro framework](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat.html)
 > 
 > 
 These features are controlled by a set of options nested in the `security` field of `node.conf`.
@@ -335,9 +336,9 @@ Storing passwords in plain text is discouraged in applications where security is
 passwordEncryption = SHIRO_1_CRYPT
 ```
 `SHIRO_1_CRYPT` identifies the [Apache Shiro fully reversible
-                        Modular Crypt Format](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat),
+                        Modular Crypt Format](https://shiro.apache.org/static/1.2.5/apidocs/org/apache/shiro/crypto/hash/format/Shiro1CryptFormat.html),
                     it is currently the only non-plain password hash-encryption format supported. Hash-encrypted passwords in this
-                    format can be produced by using the [Apache Shiro Hasher command line tool](https://shiro.apache.org/command-line-hasher).
+                    format can be produced by using the [Apache Shiro Hasher command line tool](https://shiro.apache.org/command-line-hasher.html).
 
 
 ### Caching user accounts data
@@ -406,7 +407,7 @@ A method can also return a `CordaFuture` in its object graph and it will be trea
 
 ## Versioning
 
-The client RPC protocol is versioned using the node’s platform version number (see [Versioning](versioning)). When a proxy is created
+The client RPC protocol is versioned using the node’s platform version number (see [Versioning](versioning.md)). When a proxy is created
                 the server is queried for its version, and you can specify your minimum requirement. Methods added in later versions
                 are tagged with the `@RPCSinceVersion` annotation. If you try to use a method that the server isn’t advertising support
                 of, an `UnsupportedOperationException` is thrown. If you want to know the version of the server, just use the
@@ -428,11 +429,9 @@ A proxy is thread safe, blocking, and allows multiple RPCs to be in flight at on
 
 ## Error handling
 
-If something goes wrong with the RPC infrastructure itself, an `RPCException` is thrown.  If something
-                goes wrong that needs a manual intervention to resolve (e.g. a configuration error), an
-                `UnrecoverableRPCException` is thrown. If you call a method that requires a higher version of the protocol
-                than the server supports, `UnsupportedOperationException` is thrown. Otherwise the behaviour depends
-                on the `devMode` node configuration option.
+If something goes wrong with the RPC infrastructure itself, an `RPCException` is thrown. If you call a method that
+                requires a higher version of the protocol than the server supports, `UnsupportedOperationException` is thrown.
+                Otherwise the behaviour depends on the `devMode` node configuration option.
 
 If the server implementation throws an exception, that exception is serialised and rethrown on the client
                 side as if it was thrown from inside the called RPC method. These exceptions can be caught as normal.
@@ -477,9 +476,6 @@ A more graceful form of reconnection is also available. This will:
 * block any RPC calls that arrive during a reconnection or any RPC calls that were not acknowledged at the point of reconnection and will execute them after the connection is re-established.
 
 
-* by default continue retrying indefinitely until the connection is re-established.  See `CordaRPCClientConfiguration.maxReconnectAttempts` for adjusting the number of retries.
-
-
 More specifically, the behaviour in the second case is a bit more subtle:
 
 
@@ -508,7 +504,7 @@ You can enable this graceful form of reconnection by using the `gracefulReconnec
 * `onReconnect`: A callback handler that will be invoked every time the connection is established again after a disconnection.
 
 
-* `maxAttempts`: The maximum number of attempts that will be performed per *RPC operation*. A negative value implies infinite retries. The default value is 5.
+* `maxAttempts`: The maximum number of attempts that will be performed per RPC operation. A negative value implies infinite retries. The default value is 5.
 
 
 This can be used in the following way:
@@ -596,11 +592,11 @@ This approach provides at-least-once guarantees. It cannot provide exactly-once 
 
 ## Wire security
 
-If TLS communications to the RPC endpoint are required the node should be configured with `rpcSettings.useSSL=true` see [Node configuration](corda-configuration-file).
-                The node admin should then create a node specific RPC certificate and key, by running the node once with `generate-rpc-ssl-settings` command specified (see [Node command-line options](node-commandline)).
+If TLS communications to the RPC endpoint are required the node should be configured with `rpcSettings.useSSL=true` see [Node configuration](corda-configuration-file.md).
+                The node admin should then create a node specific RPC certificate and key, by running the node once with `generate-rpc-ssl-settings` command specified (see [Node command-line options](node-commandline.md)).
                 The generated RPC TLS trust root certificate will be exported to a `certificates/export/rpcssltruststore.jks` file which should be distributed to the authorised RPC clients.
 
-The connecting `CordaRPCClient` code must then use one of the constructors with a parameter of type `ClientRpcSslOptions` ([JavaDoc](api/javadoc/net/corda/client/rpc/CordaRPCClient)) and set this constructor
+The connecting `CordaRPCClient` code must then use one of the constructors with a parameter of type `ClientRpcSslOptions` ([JavaDoc](api/javadoc/net/corda/client/rpc/CordaRPCClient.html)) and set this constructor
                 argument with the appropriate path for the `rpcssltruststore.jks` file. The client connection will then use this to validate the RPC server handshake.
 
 Note that RPC TLS does not use mutual authentication, and delegates fine grained user authentication and authorisation to the RPC security features detailed above.
@@ -610,6 +606,6 @@ Note that RPC TLS does not use mutual authentication, and delegates fine grained
 
 CorDapps must whitelist any classes used over RPC with Corda’s serialization framework, unless they are whitelisted by
                 default in `DefaultWhitelist`. The whitelisting is done either via the plugin architecture or by using the
-                `@CordaSerializable` annotation.  See [Object serialization](serialization). An example is shown in [Using the client RPC API](tutorial-clientrpc-api).
+                `@CordaSerializable` annotation.  See [Object serialization](serialization.md). An example is shown in [Using the client RPC API](tutorial-clientrpc-api.md).
 
 

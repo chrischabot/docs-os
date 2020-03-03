@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Code style guide
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Code style guide
 
 This document explains the coding style used in the Corda repository. You will be expected to follow these
             recommendations when submitting patches for review. Please take the time to read them and internalise them, to save
@@ -18,7 +19,7 @@ What follows are mostly *recommendations* and not *rules*. They are in places in
 
 ## 1. General style
 
-We use the standard [Kotlin coding style from JetBrains](https://kotlinlang.org/docs/reference/coding-conventions).
+We use the standard [Kotlin coding style from JetBrains](https://kotlinlang.org/docs/reference/coding-conventions.html).
 
 In Kotlin code, KDoc is used rather than JavaDoc. It’s very similar except it uses Markdown for formatting instead
                 of HTML tags.
@@ -110,7 +111,7 @@ API docs: all public methods, constants and classes **must** have doc comments i
                         is not always right.
 
 
-* Make good use of [{@link](mailto:{@link)} annotations.
+* Make good use of [{@link](mailto:{@link.md)} annotations.
 
 
 Bad JavaDocs look like this:

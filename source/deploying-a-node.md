@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Deploying a node to a server
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Deploying a node to a server
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
 These instructions are intended for people who want to deploy a Corda node to a server,
-                whether they have developed and tested a CorDapp following the instructions in [Creating nodes locally](generating-a-node)
+                whether they have developed and tested a CorDapp following the instructions in [Creating nodes locally](generating-a-node.md)
                 or are deploying a third-party CorDapp.
 
 
@@ -38,7 +39,7 @@ We recommend creating system services to run a node and the optional test webser
 
 > 
 > 
-> * A supported Java distribution. The supported versions are listed in [Getting set up for CorDapp development](getting-set-up)
+> * A supported Java distribution. The supported versions are listed in [Getting set up for CorDapp development](getting-set-up.md)
 > 
 > 
 
@@ -54,18 +55,18 @@ We recommend creating system services to run a node and the optional test webser
 
 
 * Download the [Corda jar](https://r3.bintray.com/corda/net/corda/corda/)
-                        (under `/4.4/corda-4.4.jar`) and place it in `/opt/corda`
+                        (under `/4.3/corda-4.3.jar`) and place it in `/opt/corda`
 
 
 * (Optional) Download the [Corda webserver jar](http://r3.bintray.com/corda/net/corda/corda-webserver/)
-                        (under `/4.4/corda-4.4.jar`) and place it in `/opt/corda`
+                        (under `/4.3/corda-4.3.jar`) and place it in `/opt/corda`
 
 
 * Create a directory called `cordapps` in `/opt/corda` and save your CorDapp jar file to it. Alternatively, download one of
                         our [sample CorDapps](https://www.corda.net/samples/) to the `cordapps` directory
 
 
-* Save the below as `/opt/corda/node.conf`. See [Node configuration](corda-configuration-file) for a description of these options:
+* Save the below as `/opt/corda/node.conf`. See [Node configuration](corda-configuration-file.md) for a description of these options:
 
 
 ```none
@@ -89,7 +90,7 @@ rpcUsers= [
         ]
     }
 ]
-custom { jvmArgs = [ "-Xmx2048m", "-XX:+UseG1GC" ] }
+custom { jvmArgs = [ '-Xmx2048m', '-XX:+UseG1GC' ] }
 ```
 
 * Make the following changes to `/opt/corda/node.conf`:
@@ -107,7 +108,7 @@ custom { jvmArgs = [ "-Xmx2048m", "-XX:+UseG1GC" ] }
                                 only visible to the permissioning service.
 
 
-* Enter your node’s desired legal name (see [Node identity](node-naming#node-naming) for more details).
+* Enter your node’s desired legal name (see [Node identity](node-naming.md#node-naming) for more details).
 
 
 * If required, add RPC users
@@ -124,7 +125,7 @@ Ubuntu 16.04 and most current Linux distributions use SystemD, so if you are run
 
 </div>
 
-* **SystemD**: Create a `corda.service` file based on the example below and save it in the `/etc/syst/system/`
+* **SystemD**: Create a `corda.service` file based on the example below and save it in the `/etc/systemd/system/`
                         directory
 
 > 
@@ -176,10 +177,10 @@ Ubuntu 16.04 and most current Linux distributions use SystemD, so if you are run
 > 
 > > 
 > > 
-> >     * `sudo chown root:root /etc/syst/system/corda.service`
+> >     * `sudo chown root:root /etc/systemd/system/corda.service`
 > > 
 > > 
-> >     * `sudo chmod 644 /etc/syst/system/corda.service`
+> >     * `sudo chmod 644 /etc/systemd/system/corda.service`
 > > 
 > > 
 > 
@@ -204,7 +205,7 @@ The Corda test webserver provides a simple interface for interacting with your i
 
 </div>
 
-* **SystemD**: Create a `corda-webserver.service` file based on the example below and save it in the `/etc/syst/system/`
+* **SystemD**: Create a `corda-webserver.service` file based on the example below and save it in the `/etc/systemd/system/`
                         directory
 
 ```shell
@@ -240,7 +241,7 @@ exec java -jar /opt/corda/corda-webserver.jar
 ```
 
 * Provision the required certificates to your node. Contact the network permissioning service or see
-                        [Network certificates](permissioning)
+                        [Network certificates](permissioning.md)
 
 
 * **SystemD**: You can now start a node and its webserver and set the services to start on boot by running the
@@ -285,7 +286,7 @@ We recommend running Corda as a Windows service. This provides service handling,
 
 > 
 > 
-> * A supported Java distribution. The supported versions are listed in [Getting set up for CorDapp development](getting-set-up)
+> * A supported Java distribution. The supported versions are listed in [Getting set up for CorDapp development](getting-set-up.md)
 > 
 > 
 
@@ -295,14 +296,14 @@ We recommend running Corda as a Windows service. This provides service handling,
 
 ```shell
 mkdir C:\Corda
-wget http://jcenter.bintray.com/net/corda/corda/4.4/corda-4.4.jar -OutFile C:\Corda\corda.jar
+wget http://jcenter.bintray.com/net/corda/corda/4.3/corda-4.3.jar -OutFile C:\Corda\corda.jar
 ```
 
 * Create a directory called `cordapps` in `C:\Corda\` and save your CorDapp jar file to it. Alternatively,
                         download one of our [sample CorDapps](https://www.corda.net/samples/) to the `cordapps` directory
 
 
-* Save the below as `C:\Corda\node.conf`. See [Node configuration](corda-configuration-file) for a description of these options:
+* Save the below as `C:\Corda\node.conf`. See [Node configuration](corda-configuration-file.md) for a description of these options:
 
 
 ```none
@@ -341,14 +342,14 @@ custom { jvmArgs = [ '-Xmx2048m', '-XX:+UseG1GC' ] }
                                 only visible to the permissioning service.
 
 
-* Enter your node’s desired legal name (see [Node identity](node-naming#node-naming) for more details).
+* Enter your node’s desired legal name (see [Node identity](node-naming.md#node-naming) for more details).
 
 
 * If required, add RPC users
 
 
 
-* Copy the required Java keystores to the node. See [Network certificates](permissioning)
+* Copy the required Java keystores to the node. See [Network certificates](permissioning.md)
 
 
 * Download the [NSSM service manager](https://nssm.cc/)
@@ -384,7 +385,7 @@ sc start cordanode1
 > 
 
 * Provision the required certificates to your node. Contact the network permissioning service or see
-                        [Network certificates](permissioning)
+                        [Network certificates](permissioning.md)
 
 
 * Run the batch file by clicking on it or from a command prompt

@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Node command-line options
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Node command-line options
 
 The node can optionally be started with the following command-line options:
 
@@ -64,7 +65,7 @@ Parameters:
 
 `generate-rpc-ssl-settings`: Generates the SSL keystore and truststore for a secure RPC connection.
 
-`install-shell-extensions`: Install `corda` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions) for more info.
+`install-shell-extensions`: Install `corda` alias and auto completion for bash and zsh. See [Shell extensions for CLI Applications](cli-application-shell-extensions.md) for more info.
 
 `validate-configuration`: Validates the actual configuration without starting the node.
 

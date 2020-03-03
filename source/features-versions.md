@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Corda Features to Versions
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Corda Features to Versions
 
 New versions of Corda introduce new features. These fall into one of three categories which have subtle but important implications for
             node owners, application developers and network operators.

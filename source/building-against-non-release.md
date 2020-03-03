@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Building CorDapps against a non-release branch
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Building CorDapps against a non-release branch
 
 It is advisable to develop CorDapps against the most recent Corda stable release. However, you may need to build a CorDapp
             against an unstable non-release branch if your CorDapp uses a very recent feature, or you are using the CorDapp to test a PR

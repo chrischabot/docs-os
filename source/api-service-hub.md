@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: 'API: ServiceHub'
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# API: ServiceHub
 
 Within `FlowLogic.call`, the flow developer has access to the node’s `ServiceHub`, which provides access to the
             various services the node provides. The services offered by the `ServiceHub` are split into the following categories:
@@ -73,23 +74,6 @@ Within `FlowLogic.call`, the flow developer has access to the node’s `ServiceH
 `ServiceHub.clock`
 
     * Provides access to the node’s internal time and date
-
-
-
-* 
-
-`ServiceHub.diagnosticsService`
-
-    * Provides diagnostic information about the node, including the node version and currently running apps. Note that this data should be
-                                        used for diagnostic purposes ONLY
-
-
-
-* 
-
-`ServiceHub.contractUpgradeService`
-
-    * Provides functionality for secure contract upgrades
 
 
 

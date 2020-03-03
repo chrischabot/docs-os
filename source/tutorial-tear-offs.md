@@ -1,16 +1,17 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Transaction tear-offs
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Transaction tear-offs
 
 Suppose we want to construct a transaction that includes commands containing interest rate fix data as in
-            [Writing oracle services](oracles). Before sending the transaction to the oracle to obtain its signature, we need to filter out every part
+            [Writing oracle services](oracles.md). Before sending the transaction to the oracle to obtain its signature, we need to filter out every part
             of the transaction except for the `Fix` commands.
 
 To do so, we need to create a filtering function that specifies which fields of the transaction should be included.
@@ -30,7 +31,7 @@ val filtering = Predicate<Any> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTearOffs.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/tearoffs/TutorialTearOffs.kt)
+![github](/images/svg/github.svg "github") [TutorialTearOffs.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/tearoffs/TutorialTearOffs.kt)
 
 
 </div>
@@ -45,12 +46,12 @@ val ftx: FilteredTransaction = stx.buildFilteredTransaction(filtering)
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTearOffs.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/tearoffs/TutorialTearOffs.kt)
+![github](/images/svg/github.svg "github") [TutorialTearOffs.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/tearoffs/TutorialTearOffs.kt)
 
 
 </div>
 In the Oracle example this step takes place in `RatesFixFlow` by overriding the `filtering` function. See
-            [Using an oracle](oracles#filtering-ref).
+            [Using an oracle](oracles.md#filtering-ref).
 
 Both `WireTransaction` and `FilteredTransaction` inherit from `TraversableTransaction`, so access to the
             transaction components is exactly the same. Note that unlike `WireTransaction`,
@@ -61,7 +62,7 @@ Both `WireTransaction` and `FilteredTransaction` inherit from `TraversableTransa
 
 ```kotlin
 // Direct access to included commands, inputs, outputs, attachments etc.
-val s: List<Command<*>> = ftx.commands
+val cmds: List<Command<*>> = ftx.commands
 val ins: List<StateRef> = ftx.inputs
 val timeWindow: TimeWindow? = ftx.timeWindow
 // ...
@@ -69,7 +70,7 @@ val timeWindow: TimeWindow? = ftx.timeWindow
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [TutorialTearOffs.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/tearoffs/TutorialTearOffs.kt)
+![github](/images/svg/github.svg "github") [TutorialTearOffs.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/tutorial/tearoffs/TutorialTearOffs.kt)
 
 
 </div>
@@ -108,7 +109,7 @@ fun sign(ftx: FilteredTransaction): TransactionSignature {
 }
 
 ```
-[NodeInterestRates.kt](https://github.com/corda/corda/blob/release/os/4.4/samples/irs-demo/cordapp/workflows-irs/src/main/kotlin/net.corda.irs/api/NodeInterestRates.kt)<div class="r3-o-note" role="alert"><span>Note: </span>
+[NodeInterestRates.kt](https://github.com/corda/corda/blob/release/os/4.3/samples/irs-demo/cordapp/workflows-irs/src/main/kotlin/net.corda.irs/api/NodeInterestRates.kt)<div class="r3-o-note" role="alert"><span>Note: </span>
 
 
 The way the `FilteredTransaction` is constructed ensures that after signing of the root hash it’s impossible to add or remove

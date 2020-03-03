@@ -1,18 +1,19 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: 'API: Flows'
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# API: Flows
 
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-Before reading this page, you should be familiar with the key concepts of [Flows](key-concepts-flows).
+Before reading this page, you should be familiar with the key concepts of [Flows](key-concepts-flows.md).
 
 
 </div>
@@ -278,7 +279,7 @@ public static class InitiatorFlow extends FlowLogic<Void> {
 
 Within `FlowLogic.call`, the flow developer has access to the node’s `ServiceHub`, which provides access to the
                 various services the node provides. We will use the `ServiceHub` extensively in the examples that follow. You can
-                also see [API: ServiceHub](api-service-hub) for information about the services the `ServiceHub` offers.
+                also see [API: ServiceHub](api-service-hub.md) for information about the services the `ServiceHub` offers.
 
 
 ## Common flow tasks
@@ -290,13 +291,13 @@ There are a number of common tasks that you will need to perform within `FlowLog
 ### Transaction building
 
 The majority of the work performed during a flow will be to build, verify and sign a transaction. This is covered
-                    in [API: Transactions](api-transactions).
+                    in [API: Transactions](api-transactions.md).
 
 
 ### Extracting states from the vault
 
 When building a transaction, you’ll often need to extract the states you wish to consume from the vault. This is
-                    covered in [API: Vault Query](api-vault-query).
+                    covered in [API: Vault Query](api-vault-query.md).
 
 
 ### Retrieving information about other nodes
@@ -350,7 +351,7 @@ Party firstNotary = getServiceHub().getNetworkMapCache().getNotaryIdentities().g
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -385,7 +386,7 @@ Party keyedCounterparty = getServiceHub().getIdentityService().partyFromKey(dumm
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -457,7 +458,7 @@ FlowSession counterpartySession = initiateFlow(counterparty);
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -493,7 +494,7 @@ counterpartySession.send(new Object());
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -553,7 +554,7 @@ Integer integer = packet1.unwrap(data -> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -581,7 +582,7 @@ UntrustworthyData<Object> packet3 = regulatorSession.receive(Object.class);
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -631,7 +632,7 @@ Boolean bool = packet2.unwrap(data -> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -674,7 +675,7 @@ counterpartySession.send(true);
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -805,7 +806,7 @@ class SecretaryFlow extends FlowLogic<Void> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [LaunchSpaceshipFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/LaunchSpaceshipFlow.kt) | [LaunchSpaceshipFlow.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/LaunchSpaceshipFlow.java)
+![github](/images/svg/github.svg "github") [LaunchSpaceshipFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/LaunchSpaceshipFlow.kt) | [LaunchSpaceshipFlow.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/LaunchSpaceshipFlow.java)
 
 
 </div>
@@ -942,7 +943,7 @@ class SecretaryFlowCorrect extends FlowLogic<Void> {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [LaunchSpaceshipFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/LaunchSpaceshipFlow.kt) | [LaunchSpaceshipFlow.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/LaunchSpaceshipFlow.java)
+![github](/images/svg/github.svg "github") [LaunchSpaceshipFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/LaunchSpaceshipFlow.kt) | [LaunchSpaceshipFlow.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/LaunchSpaceshipFlow.java)
 
 
 </div>
@@ -977,7 +978,7 @@ session.send(new Object());
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1063,7 +1064,7 @@ Corda installs four initiating subflow pairs on each node by default:
 
 `SwapIdentitiesFlow`/`SwapIdentitiesHandler` are only installed if the `confidential-identities` module
                         is included. The `confidential-identities` module  is still not stabilised, so the
-                        `SwapIdentitiesFlow`/`SwapIdentitiesHandler` API may change in future releases. See [API stability guarantees](api-stability-guarantees).
+                        `SwapIdentitiesFlow`/`SwapIdentitiesHandler` API may change in future releases. See [API stability guarantees](api-stability-guarantees.md).
 
 
 </div>
@@ -1113,7 +1114,7 @@ SignedTransaction notarisedTx1 = subFlow(new FinalityFlow(fullySignedTx, singlet
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1138,7 +1139,7 @@ SignedTransaction notarisedTx2 = subFlow(new FinalityFlow(fullySignedTx, partySe
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1163,7 +1164,7 @@ subFlow(new ReceiveFinalityFlow(counterpartySession, idOfTxWeSigned));
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1184,8 +1185,8 @@ Once a transaction has been notarised and its input states consumed by the flow 
                             transaction fail to verify it, or the receiving flow (the finality handler) fails due to some other error, we then have a scenario where not
                             all parties have the correct up to date view of the ledger (a condition where eventual consistency between participants takes longer than is
                             normally the case under Corda’s [eventual consistency model](https://en.wikipedia.org/wiki/Eventual_consistency)). To recover from this scenario,
-                            the receiver’s finality handler will automatically be sent to the [Flow Hospital](node-flow-hospital) where it’s suspended and retried from its last checkpoint
-                            upon node restart, or according to other conditional retry rules explained in [flow hospital runtime behaviour](node-flow-hospital#flow-hospital-runtime).
+                            the receiver’s finality handler will automatically be sent to the [Flow Hospital](node-flow-hospital.md) where it’s suspended and retried from its last checkpoint
+                            upon node restart, or according to other conditional retry rules explained in [flow hospital runtime behaviour](node-flow-hospital.md#flow-hospital-runtime).
                             This gives the node operator the opportunity to recover from the error. Until the issue is resolved the node will continue to retry the flow
                             on each startup. Upon successful completion by the receiver’s finality flow, the ledger will become fully consistent once again.
 
@@ -1227,7 +1228,7 @@ SignedTransaction fullySignedTx = subFlow(new CollectSignaturesFlow(twiceSignedT
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1275,7 +1276,7 @@ SecureHash idOfTxWeSigned = subFlow(new SignTxFlow(counterpartySession, SignTran
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1334,7 +1335,7 @@ subFlow(new SendTransactionFlow(counterpartySession, twiceSignedTx) {
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1358,7 +1359,7 @@ SignedTransaction verifiedTransaction = subFlow(new ReceiveTransactionFlow(count
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1387,7 +1388,7 @@ List<StateAndRef<DummyState>> resolvedStateAndRef = subFlow(new ReceiveStateAndR
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1452,7 +1453,7 @@ open class FlowException(message: String?, cause: Throwable?, var originalErrorI
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowException.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/flows/FlowException.kt)
+![github](/images/svg/github.svg "github") [FlowException.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/flows/FlowException.kt)
 
 
 </div>
@@ -1473,112 +1474,6 @@ There are many scenarios in which throwing a `FlowException` would be appropriat
 * You are reneging on a deal
 
 
-Below is an example using `FlowException`:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-@InitiatingFlow
-class SendMoneyFlow(private val moneyRecipient: Party) : FlowLogic<Unit>() {
-    @Suspendable
-    override fun call() {
-        val money = Money(10.0, USD)
-        try {
-            initiateFlow(moneyRecipient).sendAndReceive<Unit>(money)
-        } catch (e: FlowException) {
-            if (e.cause is WrongCurrencyException) {
-                log.info(e.message, e)
-            }
-        }
-    }
-}
-
-@InitiatedBy(SendMoneyFlow::class)
-class ReceiveMoneyFlow(private val moneySender: FlowSession) : FlowLogic<Unit>() {
-    @Suspendable
-    override fun call() {
-        val receivedMoney = moneySender.receive<Money>().unwrap { it }
-        if (receivedMoney.currency != GBP) {
-            // Wrap a thrown Exception with a FlowException for the counter party to receive it.
-            throw FlowException(WrongCurrencyException("I only accept GBP, sorry!"))
-        }
-    }
-}
-
-class WrongCurrencyException(message: String) : CordaRuntimeException(message)
-```
-
-</TabPanel>
-
-</div>
-
-## HospitalizeFlowException
-
-Some operations can fail intermittently and will succeed if they are tried again at a later time. Flows have the ability to halt their
-                execution in such situations. By throwing a `HospitalizeFlowException` a flow will stop and retry at a later time (on the next node restart).
-
-A `HospitalizeFlowException` can be defined in various ways:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-/**
- * This exception allows a flow to pass itself to the flow hospital. Once the flow reaches
- * the hospital it will determine how to progress depending on what [cause]s the exception wraps.
- * Assuming there are no important wrapped exceptions, throwing a [HospitalizeFlowException]
- * will place the flow in overnight observation, where it will be replayed at a later time.
- */
-open class HospitalizeFlowException(message: String?, cause: Throwable?) : CordaRuntimeException(message, cause) {
-    constructor(message: String?) : this(message, null)
-    constructor(cause: Throwable?) : this(cause?.toString(), cause)
-    constructor() : this(null, null)
-}
-
-```
-
-</TabPanel>
-![github](/images/svg/github.svg "github") [HospitalizeFlowException.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/flows/HospitalizeFlowException.kt)
-
-
-</div>
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-If a `HospitalizeFlowException` is wrapping or extending an exception already being handled by the [Flow Hospital](node-flow-hospital), the outcome of a flow may change. For example, the flow
-                    could instantly retry or terminate if a critical error occurred.
-
-
-</div>
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-`HospitalizeFlowException` can be extended for customized exceptions. These exceptions will be treated in the same way when thrown.
-
-
-</div>
-Below is an example of a flow that should retry again in the future if an error occurs:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-class TryAccessServiceFlow(): FlowLogic<Unit>() {
-    override fun call() {
-        try {
-            val code = serviceHub.cordaService(HTTPService::class.java).get() // throws UnknownHostException.
-        } catch (e: UnknownHostException) {
-            // Accessing the service failed! It might be offline. Let's hospitalize this flow, and have it retry again on next node startup.
-            throw HospitalizeFlowException("Service might be offline!", e)
-        }
-    }
-}
-```
-
-</TabPanel>
-
-</div>
 
 ## ProgressTracker
 
@@ -1667,7 +1562,7 @@ private final ProgressTracker progressTracker = new ProgressTracker(
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
@@ -1690,675 +1585,26 @@ progressTracker.setCurrentStep(ID_OTHER_NODES);
 ```
 
 </TabPanel>
-![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.4/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
+![github](/images/svg/github.svg "github") [FlowCookbook.kt](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/kotlin/net/corda/docs/kotlin/FlowCookbook.kt) | [FlowCookbook.java](https://github.com/corda/corda/blob/release/os/4.3/docs/source/example-code/src/main/java/net/corda/docs/java/FlowCookbook.java)
 
 
 </div>
 
-## Calling external systems inside of flows
+## HTTP and database calls
 
-Flows provide the ability to await the result of an external operation running outside of the context of a flow. A flow will suspend while
-                awaiting a result. This frees up a flow worker thread to continuing processing other flows.
+HTTP, database and other calls to external resources are allowed in flows. However, their support is currently limited:
 
-<div class="r3-o-note" role="alert"><span>Note: </span>
 
+* The call must be executed in a BLOCKING way. Flows don’t currently support suspending to await the response to a call to an external resource
 
-Flow worker threads belong to the thread pool that executes flows.
 
+    * For this reason, the call should be provided with a timeout to prevent the flow from suspending forever. If the timeout elapses, this should be treated as a soft failure and handled by the flow’s business logic
 
-</div>
-Examples of where this functionality is useful include:
 
-> 
-> 
-> * Triggering a long running process on an external system
-> 
-> 
-> * Retrieving information from a external service that might go down
-> 
-> 
-`FlowLogic` provides two `await` functions that allow custom operations to be defined and executed outside of the context of a flow.
-                Below are the interfaces that must be implemented and passed into `await`, along with brief descriptions of what they do:
 
-> 
-> 
-> * `FlowExternalOperation` - An operation that returns a result which should be run using a thread from one of the node’s
->                             thread pools.
-> 
-> 
-> * `FlowExternalAsyncOperation` - An operation that returns a future which should be run on a thread provided to its implementation.
->                             Threading needs to be explicitly handled when using `FlowExternalAsyncOperation`.
-> 
-> 
+* The call must be idempotent. If the flow fails and has to restart from a checkpoint, the call will also be replayed
 
-### FlowExternalOperation
 
-`FlowExternalOperation` allows developers to write an operation that will run on a thread provided by the node’s flow external operation
-                    thread pool.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-The size of the external operation thread pool can be configured, see [the node configuration documentation](corda-configuration-file#corda-configuration-flow-external-operation-thread-pool-size).
-
-
-</div>
-Below is an example of how `FlowExternalOperation` can be called from a flow to run an operation on a new thread, allowing the flow to suspend:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-@StartableByRPC
-class FlowUsingFlowExternalOperation : FlowLogic<Unit>() {
-
-    @Suspendable
-    override fun call() {
-        // Other flow operations
-
-        // Call [FlowLogic.await] to execute an external operation
-        // The result of the operation is returned to the flow
-        val response: Response = await(
-            // Pass in an implementation of [FlowExternalOperation]
-            RetrieveDataFromExternalSystem(
-                serviceHub.cordaService(ExternalService::class.java),
-                Data("amount", 1)
-            )
-        )
-        // Other flow operations
-    }
-
-    class RetrieveDataFromExternalSystem(
-        private val externalService: ExternalService,
-        private val data: Data
-    ) : FlowExternalOperation<Response> {
-
-        // Implement [execute] which will be run on a thread outside of the flow's context
-        override fun execute(deduplicationId: String): Response {
-            return externalService.retrieveDataFromExternalSystem(deduplicationId, data)
-        }
-    }
-}
-
-@CordaService
-class ExternalService(serviceHub: AppServiceHub) : SingletonSerializeAsToken() {
-
-    private val client: OkHttpClient = OkHttpClient()
-
-    fun retrieveDataFromExternalSystem(deduplicationId: String, data: Data): Response {
-        return try {
-            // [DeduplicationId] passed into the request so the external system can handle deduplication
-            client.newCall(
-                Request.Builder().url("https://externalsystem.com/endpoint/$deduplicationId").post(
-                    RequestBody.create(
-                        MediaType.parse("text/plain"), data.toString()
-                    )
-                ).build()
-            ).execute()
-        } catch (e: IOException) {
-            // Handle checked exception
-            throw HospitalizeFlowException("External API call failed", e)
-        }
-    }
-}
-
-data class Data(val name: String, val value: Any)
-```
-
-</TabPanel>
-<TabPanel value={value} index={1}>
-
-```java
-@StartableByRPC
-public class FlowUsingFlowExternalOperation extends FlowLogic<Void> {
-
-    @Override
-    @Suspendable
-    public Void call() {
-        // Other flow operations
-
-        // Call [FlowLogic.await] to execute an external operation
-        // The result of the operation is returned to the flow
-        Response response = await(
-                // Pass in an implementation of [FlowExternalOperation]
-                new RetrieveDataFromExternalSystem(
-                        getServiceHub().cordaService(ExternalService.class),
-                        new Data("amount", 1)
-                )
-        );
-        // Other flow operations
-        return null;
-    }
-
-    public class RetrieveDataFromExternalSystem implements FlowExternalOperation<Response> {
-
-        private ExternalService externalService;
-        private Data data;
-
-        public RetrieveDataFromExternalSystem(ExternalService externalService, Data data) {
-            this.externalService = externalService;
-            this.data = data;
-        }
-
-        // Implement [execute] which will be run on a thread outside of the flow's context
-        @Override
-        public Response execute(String deduplicationId) {
-            return externalService.retrieveDataFromExternalSystem(deduplicationId, data);
-        }
-    }
-}
-
-@CordaService
-public class ExternalService extends SingletonSerializeAsToken {
-
-    private OkHttpClient client = new OkHttpClient();
-
-    public ExternalService(AppServiceHub serviceHub) { }
-
-    public Response retrieveDataFromExternalSystem(String deduplicationId, Data data) {
-        try {
-            // [DeduplicationId] passed into the request so the external system can handle deduplication
-            return client.newCall(
-                    new Request.Builder().url("https://externalsystem.com/endpoint/" + deduplicationId).post(
-                            RequestBody.create(
-                                    MediaType.parse("text/plain"), data.toString()
-                            )
-                    ).build()
-            ).execute();
-        } catch (IOException e) {
-            // Must handle checked exception
-            throw new HospitalizeFlowException("External API call failed", e);
-        }
-    }
-}
-
-public class Data {
-
-    private String name;
-    private Object value;
-
-    public Data(String name, Object value) {
-        this.name = name;
-        this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-}
-```
-
-</TabPanel>
-
-</div>
-In summary, the following steps are taken in the code above:
-
-> 
-> 
-> * `ExternalService` is a Corda service that provides a way to contact an external system (by HTTP in this example).
-> 
-> 
-> * `ExternalService.retrieveDataFromExternalSystem` is passed a `deduplicationId` which is included as part of the request to the
->                                 external system. The external system, in this example, will handle deduplication and return the previous result if it was already
->                                 computed.
-> 
-> 
-> * An implementation of `FlowExternalOperation` (`RetrieveDataFromExternalSystem`) is created that calls `ExternalService.retrieveDataFromExternalSystem`.
-> 
-> 
-> * `RetrieveDataFromExternalSystem` is then passed into `await` to execute the code contained in `RetrieveDataFromExternalSystem.execute`.
-> 
-> 
-> * The result of `RetrieveDataFromExternalSystem.execute` is then returned to the flow once its execution finishes.
-> 
-> 
-
-### FlowExternalAsyncOperation
-
-`FlowExternalAsyncOperation` allows developers to write an operation that returns a future whose threading is handled within the CorDapp.
-
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-Threading must be explicitly controlled when using `FlowExternalAsyncOperation`. A future will be run on its current flow worker
-                        thread if a new thread is not spawned or provided by a thread pool. This prevents the flow worker thread from freeing up and allowing
-                        another flow to take control and run.
-
-
-</div>
-Implementations of `FlowExternalAsyncOperation` must return a `CompletableFuture`. How this future is created is up to the developer.
-                    It is recommended to use `CompletableFuture.supplyAsync` and supply an executor to run the future on. Other libraries can be used to
-                    generate futures, as long as a `CompletableFuture` is returned out of `FlowExternalAsyncOperation`. An example of creating a future
-                    using [Guava’s ListenableFuture](#api-flows-guava-future-conversion) is given in a following section.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-The future can be chained to execute further operations that continue using the same thread the future started on. For example,
-                        `CompletableFuture`’s `whenComplete`, `exceptionally` or `thenApply` could be used (their async versions are also valid).
-
-
-</div>
-Below is an example of how `FlowExternalAsyncOperation` can be called from a flow:
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-@StartableByRPC
-class FlowUsingFlowExternalAsyncOperation : FlowLogic<Unit>() {
-
-    @Suspendable
-    override fun call() {
-        // Other flow operations
-
-        // Call [FlowLogic.await] to execute an external operation
-        // The result of the operation is returned to the flow
-        val response: Response = await(
-            // Pass in an implementation of [FlowExternalAsyncOperation]
-            RetrieveDataFromExternalSystem(
-                serviceHub.cordaService(ExternalService::class.java),
-                Data("amount", 1)
-            )
-        )
-        // Other flow operations
-    }
-
-    class RetrieveDataFromExternalSystem(
-        private val externalService: ExternalService,
-        private val data: Data
-    ) : FlowExternalAsyncOperation<Response> {
-
-        // Implement [execute] which needs to be provided with a new thread to benefit from suspending the flow
-        override fun execute(deduplicationId: String): CompletableFuture<Response> {
-            return externalService.retrieveDataFromExternalSystem(deduplicationId, data)
-        }
-    }
-}
-
-@CordaService
-class ExternalService(serviceHub: AppServiceHub) : SingletonSerializeAsToken() {
-
-    private val client: OkHttpClient = OkHttpClient()
-
-    // [ExecutorService] created to provide a fixed number of threads to the futures created in this service
-    private val executor: ExecutorService = Executors.newFixedThreadPool(
-        4,
-        ThreadFactoryBuilder().setNameFormat("external-service-thread").build()
-    )
-
-    fun retrieveDataFromExternalSystem(deduplicationId: String, data: Data): CompletableFuture<Response> {
-        // Create a [CompletableFuture] to be executed by the [FlowExternalAsyncOperation]
-        return CompletableFuture.supplyAsync(
-            Supplier {
-                try {
-                    // [DeduplicationId] passed into the request so the external system can handle deduplication
-                    client.newCall(
-                        Request.Builder().url("https://externalsystem.com/endpoint/$deduplicationId").post(
-                            RequestBody.create(
-                                MediaType.parse("text/plain"), data.toString()
-                            )
-                        ).build()
-                    ).execute()
-                } catch (e: IOException) {
-                    // Handle checked exception
-                    throw HospitalizeFlowException("External API call failed", e)
-                }
-            },
-            // The future must run on a new thread
-            executor
-        )
-    }
-}
-
-data class Data(val name: String, val value: Any)
-```
-
-</TabPanel>
-<TabPanel value={value} index={1}>
-
-```java
-@StartableByRPC
-public class FlowUsingFlowExternalAsyncOperation extends FlowLogic<Void> {
-
-    @Override
-    @Suspendable
-    public Void call() {
-        // Other flow operations
-
-        // Call [FlowLogic.await] to execute an external operation
-        // The result of the operation is returned to the flow
-        Response response = await(
-                // Pass in an implementation of [FlowExternalAsyncOperation]
-                new RetrieveDataFromExternalSystem(
-                        getServiceHub().cordaService(ExternalService.class),
-                        new Data("amount", 1)
-                )
-        );
-        // Other flow operations
-        return null;
-    }
-
-    public class RetrieveDataFromExternalSystem implements FlowExternalAsyncOperation<Response> {
-
-        private ExternalService externalService;
-        private Data data;
-
-        public RetrieveDataFromExternalSystem(ExternalService externalService, Data data) {
-            this.externalService = externalService;
-            this.data = data;
-        }
-
-        // Implement [execute] which needs to be provided with a new thread to benefit from suspending the flow
-        @Override
-        public CompletableFuture<Response> execute(String deduplicationId) {
-            return externalService.retrieveDataFromExternalSystem(deduplicationId, data);
-        }
-    }
-}
-
-@CordaService
-public class ExternalService extends SingletonSerializeAsToken {
-
-    private OkHttpClient client = new OkHttpClient();
-
-    // [ExecutorService] created to provide a fixed number of threads to the futures created in this service
-    private ExecutorService executor = Executors.newFixedThreadPool(
-            4,
-            new ThreadFactoryBuilder().setNameFormat("external-service-thread").build()
-    );
-
-    public ExternalService(AppServiceHub serviceHub) { }
-
-    public CompletableFuture<Response> retrieveDataFromExternalSystem(String deduplicationId, Data data) {
-        // Create a [CompletableFuture] to be executed by the [FlowExternalAsyncOperation]
-        return CompletableFuture.supplyAsync(
-                () -> {
-                    try {
-                        // [DeduplicationId] passed into the request so the external system can handle deduplication
-                        return client.newCall(
-                                new Request.Builder().url("https://externalsystem.com/endpoint/" + deduplicationId).post(
-                                        RequestBody.create(
-                                                MediaType.parse("text/plain"), data.toString()
-                                        )
-                                ).build()
-                        ).execute();
-                    } catch (IOException e) {
-                        // Must handle checked exception
-                        throw new HospitalizeFlowException("External API call failed", e);
-                    }
-                },
-                // The future must run on a new thread
-                executor
-        );
-    }
-}
-
-public class Data {
-
-    private String name;
-    private Object value;
-
-    public Data(String name, Object value) {
-        this.name = name;
-        this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-}
-```
-
-</TabPanel>
-
-</div>
-In summary, the following steps are taken in the code above:
-
-> 
-> 
-> * `ExternalService` is a Corda service that provides a way to contact an external system (by HTTP in this example).
-> 
-> 
-> * `ExternalService.retrieveDataFromExternalSystem` is passed a `deduplicationId` which is included as part of the request to the
->                                 external system. The external system, in this example, will handle deduplication and return the previous result if it was already
->                                 computed.
-> 
-> 
-> * A `CompletableFuture` is created that contacts the external system. `CompletableFuture.supplyAsync` takes in a reference to the
->                                 `ExecutorService` which will provide a thread for the external operation to run on.
-> 
-> 
-> * An implementation of `FlowExternalAsyncOperation` (`RetrieveDataFromExternalSystem`) is created that calls the `ExternalService.retrieveDataFromExternalSystem`.
-> 
-> 
-> * `RetrieveDataFromExternalSystem` is then passed into `await` to execute the code contained in `RetrieveDataFromExternalSystem.execute`.
-> 
-> 
-> * The result of `RetrieveDataFromExternalSystem.execute` is then returned to the flow once its execution finishes.
-> 
-> 
-
-### Handling deduplication in external operations
-
-A Flow has the ability to rerun from any point where it suspends. Due to this, a flow can execute code multiple times depending on where it
-                    retries. For context contained inside a flow, values will be reset to their state recorded at the last suspension point. This makes most
-                    properties existing inside a flow safe when retrying. External operations do not have the same guarantees as they are executed outside of
-                    the context of flows.
-
-External operations are provided with a `deduplicationId` to allow CorDapps to decide whether to run the operation again or return a
-                    result retrieved from a previous attempt. How deduplication is handled depends on the CorDapp and how the external system works. For
-                    example, an external system might already handle this scenario and return the result from a previous calculation or it could be idempotent
-                    and can be safely executed multiple times.
-
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-There is no inbuilt deduplication for external operations. Any deduplication must be explicitly handled in whatever way is
-                        appropriate for the CorDapp and external system.
-
-
-</div>
-The `deduplicationId` passed to an external operation is constructed from its calling flow’s ID and the number of suspends the flow has
-                    made. Therefore, the `deduplicationId` is guaranteed to be the same on a retry and will never be used again once the flow has successfully
-                    reached its next suspension point.
-
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-Any external operations that did not finish processing (or were kept in the flow hospital due to an error) will be retried upon node
-                        restart.
-
-
-</div>
-Below are examples of how deduplication could be handled:
-
-> 
-> 
-> * The external system records successful computations and returns previous results if requested again.
-> 
-> 
-> * The external system is idempotent, meaning the computation can be made multiple times without altering any state (similar to the point above).
-> 
-> 
-> * An extra external service maintains a record of deduplication IDs.
-> 
-> 
-> * Recorded inside of the node’s database.
-> 
-> 
-<div class="r3-o-note" role="alert"><span>Note: </span>
-
-
-Handling deduplication on the external system’s side is preferred compared to handling it inside of the node.
-
-
-</div>
-<div class="r3-o-warning" role="alert"><span>Warning: </span>
-
-
-In-memory data structures should not be used for handling deduplication as their state will not survive node restarts.
-
-
-</div>
-
-### Creating CompletableFutures from Guava’s ListenableFutures
-
-The code below demonstrates how to convert a `ListenableFuture` into a `CompletableFuture`, allowing the result to be executed using a
-                    `FlowExternalAsyncOperation`.
-
-<div><Tabs value={value} aria-label="code tabs"><Tab label="kotlin" /><Tab label="java" /></Tabs>
-<TabPanel value={value} index={0}>
-
-```kotlin
-@CordaService
-class ExternalService(serviceHub: AppServiceHub) : SingletonSerializeAsToken() {
-
-    private val client: OkHttpClient = OkHttpClient()
-
-    // Guava's [ListeningExecutorService] created to supply a fixed number of threads
-    private val guavaExecutor: ListeningExecutorService = MoreExecutors.listeningDecorator(
-        Executors.newFixedThreadPool(
-            4,
-            ThreadFactoryBuilder().setNameFormat("guava-thread").build()
-        )
-    )
-
-    fun retrieveDataFromExternalSystem(deduplicationId: String, data: Data): CompletableFuture<Response> {
-        // Create a Guava [ListenableFuture]
-        val guavaFuture: ListenableFuture<Response> = guavaExecutor.submit(Callable<Response> {
-            try {
-                // [DeduplicationId] passed into the request so the external system can handle deduplication
-                client.newCall(
-                    Request.Builder().url("https://externalsystem.com/endpoint/$deduplicationId").post(
-                        RequestBody.create(
-                            MediaType.parse("text/plain"), data.toString()
-                        )
-                    ).build()
-                ).execute()
-            } catch (e: IOException) {
-                // Handle checked exception
-                throw HospitalizeFlowException("External API call failed", e)
-            }
-        })
-        // Create a [CompletableFuture]
-        return object : CompletableFuture<Response>() {
-            override fun cancel(mayInterruptIfRunning: Boolean): Boolean {
-                return guavaFuture.cancel(mayInterruptIfRunning).also {
-                    super.cancel(mayInterruptIfRunning)
-                }
-            }
-        }.also { completableFuture ->
-            // Create a callback that completes the returned [CompletableFuture] when the underlying [ListenableFuture] finishes
-            val callback = object : FutureCallback<Response> {
-                override fun onSuccess(result: Response?) {
-                    completableFuture.complete(result)
-                }
-
-                override fun onFailure(t: Throwable) {
-                    completableFuture.completeExceptionally(t)
-                }
-            }
-            // Register the callback
-            Futures.addCallback(guavaFuture, callback, guavaExecutor)
-        }
-    }
-}
-```
-
-</TabPanel>
-<TabPanel value={value} index={1}>
-
-```java
-@CordaService
-public class ExternalService extends SingletonSerializeAsToken {
-
-    private OkHttpClient client = new OkHttpClient();
-
-    public ExternalService(AppServiceHub serviceHub) { }
-
-    private ListeningExecutorService guavaExecutor = MoreExecutors.listeningDecorator(
-            Executors.newFixedThreadPool(
-                    4,
-                    new ThreadFactoryBuilder().setNameFormat("guava-thread").build()
-            )
-    );
-
-    public CompletableFuture<Response> retrieveDataFromExternalSystem(String deduplicationId, Data data) {
-        // Create a Guava [ListenableFuture]
-        ListenableFuture<Response> guavaFuture = guavaExecutor.submit(() -> {
-            try {
-                // [DeduplicationId] passed into the request so the external system can handle deduplication
-                return client.newCall(
-                        new Request.Builder().url("https://externalsystem.com/endpoint/" + deduplicationId).post(
-                                RequestBody.create(
-                                        MediaType.parse("text/plain"), data.toString()
-                                )
-                        ).build()
-                ).execute();
-            } catch (IOException e) {
-                // Must handle checked exception
-                throw new HospitalizeFlowException("External API call failed", e);
-            }
-        });
-        // Create a [CompletableFuture]
-        CompletableFuture<Response> completableFuture = new CompletableFuture<Response>() {
-            // If the returned [CompletableFuture] is cancelled then the underlying [ListenableFuture] must be cancelled as well
-            @Override
-            public boolean cancel(boolean mayInterruptIfRunning) {
-                boolean result = guavaFuture.cancel(mayInterruptIfRunning);
-                super.cancel(mayInterruptIfRunning);
-                return result;
-            }
-        };
-        // Create a callback that completes the returned [CompletableFuture] when the underlying [ListenableFuture] finishes
-        FutureCallback<Response> callback = new FutureCallback<Response>() {
-            @Override
-            public void onSuccess(Response result) {
-                completableFuture.complete(result);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                completableFuture.completeExceptionally(t);
-            }
-        };
-        // Register the callback
-        Futures.addCallback(guavaFuture, callback, guavaExecutor);
-
-        return completableFuture;
-    }
-}
-```
-
-</TabPanel>
-
-</div>
-In the code above:
-
-> 
-> 
-> * A `ListenableFuture` is created and receives a thread from the `ListeningExecutorService`. This future does all the processing.
-> 
-> 
-> * A `CompletableFuture` is created, so that it can be returned to and executed by a `FlowExternalAsyncOperation`.
-> 
-> 
-> * A `FutureCallback` is registered to the `ListenableFuture`, which will complete the `CompletableFuture` (either successfully or
->                                 exceptionally) depending on the outcome of the `ListenableFuture`.
-> 
-> 
-> * `CompletableFuture.cancel` is overridden to propagate its cancellation down to the underlying `ListenableFuture`.
-> 
-> 
 
 ## Concurrency, Locking and Waiting
 
@@ -2380,7 +1626,7 @@ Because of this, care must be taken when performing locking or waiting operation
 ### Locking
 
 Flows should avoid using locks or interacting with objects that are shared between flows (except for `ServiceHub` and other
-                    carefully crafted services such as Oracles.  See [Writing oracle services](oracles)). Locks will significantly reduce the scalability of the
+                    carefully crafted services such as Oracles.  See [Writing oracle services](oracles.md)). Locks will significantly reduce the scalability of the
                     node, and can cause the node to deadlock if they remain locked across flow context switch boundaries (such as when sending
                     and receiving from peers, as discussed above, or sleeping, as discussed below).
 
@@ -2420,4 +1666,4 @@ For example, the `finance` package currently uses `FlowLogic.sleep` to make seve
 > }
 > 
 > ```
-> [AbstractCashSelection.kt](https://github.com/corda/corda/blob/release/os/4.4/finance/workflows/src/main/kotlin/net/corda/finance/workflows/asset/selection/AbstractCashSelection.kt)
+> [AbstractCashSelection.kt](https://github.com/corda/corda/blob/release/os/4.3/finance/workflows/src/main/kotlin/net/corda/finance/workflows/asset/selection/AbstractCashSelection.kt)

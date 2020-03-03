@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: The network map
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# The network map
 
 The network map is a collection of signed `NodeInfo` objects. Each NodeInfo is signed by the node it represents and
             thus cannot be tampered with. It forms the set of reachable nodes in a compatibility zone. A node can receive these
@@ -22,6 +23,18 @@ The network map is a collection of signed `NodeInfo` objects. Each NodeInfo is s
 The network map server also distributes the parameters file that define values for various settings that all nodes need
             to agree on to remain in sync.
 
+<div class="r3-o-note" role="alert"><span>Note: </span>
+
+
+In Corda 3 no implementation of the HTTP network map server is provided. This is because the details of how
+                a compatibility zone manages its membership (the databases, ticketing workflows, HSM hardware etc) is expected to vary
+                between operators, so we provide a simple REST based protocol for uploading/downloading NodeInfos and managing
+                network parameters. A future version of Corda may provide a simple “stub” implementation for running test zones.
+                In Corda 3 the right way to run a test network is through distribution of the relevant files via your own mechanisms.
+                We provide a tool to automate the bulk of this task (see below).
+
+
+</div>
 
 ## HTTP network map protocol
 
@@ -48,18 +61,35 @@ The set of REST end-points for the network map service are as follows.
 
 </div>
 
+Network maps hosted by R3 or other parties using R3’s commercial network management tools typically also provide the following endpoints as a convenience to operators and other users
 
-### Additional endpoints from R3
+<div class="r3-o-note" role="alert"><span>Note: </span>
 
-Network maps hosted by R3 or other parties using R3’s commercial network management tools typically provide some
-                    additional endpoints for users. These additional endpoints can be found [here](https://docs.cenm.r3.com/network-map-overview).
+
+we include them here as they can aid debugging but, for the avoidance of doubt, they are not a formal part of the spec and the node will operate even in their absence.
+
+
+</div>
+
+<div class="table table-sm table-striped table-hover">
+
+
+|Request method|Path|Description|
+|----------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+|GET|/network-map/json|Retrieve the current public network map formatted as a JSON document.|
+|GET|/network-map/json/{uuid}|Retrieve the current network map for a private network indicated by the uuid parameter formatted as a JSON document.|
+|GET|/network-map/json/node-infos|Retrieve a human readable list of the currently registered `NodeInfo` files in the public network formatted as a JSON document.|
+|GET|/network-map/json/node-infos/{uid}|Retrieve a human readable list of the currently registered `NodeInfo` files in the specified private network map.|
+|GET|/network-map/json/node-info/{hash}|Retrieve a human readable version of a `NodeInfo` formatted as a JSON document.|
+
+</div>
 
 HTTP is used for the network map service instead of Corda’s own AMQP based peer to peer messaging protocol to
-                    enable the server to be placed behind caching content delivery networks like Cloudflare, Akamai, Amazon Cloudfront and so on.
-                    By using industrial HTTP cache networks the map server can be shielded from DoS attacks more effectively. Additionally,
-                    for the case of distributing small files that rarely change, HTTP is a well understood and optimised protocol. Corda’s
-                    own protocol is designed for complex multi-way conversations between authenticated identities using signed binary
-                    messages separated into parallel and nested flows, which isn’t necessary for network map distribution.
+                enable the server to be placed behind caching content delivery networks like Cloudflare, Akamai, Amazon Cloudfront and so on.
+                By using industrial HTTP cache networks the map server can be shielded from DoS attacks more effectively. Additionally,
+                for the case of distributing small files that rarely change, HTTP is a well understood and optimised protocol. Corda’s
+                own protocol is designed for complex multi-way conversations between authenticated identities using signed binary
+                messages separated into parallel and nested flows, which isn’t necessary for network map distribution.
 
 
 ## The `additional-node-infos` directory
@@ -82,7 +112,7 @@ Usually, test networks have a structure that is known ahead of time. For the cre
                 online at once - an offline node that isn’t being interacted with doesn’t impact the network in any way. So a test
                 cluster generated like this can be sized for the maximum size you may need, and then scaled up and down as necessary.
 
-More information can be found in [Network Bootstrapper](network-bootstrapper).
+More information can be found in [Network Bootstrapper](network-bootstrapper.md).
 
 
 ## Network parameters
@@ -148,7 +178,7 @@ Version number of the network parameters. Starting from 1, this will always incr
 whitelistedContractImplementations
 List of whitelisted versions of contract code.
                             For each contract class there is a list of SHA-256 hashes of the approved CorDapp jar versions containing that contract.
-                            Read more about *Zone constraints* here [API: Contract Constraints](api-contract-constraints)
+                            Read more about *Zone constraints* here [API: Contract Constraints](api-contract-constraints.md)
 
 
 eventHorizon
@@ -166,7 +196,7 @@ List of the network-wide java packages that were successfully claimed by their o
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-To determine which *minimumPlatformVersion* a zone must mandate in order to permit all the features of Corda 4.4 see [Corda Features to Versions](features-versions)
+To determine which *minimumPlatformVersion* a zone must mandate in order to permit all the features of Corda 4.3 see [Corda Features to Versions](features-versions.md)
 
 
 </div>
@@ -180,6 +210,13 @@ Network parameters are controlled by the zone operator of the Corda network that
                 these parameters. There are many reasons that can lead to this decision: adding a notary, setting new fields that were added to enable
                 smooth network interoperability, or a change of the existing compatibility constants is required, for example.
 
+<div class="r3-o-note" role="alert"><span>Note: </span>
+
+
+A future release may support the notion of phased roll-out of network parameter changes.
+
+
+</div>
 Updating of the parameters by the zone operator is done in two phases:
                 1. Advertise the proposed network parameter update to the entire network.
                 2. Switching the network onto the new parameters - also known as a *flag day*.
@@ -213,8 +250,8 @@ data class ParametersUpdateInfo(
 )
 
 ```
-[CordaRPCOps.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/messaging/CordaRPCOps.kt)
-### Automatic Acceptance
+[CordaRPCOps.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/messaging/CordaRPCOps.kt)
+### Auto Acceptance
 
 If the only changes between the current and new parameters are for auto-acceptable parameters then, unless configured otherwise, the new
                     parameters will be accepted without user input. The following parameters with the `@AutoAcceptable` annotation are auto-acceptable:
@@ -233,7 +270,7 @@ If the only changes between the current and new parameters are for auto-acceptab
  * of parameters.
  * @property whitelistedContractImplementations ([AutoAcceptable]) List of whitelisted jars containing contract code for each contract class.
  *  This will be used by [net.corda.core.contracts.WhitelistedByZoneAttachmentConstraint].
- *  [You can learn more about contract constraints here](https://docs.corda.net/api-contract-constraints).
+ *  [You can learn more about contract constraints here](https://docs.corda.net/api-contract-constraints.html).
  * @property packageOwnership ([AutoAcceptable]) List of the network-wide java packages that were successfully claimed by their owners.
  * Any CorDapp JAR that offers contracts and states in any of these packages must be signed by the owner.
  * @property eventHorizon Time after which nodes will be removed from the network map if they have not been seen
@@ -254,7 +291,7 @@ data class NetworkParameters(
 ) {
 
 ```
-[NetworkParameters.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/node/NetworkParameters.kt)This behaviour can be turned off by setting the optional node configuration property `networkParameterAcceptanceSettings.autoAcceptEnabled`
+[NetworkParameters.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/node/NetworkParameters.kt)This behaviour can be turned off by setting the optional node configuration property `networkParameterAcceptanceSettings.autoAcceptEnabled`
                     to `false`. For example:
 
 ```guess
@@ -294,7 +331,7 @@ If the network operator starts advertising a different set of new parameters the
 
 To send back parameters approval to the zone operator, the RPC method `fun acceptNewNetworkParameters(parametersHash: SecureHash)`
                     has to be called with `parametersHash` from the update. Note that approval cannot be undone. You can do this via the Corda
-                    shell (see [Node shell](shell)):
+                    shell (see [Node shell](shell.md)):
 
 `run acceptNewNetworkParameters parametersHash: "ba19fc1b9e9c1c7cbea712efda5f78b53ae4e5d123c89d02c9da44ec50e9c17d"`
 
@@ -314,7 +351,7 @@ Sometimes it may happen that the node ends up with an inconsistent view of the n
 java -jar corda.jar clear-network-cache
 ```
 or call RPC method *clearNetworkMapCache* (it can be invoked through the node’s shell as *run clearNetworkMapCache*, for more information on
-                how to log into node’s shell see [Node shell](shell)). As we are testing and hardening the implementation this step shouldn’t be required.
+                how to log into node’s shell see [Node shell](shell.md)). As we are testing and hardening the implementation this step shouldn’t be required.
                 After cleaning the cache, network map data is restored on the next poll from the server or filesystem.
 
 

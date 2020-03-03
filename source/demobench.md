@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: DemoBench
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# DemoBench
 
 DemoBench is a standalone desktop application that makes it easy to configure and launch local Corda nodes. It is useful for training sessions, demos or just experimentation.
 
@@ -92,7 +93,7 @@ Each script can only be run on its target platform, and each expects the platfor
 > * Windows: [Inno Setup 5+](http://www.jrsoftware.org/isinfo.php)
 > 
 > 
-> * MacOS: The packaging tools should be available automatically. The DMG contents will also be signed if the packager finds a valid `Developer ID Application` certificate with a private key on the keyring. (By default, DemoBench’s `build.gradle` expects the signing key’s user name to be “R3CEV”.) You can create such a certificate by generating a Certificate Signing Request and then asking your local “Apple team agent” to upload it to the Apple Developer portal. (See [here](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates).)
+> * MacOS: The packaging tools should be available automatically. The DMG contents will also be signed if the packager finds a valid `Developer ID Application` certificate with a private key on the keyring. (By default, DemoBench’s `build.gradle` expects the signing key’s user name to be “R3CEV”.) You can create such a certificate by generating a Certificate Signing Request and then asking your local “Apple team agent” to upload it to the Apple Developer portal. (See [here](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html).)
 > 
 > 
 <div class="r3-o-note" role="alert"><span>Note: </span>

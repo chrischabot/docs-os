@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Joining Corda Testnet
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Joining Corda Testnet
 
 The Corda Testnet is an open public network of Corda nodes on the internet. It is designed to be a complement to *the* Corda Network where any entity can transact real world value with any other counterparty in the context of any application. The Corda Testnet is designed for “non-production” use in a genuine global context of Corda nodes, including but not limited to CorDapp development, multi-party testing, demonstration and showcasing of applications and services, learning, training and development of the Corda platform technology and specific applications of Corda.
 
@@ -37,7 +38,7 @@ Hosting a Corda node locally is possible but will require manually configuring f
 <div class="r3-o-note" role="alert"><span>Note: </span>
 
 
-If you host your node on your own machine or a corporate server you must ensure it is reachable from the public internet at a specific IP address. Please follow the instructions here: [Deploying Corda to Corda Testnet from your local environment](deploy-locally).
+If you host your node on your own machine or a corporate server you must ensure it is reachable from the public internet at a specific IP address. Please follow the instructions here: [Deploying Corda to Corda Testnet from your local environment](deploy-locally.md).
 
 
 </div>

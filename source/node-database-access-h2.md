@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Database access when running H2
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Database access when running H2
 
 
 ## Configuring the username and password
@@ -85,7 +86,7 @@ Any database browsing tool that supports JDBC can be used.
 #### Connecting using the H2 Console
 
 
-* Download the **last stable** [h2 platform-independent zip](http://www.h2database.cownload), unzip the
+* Download the **last stable** [h2 platform-independent zip](http://www.h2database.com/html/download.html), unzip the
                                 zip, and navigate in a terminal window to the unzipped folder
 
 

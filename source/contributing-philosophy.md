@@ -1,12 +1,13 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Contributing philosophy
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
+# Contributing philosophy
 
 
 ## Mission
@@ -82,7 +83,7 @@ We anticipate additional maintainers joining the project in the future from acro
 ## Existing Contributors
 
 Over two hundred individuals have contributed to the development of Corda. You can find a full list of contributors in the
-                [CONTRIBUTORS list](https://github.com/corda/corda/blob/master/CONTRIBUTORS).
+                [CONTRIBUTORS.md list](https://github.com/corda/corda/blob/master/CONTRIBUTORS.md).
 
 
 ## Transparency and Conflict Policy

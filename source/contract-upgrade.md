@@ -1,13 +1,14 @@
 ---
 date: '2020-01-08T09:59:25Z'
 menu:
-- corda-os-4.4
+- corda-os-4.3
 title: Upgrading contracts
-version: corda-os-4.4
+version: corda-os-4.3
 ---
 
 
 
+# Upgrading contracts
 
 While every care is taken in development of contract code, inevitably upgrades will be required to fix bugs (in either
             design or implementation). Upgrades can involve a substitution of one version of the contract code for another or
@@ -81,14 +82,14 @@ class Authorise(
 ) : FlowLogic<Void?>() {
 
 ```
-[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)```kotlin
+[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)```kotlin
 @StartableByRPC
 class Deauthorise(val stateRef: StateRef) : FlowLogic<Void?>() {
     @Suspendable
     override fun call(): Void? {
 
 ```
-[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.4/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)
+[ContractUpgradeFlow.kt](https://github.com/corda/corda/blob/release/os/4.3/core/src/main/kotlin/net/corda/core/flows/ContractUpgradeFlow.kt)
 ## Proposing an upgrade
 
 After all parties have authorised the contract upgrade for the state, one of the contract participants can initiate the
@@ -129,10 +130,10 @@ class DummyContractV2 : UpgradedContractWithLegacyConstraint<DummyContract.State
         fun move(priors: List<StateAndRef<State>>, newOwner: AbstractParty): TransactionBuilder {
             require(priors.isNotEmpty()) { "States to move to new owner must not be empty" }
             val priorState = priors[0].state.data
-            val (, state) = priorState.withNewOwner(newOwner)
+            val (cmd, state) = priorState.withNewOwner(newOwner)
             return TransactionBuilder(notary = priors[0].state.notary).withItems(
                     /* INPUTS  */ *priors.toTypedArray(),
-                    /* COMMAND */ Command(, priorState.owners.map { it.owningKey }),
+                    /* COMMAND */ Command(cmd, priorState.owners.map { it.owningKey }),
                     /* OUTPUT  */ StateAndContract(state, DummyContractV2.PROGRAM_ID)
             )
         }
@@ -165,7 +166,7 @@ class DummyContractV2 : UpgradedContractWithLegacyConstraint<DummyContract.State
 }
 
 ```
-[DummyContractV2.kt](https://github.com/corda/corda/blob/release/os/4.4/testing/test-utils/src/main/kotlin/net/corda/testing/contracts/DummyContractV2.kt)
+[DummyContractV2.kt](https://github.com/corda/corda/blob/release/os/4.3/testing/test-utils/src/main/kotlin/net/corda/testing/contracts/DummyContractV2.kt)
 * Bank A instructs its node to accept the contract upgrade to `DummyContractV2` for the contract state.
 
 
